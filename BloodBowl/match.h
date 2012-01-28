@@ -5,18 +5,21 @@
 #include "case.h"
 #include "joueur.h"
 #include <vector>
+#include "terrain.h"
 
 enum coach{joueur1, joueur2};
 
 class Match
 {
-    std::vector<std::vector<Case*>*>* sonTerrain;
+    std::vector<std::vector<Case*>*>* sonTableauCases;
     int sesTours;
     coach quiJoue;
+    Terrain* sonTerrain;
 public:
     Match(race raceEquipe1, int noEquipe1, race raceEquipe2, int noEquipe2);
     void afficheTerrain();
     int lancer1D6();
+    Terrain* getTerrain();
 //    void deplacerJoueur(Case uneCase, int mouvementsRestants);
 //    void passerBallon(int unId);
 //    void botterBallon(Case uneCase);

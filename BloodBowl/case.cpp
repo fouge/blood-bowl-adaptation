@@ -14,7 +14,11 @@ Case::Case(int unX, int unY):sonX(unX),sonY(unY)
     {
         saZone = engagement;
     }
+    sonHerbe = new QLabel;
+    sonHerbe->setPixmap(QPixmap("images/terrain/herbe.png"));
 }
+
+
 int Case::getLigne()
 {
     return sonX;
@@ -27,5 +31,10 @@ int Case::getColonne()
 zone Case::getZone()
 {
     return saZone;
+}
+
+QLabel* Case::getHerbe()
+{
+    return sonHerbe;
 }
 

@@ -9,6 +9,7 @@ void FenetrePrincipale::fenetreDemarrage()
 {
     setWindowTitle("Blood Bowl");
     setWindowIcon(QIcon("images/iconbb.png"));
+    setPalette(QPalette(QColor(250, 250, 250)));
 
     layoutGrille = new QGridLayout();
 
@@ -38,84 +39,208 @@ void FenetrePrincipale::fenetreSelectionEquipe()
     delete(boutonNouvellePartie);
     delete(boutonQuitter);
 
-    layoutRace = new QVBoxLayout;
-    layoutEquipe = new QVBoxLayout;
-    boxSelectionRace = new QGroupBox("Selection Race :",this);
-    boxSelectionEquipe = new QGroupBox("Selection Equipe",this);
-    comboBoxRace = new QComboBox(this);
-    comboBoxEquipe = new QComboBox(this);
-    iconRace = new QLabel(this);
-    iconEquipe = new QLabel(this);
+    setWindowTitle("Selection des Equipes");
 
-    iconRace->setPixmap(QPixmap("images/iconhumainbb.png"));
-    iconEquipe->setPixmap(QPixmap("images/iconequipebb.png"));
+    gBoxSelecJ1 = new QVBoxLayout;
+    gBoxSelecJ2 = new QVBoxLayout;
+    boxSelectionRace = new QGroupBox("Joueur 1 : ",this);
+    boxSelectionEquipe = new QGroupBox("Joueur 2 : ",this);
+    cBRaceJ1 = new QComboBox(this);
+    cBRaceJ2 = new QComboBox(this);
+    cBEquipeJ1 = new QComboBox(this);
+    cBEquipeJ2 = new QComboBox(this);
+    iconRaceJ1 = new QLabel(this);
+    iconRaceJ2 = new QLabel(this);
+    iconEquipeJ1 = new QLabel(this);
+    iconEquipeJ2 = new QLabel(this);
+    boutonValiderSelection = new QPushButton("Confirmer");
 
-    comboBoxRace->addItem("Humain");
-    comboBoxRace->addItem("Orque");
-    comboBoxEquipe->addItem("Mittledorf Smashers");
-    comboBoxEquipe->addItem("Holy Revengers");
-    comboBoxEquipe->addItem("Reikland Reavers");
+    boutonValiderSelection->setFixedHeight(40);
 
-    layoutRace->addWidget(iconRace);
-    layoutRace->addWidget(comboBoxRace);
-    layoutEquipe->addWidget(iconEquipe);
-    layoutEquipe->addWidget(comboBoxEquipe);
+    iconRaceJ1->setPixmap(QPixmap("images/iconhumainbb.png"));
+    iconRaceJ1->setAlignment(Qt::AlignCenter);
+    iconRaceJ2->setPixmap(QPixmap("images/iconhumainbb.png"));
+    iconRaceJ2->setAlignment(Qt::AlignCenter);
+    iconEquipeJ1->setPixmap(QPixmap("images/equipeicon/mittledorfsmashersicon.png"));
+    iconEquipeJ1->setAlignment(Qt::AlignCenter);
+    iconEquipeJ2->setPixmap(QPixmap("images/equipeicon/mittledorfsmashersicon.png"));
+    iconEquipeJ2->setAlignment(Qt::AlignCenter);
+
+    cBRaceJ1->addItem("Humain");
+    cBRaceJ1->addItem("Orque");
+    cBRaceJ2->addItem("Humain");
+    cBRaceJ2->addItem("Orque");
+    cBEquipeJ1->addItem("Mittledorf Smashers");
+    cBEquipeJ1->addItem("Holy Revengers");
+    cBEquipeJ1->addItem("Reikland Reavers");
+    cBEquipeJ2->addItem("Mittledorf Smashers");
+    cBEquipeJ2->addItem("Holy Revengers");
+    cBEquipeJ2->addItem("Reikland Reavers");
+
+    gBoxSelecJ1->addWidget(iconRaceJ1);
+    gBoxSelecJ1->addWidget(cBRaceJ1);
+    gBoxSelecJ1->addWidget(iconEquipeJ1);
+    gBoxSelecJ1->addWidget(cBEquipeJ1);
+    gBoxSelecJ2->addWidget(iconRaceJ2);
+    gBoxSelecJ2->addWidget(cBRaceJ2);
+    gBoxSelecJ2->addWidget(iconEquipeJ2);
+    gBoxSelecJ2->addWidget(cBEquipeJ2);
     layoutGrille->addWidget(boxSelectionRace,0,0);
     layoutGrille->addWidget(boxSelectionEquipe,0,1);
+    layoutGrille->addWidget(boutonValiderSelection,1,0,1,2);
 
-    boxSelectionRace->setLayout(layoutRace);
-    boxSelectionEquipe->setLayout(layoutEquipe);
+    boxSelectionRace->setLayout(gBoxSelecJ1);
+    boxSelectionEquipe->setLayout(gBoxSelecJ2);
     this->setLayout(layoutGrille);
 
-    QObject::connect(comboBoxRace, SIGNAL(currentIndexChanged(int)), this,
-                     SLOT(changerEquipes(int)));
-    QObject::connect(comboBoxEquipe, SIGNAL(currentIndexChanged(int)), this,
-                     SLOT(changerIconEquipe(int)));
+
+
+    QObject::connect(cBRaceJ1, SIGNAL(currentIndexChanged(int)), this,
+                     SLOT(changerEquipesJ1(int)));
+    QObject::connect(cBRaceJ2, SIGNAL(currentIndexChanged(int)), this,
+                     SLOT(changerEquipesJ2(int)));
+    QObject::connect(cBEquipeJ1, SIGNAL(currentIndexChanged(int)), this,
+                     SLOT(changerIconEquipeJ1(int)));
+    QObject::connect(cBEquipeJ2, SIGNAL(currentIndexChanged(int)), this,
+                     SLOT(changerIconEquipeJ2(int)));
+    QObject::connect(boutonValiderSelection, SIGNAL(clicked()), this,
+                     SLOT(validationSelectionEquipes()));
 }
 
-void FenetrePrincipale::changerEquipes(int index)
+void FenetrePrincipale::changerEquipesJ1(int index)
 {
     switch(index)
     {
         case 0:
-            comboBoxEquipe->clear();
-            comboBoxEquipe->addItem("Mittledorf Smashers");
-            comboBoxEquipe->addItem("Holy Revengers");
-            comboBoxEquipe->addItem("Reikland Reavers");
-            iconRace->setPixmap(QPixmap("images/iconhumainbb.png"));
+            cBEquipeJ1->clear();
+            cBEquipeJ1->addItem("Mittledorf Smashers");
+            cBEquipeJ1->addItem("Holy Revengers");
+            cBEquipeJ1->addItem("Reikland Reavers");
+            iconRaceJ1->setPixmap(QPixmap("images/iconhumainbb.png"));
             break;
         case 1:
-            comboBoxEquipe->clear();
-            comboBoxEquipe->addItem("Da Severed Eads");
-            comboBoxEquipe->addItem("Greenskin Gutrippers");
-            comboBoxEquipe->addItem("Ironcrag Decimators");
-            iconRace->setPixmap(QPixmap("images/iconorquebb.png"));
+            cBEquipeJ1->clear();
+            cBEquipeJ1->addItem("Da Severed 'Eads");
+            cBEquipeJ1->addItem("Greenskin Gutrippers");
+            cBEquipeJ1->addItem("Ironcrag Decimators");
+            iconRaceJ1->setPixmap(QPixmap("images/iconorquebb.png"));
             break;
     }
+    iconRaceJ1->setAlignment(Qt::AlignCenter);
 }
 
-void FenetrePrincipale::changerIconEquipe(int index)
+void FenetrePrincipale::changerEquipesJ2(int index)
+{
+    switch(index)
+    {
+        case 0:
+            cBEquipeJ2->clear();
+            cBEquipeJ2->addItem("Mittledorf Smashers");
+            cBEquipeJ2->addItem("Holy Revengers");
+            cBEquipeJ2->addItem("Reikland Reavers");
+            iconRaceJ2->setPixmap(QPixmap("images/iconhumainbb.png"));
+            break;
+        case 1:
+            cBEquipeJ2->clear();
+            cBEquipeJ2->addItem("Da Severed 'Eads");
+            cBEquipeJ2->addItem("Greenskin Gutrippers");
+            cBEquipeJ2->addItem("Ironcrag Decimators");
+            iconRaceJ2->setPixmap(QPixmap("images/iconorquebb.png"));
+            break;
+    }
+    iconRaceJ2->setAlignment(Qt::AlignCenter);
+}
+
+
+void FenetrePrincipale::changerIconEquipeJ1(int index)
 {
     switch(index)
     {
     case 0:
-        if (comboBoxRace->currentIndex() == 0)
-            iconEquipe->setPixmap(QPixmap("images/iconequipebb.png"));
-        if (comboBoxRace->currentIndex() == 1)
-            iconEquipe->setPixmap(QPixmap("images/equipe4"));
+        if (cBRaceJ1->currentIndex() == 0)
+            iconEquipeJ1->setPixmap(QPixmap("images/equipeicon/mittledorfsmashersicon.png"));
+        if (cBRaceJ1->currentIndex() == 1)
+            iconEquipeJ1->setPixmap(QPixmap("images/equipeicon/daseveredeadsicon.png"));
         break;
     case 1:
-        if (comboBoxRace->currentIndex() == 0)
-            iconEquipe->setPixmap(QPixmap("images/equipe2"));
-        if (comboBoxRace->currentIndex() == 1)
-            iconEquipe->setPixmap(QPixmap("images/equipe5"));
+        if (cBRaceJ1->currentIndex() == 0)
+            iconEquipeJ1->setPixmap(QPixmap("images/equipeicon/holyrevengersicon.png"));
+        if (cBRaceJ1->currentIndex() == 1)
+            iconEquipeJ1->setPixmap(QPixmap("images/equipeicon/greenskingutrippersicon.png"));
         break;
     case 2:
-        if (comboBoxRace->currentIndex() == 0)
-            iconEquipe->setPixmap(QPixmap("images/equipe3"));
-        if (comboBoxRace->currentIndex() == 1)
-            iconEquipe->setPixmap(QPixmap("images/equipe6"));
+        if (cBRaceJ1->currentIndex() == 0)
+            iconEquipeJ1->setPixmap(QPixmap("images/equipeicon/reiklandreaversicon.png"));
+        if (cBRaceJ1->currentIndex() == 1)
+            iconEquipeJ1->setPixmap(QPixmap("images/equipeicon/ironcragdecimatorsicon.png"));
         break;
     }
-    minimumSize();
+    iconEquipeJ1->setAlignment(Qt::AlignCenter);
+}
+
+void FenetrePrincipale::changerIconEquipeJ2(int index)
+{
+    switch(index)
+    {
+    case 0:
+        if (cBRaceJ2->currentIndex() == 0)
+            iconEquipeJ2->setPixmap(QPixmap("images/equipeicon/mittledorfsmashersicon.png"));
+        if (cBRaceJ2->currentIndex() == 1)
+            iconEquipeJ2->setPixmap(QPixmap("images/equipeicon/daseveredeadsicon.png"));
+        break;
+    case 1:
+        if (cBRaceJ2->currentIndex() == 0)
+            iconEquipeJ2->setPixmap(QPixmap("images/equipeicon/holyrevengersicon.png"));
+        if (cBRaceJ2->currentIndex() == 1)
+            iconEquipeJ2->setPixmap(QPixmap("images/equipeicon/greenskingutrippersicon.png"));
+        break;
+    case 2:
+        if (cBRaceJ2->currentIndex() == 0)
+            iconEquipeJ2->setPixmap(QPixmap("images/equipeicon/reiklandreaversicon.png"));
+        if (cBRaceJ2->currentIndex() == 1)
+            iconEquipeJ2->setPixmap(QPixmap("images/equipeicon/ironcragdecimatorsicon.png"));
+        break;
+    }
+    iconEquipeJ2->setAlignment(Qt::AlignCenter);
+}
+
+void FenetrePrincipale::validationSelectionEquipes()
+{
+    int indexRaceJ1(cBRaceJ1->currentIndex()),
+            indexRaceJ2(cBRaceJ2->currentIndex()),
+            indexEquipeJ1(cBEquipeJ1->currentIndex()),
+            indexEquipeJ2(cBEquipeJ2->currentIndex());
+    race raceEquipeJ1, raceEquipeJ2;
+
+    if(indexRaceJ1 == 0)
+        raceEquipeJ1 = humains;
+    if(indexRaceJ1 == 1)
+        raceEquipeJ1 = orques;
+    if(indexRaceJ2 == 0)
+        raceEquipeJ2 = humains;
+    if(indexRaceJ2 == 1)
+        raceEquipeJ2 = orques;
+
+
+
+    fenetreMatch(raceEquipeJ1,indexEquipeJ1,raceEquipeJ2,indexEquipeJ2);
+}
+
+void FenetrePrincipale::fenetreMatch(race raceEquipeJ1, int indexEquipeJ1, race raceEquipeJ2, int indexEquipeJ2)
+{
+    delete(iconRaceJ1);
+    delete(iconRaceJ2);
+    delete(iconEquipeJ1);
+    delete(iconEquipeJ2);
+    delete(cBRaceJ1);
+    delete(cBRaceJ2);
+    delete(cBEquipeJ1);
+    delete(cBEquipeJ2);
+    delete(boutonValiderSelection);
+    delete(boxSelectionRace);
+    delete(boxSelectionEquipe);
+
+    leMatch = new Match(raceEquipeJ1,indexEquipeJ1,raceEquipeJ2,indexEquipeJ2);
+
+    layoutGrille->addWidget(leMatch->getTerrain());
 }

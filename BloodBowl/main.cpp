@@ -3,6 +3,7 @@
 #include "case.h"
 #include "equipe.h"
 #include "match.h"
+#include "terrain.h"
 
 int main(int argc, char *argv[])
 {

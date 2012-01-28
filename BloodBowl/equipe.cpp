@@ -49,7 +49,7 @@ Equipe::Equipe(race uneRace, int uneComposition, std::vector<std::vector<Case*>*
         sesJoueurs = new std::vector<Joueur*>();
         switch(uneComposition)
         {
-        case 1:
+        case 0:
             sesJoueurs->push_back(new Joueur(blitzeur, (*lesCompetencesBlitzeurs), 7, 3, 3, 8, "Leo Ulman", getCase(2, 3, leTerrain), debout));
             sesJoueurs->push_back(new Joueur(blitzeur, (*lesCompetencesBlitzeurs), 7, 3, 3, 8, "Baldric Advar", getCase(2, 3, leTerrain), debout));
             sesJoueurs->push_back(new Joueur(blitzeur, (*lesCompetencesBlitzeurs), 7, 3, 3, 8, "Bertolf Valdred", getCase(2, 3, leTerrain), debout));
@@ -62,7 +62,7 @@ Equipe::Equipe(race uneRace, int uneComposition, std::vector<std::vector<Case*>*
             sesJoueurs->push_back(new Joueur(troisquarts, (*AucuneCompetence), 6, 3, 3, 8, "Karl Le Troubadour", getCase(2, 3, leTerrain), debout));
             sesJoueurs->push_back(new Joueur(troisquarts, (*AucuneCompetence), 6, 3, 3, 8, "Hob le Bel", getCase(2, 3, leTerrain), debout));
             break;
-        case 2:
+        case 1:
             sesJoueurs->push_back(new Joueur(passeur, (*lesCompetencesPasseurs), 6, 3, 3, 8, "Hans Flick", getCase(2, 3, leTerrain), debout));
             sesJoueurs->push_back(new Joueur(passeur, (*lesCompetencesPasseurs), 6, 3, 3, 8, "Gothard Seppel", getCase(2, 3, leTerrain), debout));
             sesJoueurs->push_back(new Joueur(receveur, (*lesCompetencesReceveurs), 8, 2, 3, 7, "Bertolf Gottlob", getCase(2, 3, leTerrain), debout));
@@ -75,7 +75,7 @@ Equipe::Equipe(race uneRace, int uneComposition, std::vector<std::vector<Case*>*
             sesJoueurs->push_back(new Joueur(troisquarts, (*AucuneCompetence), 6, 3, 3, 8, "Viggo le Buveur", getCase(2, 3, leTerrain), debout));
             sesJoueurs->push_back(new Joueur(troisquarts, (*AucuneCompetence), 6, 3, 3, 8, "Fracist le Gros", getCase(2, 3, leTerrain), debout));
             break;
-        case 3:
+        case 2:
             sesJoueurs->push_back(new Joueur(passeur, (*lesCompetencesPasseurs), 6, 3, 3, 8, "Jacob von Altdorf", getCase(2, 3, leTerrain), debout));
             sesJoueurs->push_back(new Joueur(passeur, (*lesCompetencesPasseurs), 6, 3, 3, 8, "Fat Mittbrot", getCase(2, 3, leTerrain), debout));
             sesJoueurs->push_back(new Joueur(receveur, (*lesCompetencesReceveurs), 8, 2, 3, 7, "Fast Ben Jansen", getCase(2, 3, leTerrain), debout));
@@ -96,7 +96,7 @@ Equipe::Equipe(race uneRace, int uneComposition, std::vector<std::vector<Case*>*
     {
         switch(uneComposition)
         {
-        case 1:
+        case 0:
             sesJoueurs->push_back(new Joueur(passeur, (*lesCompetencesPasseurs), 6, 3, 3, 8, "Aznok", getCase(2, 3, leTerrain), debout));
             sesJoueurs->push_back(new Joueur(bloqueur, (*AucuneCompetence), 4, 4, 2, 9, "Globrotta Casse'Main", getCase(2, 3, leTerrain), debout));
             sesJoueurs->push_back(new Joueur(bloqueur, (*AucuneCompetence), 4, 4, 2, 9, "Ulgrot Mange'Coeur", getCase(2, 3, leTerrain), debout));
@@ -110,7 +110,7 @@ Equipe::Equipe(race uneRace, int uneComposition, std::vector<std::vector<Case*>*
             sesJoueurs->push_back(new Joueur(troisquarts, (*AucuneCompetence), 5, 3, 3, 9, "Moglor", getCase(2, 3, leTerrain), debout));
 
             break;
-        case 2:
+        case 1:
             sesJoueurs->push_back(new Joueur(bloqueur, (*AucuneCompetence), 4, 4, 2, 9, "Gorfang MangeTaTete", getCase(2, 3, leTerrain), debout));
             sesJoueurs->push_back(new Joueur(bloqueur, (*AucuneCompetence), 4, 4, 2, 9, "Grubak Broye'main", getCase(2, 3, leTerrain), debout));
             sesJoueurs->push_back(new Joueur(bloqueur, (*AucuneCompetence), 4, 4, 2, 9, "Golruk Casse'dents", getCase(2, 3, leTerrain), debout));
@@ -124,7 +124,7 @@ Equipe::Equipe(race uneRace, int uneComposition, std::vector<std::vector<Case*>*
             sesJoueurs->push_back(new Joueur(troisquarts, (*AucuneCompetence), 5, 3, 3, 9, "Lugnub", getCase(2, 3, leTerrain), debout));
 
             break;
-        case 3:
+        case 2:
             sesJoueurs->push_back(new Joueur(bloqueur, (*AucuneCompetence), 4, 4, 2, 9, "Crase'Cerveau", getCase(2, 3, leTerrain), debout));
             sesJoueurs->push_back(new Joueur(bloqueur, (*AucuneCompetence), 4, 4, 2, 9, "Ecari'seur", getCase(2, 3, leTerrain), debout));
             sesJoueurs->push_back(new Joueur(bloqueur, (*AucuneCompetence), 4, 4, 2, 9, "Crase'Main", getCase(2, 3, leTerrain), debout));
