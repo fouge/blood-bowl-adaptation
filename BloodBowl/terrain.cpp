@@ -12,6 +12,7 @@ Terrain::Terrain(std::vector<std::vector<Case*>*> * unTerrain)
         {
             //on affiche les QLabel (les images) de chaque case.
             grilleTerrain->addWidget((*itColonne)->getHerbe(), j, i);
+            grilleTerrain->addWidget((*itColonne)->getJoueur(), j, i);
         }
     }
     grilleTerrain->setSpacing(1);

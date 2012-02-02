@@ -3,8 +3,10 @@
 Case::Case(int unX, int unY):sonX(unX),sonY(unY)
 {
     sonHerbe = new QLabel;
-    sonJoueur = new QLabel;
-    if(sonX == 1 || sonX == 26)
+    sonJoueur = new QLabel(sonHerbe);
+    sonBallon = new QLabel(sonJoueur);
+
+    if(sonX == 1)
     {
         saZone = enbut;
         sonHerbe->setPixmap(QPixmap("images/terrain/herbeEnButGauche.png"));
@@ -32,6 +34,8 @@ Case::Case(int unX, int unY):sonX(unX),sonY(unY)
     {
         sonHerbe->setPixmap(QPixmap("images/terrain/herbeMilieuxDroite.png"));
     }
+    if(sonX == 2 && sonY == 2)
+     sonJoueur->setPixmap(QPixmap("images/joueurs/blitzeur.png"));
 
 }
 
