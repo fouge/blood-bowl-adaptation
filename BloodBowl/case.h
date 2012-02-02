@@ -21,7 +21,7 @@ public:
     QLabel* getHerbe();
     QLabel* getJoueur();
     Joueur* sonJoueurDessus;
-
+    void setSonJoueur(QPixmap* );
 };
 
 #endif // CASE_H

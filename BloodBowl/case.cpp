@@ -62,3 +62,8 @@ QLabel* Case::getJoueur()
 {
     return sonHerbe;
 }
+
+void Case::setSonJoueur(QPixmap* lien)
+{
+    sonJoueur->setPixmap(*lien);
+}

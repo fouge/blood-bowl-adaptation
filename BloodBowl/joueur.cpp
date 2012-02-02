@@ -6,6 +6,11 @@ Joueur::Joueur(type unType, std::vector<competences> desCompetences, int desMouv
     saForce(uneForce), sonAgilite(uneAgilite), sonArmure(uneArmure), sonNom(unNom), saCase(uneCase), sonEtat(unEtat), actionEffectue(false)
 {
     saCase->sonJoueurDessus=this;
+    if(sonType==blitzeur)
+    {
+        QPixmap* unQPixmap = new QPixmap("images/joueurs/blitzeur.png");
+        saCase->setSonJoueur(unQPixmap);
+    }
 }
 
 
