@@ -4,6 +4,8 @@
 #include <vector>
 #include <string>
 
+class Case;
+
 enum type{blitzeur, troisquarts, receveur, passeur, ogre, gobelin, bloqueur, troll};
 enum race{humains, orques};
 enum etat{debout, parterre};

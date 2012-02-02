@@ -5,6 +5,7 @@ Joueur::Joueur(type unType, std::vector<competences> desCompetences, int desMouv
                etat unEtat):sonType(unType), sesCompetences(desCompetences),sesMouvements(desMouvements),
     saForce(uneForce), sonAgilite(uneAgilite), sonArmure(uneArmure), sonNom(unNom), saCase(uneCase), sonEtat(unEtat), actionEffectue(false)
 {
+    saCase->sonJoueurDessus=this;
 }
 
 

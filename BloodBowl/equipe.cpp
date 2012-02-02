@@ -50,8 +50,8 @@ Equipe::Equipe(race uneRace, int uneComposition, std::vector<std::vector<Case*>*
         switch(uneComposition)
         {
         case 0:
-            sesJoueurs->push_back(new Joueur(blitzeur, (*lesCompetencesBlitzeurs), 7, 3, 3, 8, "Leo Ulman", getCase(2, 3, leTerrain), debout));
-            sesJoueurs->push_back(new Joueur(blitzeur, (*lesCompetencesBlitzeurs), 7, 3, 3, 8, "Baldric Advar", getCase(2, 3, leTerrain), debout));
+            sesJoueurs->push_back(new Joueur(blitzeur, (*lesCompetencesBlitzeurs), 7, 3, 3, 8, "Leo Ulman", getCase(2, 7, leTerrain), debout));
+            sesJoueurs->push_back(new Joueur(blitzeur, (*lesCompetencesBlitzeurs), 7, 3, 3, 8, "Baldric Advar", getCase(2, 8, leTerrain), debout));
             sesJoueurs->push_back(new Joueur(blitzeur, (*lesCompetencesBlitzeurs), 7, 3, 3, 8, "Bertolf Valdred", getCase(2, 3, leTerrain), debout));
             sesJoueurs->push_back(new Joueur(passeur, (*lesCompetencesPasseurs), 6, 3, 3, 8, "Leo Ulman", getCase(2, 3, leTerrain), debout));
             sesJoueurs->push_back(new Joueur(receveur, (*lesCompetencesReceveurs), 8, 2, 3, 7, "Otto Meinard", getCase(2, 3, leTerrain), debout));
