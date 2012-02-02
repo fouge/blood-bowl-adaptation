@@ -1,15 +1,12 @@
 #include <QtGui/QApplication>
+#include "mainwindow.h"
 #include "FenetrePrincipale.h"
-#include "case.h"
-#include "equipe.h"
-#include "match.h"
-#include "terrain.h"
 
 int main(int argc, char *argv[])
 {
-    QApplication app(argc, argv);
+    QApplication a(argc, argv);
     FenetrePrincipale laFenetre;
     laFenetre.show();
 
-    return app.exec();
+    return a.exec();
 }
