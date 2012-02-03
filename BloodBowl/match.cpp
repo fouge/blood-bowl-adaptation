@@ -29,8 +29,8 @@ Match::Match(race raceEquipe1, int noEquipe1, race raceEquipe2, int noEquipe2):q
 
 
     //Instanciation des deux équipes :
-    Equipe * Equipe1 = new Equipe(raceEquipe1, noEquipe1, sonTableauCases);
-    Equipe * Equipe2 = new Equipe(raceEquipe2, noEquipe2, sonTableauCases);
+    Equipe * Equipe1 = new Equipe(raceEquipe1, noEquipe1, sonTableauCases, true);
+    Equipe * Equipe2 = new Equipe(raceEquipe2, noEquipe2, sonTableauCases, false);
 
     sonTerrain = new Terrain(sonTableauCases);
 }

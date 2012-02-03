@@ -24,7 +24,7 @@ class Joueur
     bool actionEffectue;
 public:
     Joueur(type, std::vector<competences> desCompetences, int desMouvements, int uneForce,
-           int uneAgilite, int uneArmure, std::string unNom, Case* uneCase, etat unEtat);
+           int uneAgilite, int uneArmure, std::string unNom, Case* uneCase, bool unCote);
     std::vector<competences> getCompetences();
     type getType();
     int getMouvements(), getForce(), getAgilite(), getArmure();

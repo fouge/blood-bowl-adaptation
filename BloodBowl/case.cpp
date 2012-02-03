@@ -34,8 +34,7 @@ Case::Case(int unX, int unY):sonX(unX),sonY(unY)
     {
         sonHerbe->setPixmap(QPixmap("images/terrain/herbeMilieuxDroite.png"));
     }
-    if(sonX == 2 && sonY == 2)
-     sonJoueur->setPixmap(QPixmap("images/joueurs/blitzeur.png"));
+
 
 }
 
