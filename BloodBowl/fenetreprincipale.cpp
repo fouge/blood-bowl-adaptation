@@ -1,4 +1,5 @@
 #include "fenetreprincipale.h"
+#include "case.h"
 
 FenetrePrincipale::FenetrePrincipale()
 {
@@ -244,3 +245,5 @@ void FenetrePrincipale::fenetreMatch(race raceEquipeJ1, int indexEquipeJ1, race 
 
     layoutGrille->addWidget(leMatch->getTerrain());
 }
+
+

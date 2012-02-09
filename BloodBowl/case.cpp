@@ -1,11 +1,10 @@
 #include "case.h"
 
+
 Case::Case(int unX, int unY):sonX(unX),sonY(unY)
 {
-    sonHerbe = new QLabel;
-    sonJoueur = new QLabel(sonHerbe);
-    sonBallon = new QLabel(sonJoueur);
-
+    sonHerbe = new HerbeWidget(this);
+    sonJoueur = new JoueurWidget(this);
     if(sonX == 1)
     {
         saZone = enbut;
@@ -53,16 +52,21 @@ zone Case::getZone()
     return saZone;
 }
 
-QLabel* Case::getHerbe()
+HerbeWidget* Case::getHerbe()
 {
     return sonHerbe;
 }
-QLabel* Case::getJoueur()
+JoueurWidget* Case::getJoueur()
 {
-    return sonHerbe;
+    return sonJoueur;
 }
 
 void Case::setSonJoueur(QPixmap* lien)
 {
     sonJoueur->setPixmap(*lien);
 }
+void Case::setSonHerbe(QPixmap* lien)
+{
+    sonHerbe->setPixmap(*lien);
+}
+

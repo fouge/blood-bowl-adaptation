@@ -10,9 +10,12 @@
 
 class Terrain : public QWidget
 {
+    Q_OBJECT
     QGridLayout * grilleTerrain;
 public:
     Terrain(std::vector<std::vector<Case*> *> * unTerrain);
+public slots:
+    void afficheMvts(JoueurWidget *);
 };
 
 #endif // TERRAIN_H

@@ -7,6 +7,7 @@
 #include <QInputDialog>
 #include "match.h"
 
+
 class FenetrePrincipale : public QWidget
 {
     Q_OBJECT
@@ -22,6 +23,7 @@ public:
     FenetrePrincipale();
     void fenetreDemarrage();
     void fenetreMatch(race, int, race, int);
+
 public slots:
     void fenetreSelectionEquipe();
     void changerEquipesJ1(int index);
@@ -29,6 +31,8 @@ public slots:
     void changerIconEquipeJ1(int index);
     void changerIconEquipeJ2(int index);
     void validationSelectionEquipes();
+
+
 };
 
 #endif // FENETREPRINCIPALE_H

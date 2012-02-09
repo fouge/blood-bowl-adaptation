@@ -50,17 +50,17 @@ Equipe::Equipe(race uneRace, int uneComposition, std::vector<std::vector<Case*>*
         switch(uneComposition)
         {
         case 0:
-            sesJoueurs->push_back(new Joueur(blitzeur, (*lesCompetencesBlitzeurs), 7, 3, 3, 8, "Leo Ulman", getCase(2, 3, leTerrain, sonCote), sonCote));
-            sesJoueurs->push_back(new Joueur(blitzeur, (*lesCompetencesBlitzeurs), 7, 3, 3, 8, "Baldric Advar", getCase(2, 8, leTerrain, sonCote), sonCote));
-            sesJoueurs->push_back(new Joueur(blitzeur, (*lesCompetencesBlitzeurs), 7, 3, 3, 8, "Bertolf Valdred", getCase(2, 4, leTerrain, sonCote), sonCote));
-            sesJoueurs->push_back(new Joueur(passeur, (*lesCompetencesPasseurs), 6, 3, 3, 8, "Leo Ulman", getCase(2, 3, leTerrain, sonCote), sonCote));
-            sesJoueurs->push_back(new Joueur(receveur, (*lesCompetencesReceveurs), 8, 2, 3, 7, "Otto Meinard", getCase(2, 3, leTerrain, sonCote), sonCote));
-            sesJoueurs->push_back(new Joueur(ogre, (*lesCompetencesOgres), 5, 5, 2, 9, "Maxime Girard", getCase(2, 3, leTerrain, sonCote), sonCote));
-            sesJoueurs->push_back(new Joueur(troisquarts, (*AucuneCompetence), 6, 3, 3, 8, "Edgar Le Couard", getCase(2, 3, leTerrain, sonCote), sonCote));
-            sesJoueurs->push_back(new Joueur(troisquarts, (*AucuneCompetence), 6, 3, 3, 8, "Boris Le Destructeur", getCase(2, 3, leTerrain, sonCote), sonCote));
-            sesJoueurs->push_back(new Joueur(troisquarts, (*AucuneCompetence), 6, 3, 3, 8, "Griswold L'Affreux", getCase(2, 3, leTerrain, sonCote), sonCote));
-            sesJoueurs->push_back(new Joueur(troisquarts, (*AucuneCompetence), 6, 3, 3, 8, "Karl Le Troubadour", getCase(2, 3, leTerrain, sonCote), sonCote));
-            sesJoueurs->push_back(new Joueur(troisquarts, (*AucuneCompetence), 6, 3, 3, 8, "Hob le Bel", getCase(2, 3, leTerrain, sonCote), sonCote));
+            sesJoueurs->push_back(new Joueur(blitzeur, (*lesCompetencesBlitzeurs), 7, 3, 3, 8, "Leo Ulman", getCase(12, 12, leTerrain, sonCote), sonCote));
+            sesJoueurs->push_back(new Joueur(blitzeur, (*lesCompetencesBlitzeurs), 7, 3, 3, 8, "Baldric Advar", getCase(12, 2, leTerrain, sonCote), sonCote));
+            sesJoueurs->push_back(new Joueur(blitzeur, (*lesCompetencesBlitzeurs), 7, 3, 3, 8, "Bertolf Valdred", getCase(5, 7, leTerrain, sonCote), sonCote));
+            sesJoueurs->push_back(new Joueur(passeur, (*lesCompetencesPasseurs), 6, 3, 3, 8, "Leo Ulman", getCase(2, 5, leTerrain, sonCote), sonCote));
+            sesJoueurs->push_back(new Joueur(receveur, (*lesCompetencesReceveurs), 8, 2, 3, 7, "Otto Meinard", getCase(2, 9, leTerrain, sonCote), sonCote));
+            sesJoueurs->push_back(new Joueur(ogre, (*lesCompetencesOgres), 5, 5, 2, 9, "Maxime Girard", getCase(12,7, leTerrain, sonCote), sonCote));
+            sesJoueurs->push_back(new Joueur(troisquarts, (*AucuneCompetence), 6, 3, 3, 8, "Edgar Le Couard", getCase(12, 10, leTerrain, sonCote), sonCote));
+            sesJoueurs->push_back(new Joueur(troisquarts, (*AucuneCompetence), 6, 3, 3, 8, "Boris Le Destructeur", getCase(12, 4, leTerrain, sonCote), sonCote));
+            sesJoueurs->push_back(new Joueur(troisquarts, (*AucuneCompetence), 6, 3, 3, 8, "Griswold L'Affreux", getCase(8, 13, leTerrain, sonCote), sonCote));
+            sesJoueurs->push_back(new Joueur(troisquarts, (*AucuneCompetence), 6, 3, 3, 8, "Karl Le Troubadour", getCase(8, 1, leTerrain, sonCote), sonCote));
+            sesJoueurs->push_back(new Joueur(troisquarts, (*AucuneCompetence), 6, 3, 3, 8, "Hob le Bel", getCase(3, 7, leTerrain, sonCote), sonCote));
             break;
         case 1:
             sesJoueurs->push_back(new Joueur(passeur, (*lesCompetencesPasseurs), 6, 3, 3, 8, "Hans Flick", getCase(2, 3, leTerrain, sonCote), sonCote));
