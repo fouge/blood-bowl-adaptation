@@ -10,3 +10,8 @@ void JoueurWidget::mouseReleaseEvent(QMouseEvent *ev)
 {
         emit cliqueJoueur(this);
 }
+
+Case* JoueurWidget::getCase()
+{
+    return saCase;
+}

@@ -8,7 +8,7 @@
 #include "terrain.h"
 
 enum coach{joueur1, joueur2};
-
+class Terrain;
 class Match
 {
     std::vector<std::vector<Case*>*>* sonTableauCases;
@@ -20,13 +20,14 @@ public:
     void afficheTerrain();
     int lancer1D6();
     Terrain* getTerrain();
+    std::vector<Case*> * voirMouvementsPossibles(Case* uneCase);
 //    void deplacerJoueur(Case uneCase, int mouvementsRestants);
 //    void passerBallon(int unId);
 //    void botterBallon(Case uneCase);
 //    void rebondirBallon(int nRebonds);
 //    void bloquerJoueur(int unId);
 //    void voirMouvements(Case uneCase, int nMouvements);
-//    bool mouvementPossible(Case uneCase);
+
 //    void tacler(int unId);
 //    void transmission(int unId);
 //    void remiseEnJeuBallon(Case uneCase);

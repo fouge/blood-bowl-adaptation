@@ -1,6 +1,6 @@
 #include "terrain.h"
 
-Terrain::Terrain(std::vector<std::vector<Case*>*> * unTerrain)
+Terrain::Terrain(std::vector<std::vector<Case*>*> * unTerrain, Match* unMatch): sonTerrain(unTerrain), sonMatch(unMatch)
 {
     grilleTerrain = new QGridLayout;
     int i(0), j(0);
@@ -25,7 +25,12 @@ Terrain::Terrain(std::vector<std::vector<Case*>*> * unTerrain)
 
 void Terrain::afficheMvts(JoueurWidget* unJoueur)
 {
-
+    std::vector<Case*>::iterator leIt;
+    std::vector<Case*>* lesCases = sonMatch->voirMouvementsPossibles(unJoueur->getCase());
+    for(leIt = lesCases->begin(); leIt != lesCases->end(); leIt++)
+    {
+        (*leIt)->getHerbe()->setGraphicsEffect(new QGraphicsColorizeEffect());
+    }
     unJoueur->setGraphicsEffect(new QGraphicsColorizeEffect());
 }
 

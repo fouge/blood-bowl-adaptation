@@ -13,6 +13,7 @@ class JoueurWidget : public QLabel
     Case* saCase;
 public:
     JoueurWidget(Case*);
+    Case* getCase();
 protected:
     void mouseReleaseEvent(QMouseEvent* ev);
 signals:
