@@ -1,6 +1,6 @@
 #include "terrain.h"
 
-Terrain::Terrain(std::vector<std::vector<Case*>*> * unTerrain, Match* unMatch): sonTerrain(unTerrain), sonMatch(unMatch)
+Terrain::Terrain(std::vector<std::vector<Case*>*> * unTerrain, Match* unMatch): sonTerrain(unTerrain), sonMatch(unMatch), clique(false)
 {
     grilleTerrain = new QGridLayout;
     int i(0), j(0);
@@ -14,8 +14,7 @@ Terrain::Terrain(std::vector<std::vector<Case*>*> * unTerrain, Match* unMatch): 
             grilleTerrain->addWidget((*itColonne)->getHerbe(), j, i);
             grilleTerrain->addWidget((*itColonne)->getJoueur(), j, i);
 
-            // trouver le signal correspondant ! !
-            //QObject::connect( (*itColonne)->getHerbe(), SIGNAL (cliqueCase(HerbeWidget*)), this, SLOT(afficheMvts(HerbeWidget*)));
+            // JoueurWidget toujours au dessus donc on ne peut cliquer que sur un JoueurWidget
             QObject::connect( (*itColonne)->getJoueur(), SIGNAL (cliqueJoueur(JoueurWidget*)), this, SLOT (afficheMvts(JoueurWidget*)) );
         }
     }
@@ -25,13 +24,58 @@ Terrain::Terrain(std::vector<std::vector<Case*>*> * unTerrain, Match* unMatch): 
 
 void Terrain::afficheMvts(JoueurWidget* unJoueur)
 {
-    std::vector<Case*>::iterator leIt;
-    std::vector<Case*>* lesCases = sonMatch->voirMouvementsPossibles(unJoueur->getCase());
-    for(leIt = lesCases->begin(); leIt != lesCases->end(); leIt++)
+    // si clique = false :
+    if(!clique && unJoueur->getCase()->sonJoueurDessus != 0)
     {
-        (*leIt)->getHerbe()->setGraphicsEffect(new QGraphicsColorizeEffect());
+        std::vector<Case*>::iterator leIt;
+        std::vector<Case*>* lesCases = sonMatch->voirMouvementsPossibles(unJoueur->getCase());
+        for(leIt = lesCases->begin(); leIt != lesCases->end(); leIt++)
+        {
+            (*leIt)->getHerbe()->setGraphicsEffect(new QGraphicsColorizeEffect());
+        }
+        unJoueur->setGraphicsEffect(new QGraphicsColorizeEffect());
+
+        //envoyer les caractéristiques du joueur pour l'affichage :
+
+
+        // aller dans une fonction pour attente d'un nouveau clique pour deplacement... :
+
+
+        // on enregistre le joueur cliqué:
+        sonJoueurClique = unJoueur;
+
+        clique = true;
     }
-    unJoueur->setGraphicsEffect(new QGraphicsColorizeEffect());
+
+    else if(clique)
+    {
+        if(unJoueur == sonJoueurClique)
+        {
+            std::vector<Case*>::iterator leIt;
+            std::vector<Case*>* lesCases = sonMatch->voirMouvementsPossibles(unJoueur->getCase());
+            for(leIt = lesCases->begin(); leIt != lesCases->end(); leIt++)
+            {
+                (*leIt)->getHerbe()->setGraphicsEffect(0);
+            }
+            unJoueur->setGraphicsEffect(0);
+
+
+            // il faut modifier l'affichage :
+
+        }
+
+
+
+
+        sonJoueurClique = 0;
+        clique = false;
+    }
+
+
+
+
+
+    //si clique = true ...
 }
 
 

@@ -16,6 +16,8 @@ class Terrain : public QWidget
     QGridLayout * grilleTerrain;
     Match* sonMatch;
     std::vector<std::vector<Case*>*> * sonTerrain;
+    bool clique;
+    JoueurWidget* sonJoueurClique;
 public:
     Terrain(std::vector<std::vector<Case*> *> * unTerrain, Match* unMatch);
 public slots:

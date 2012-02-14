@@ -67,7 +67,9 @@ std::vector<Case*>* Match::voirMouvementsPossibles(Case* uneCase)
     itColonne = (*itLigne)->begin();
     itColonne += uneCase->getColonne();
     lesMvtsPossibles->push_back(*itColonne);
-    itColonne -=2;
+    itColonne --;
+    lesMvtsPossibles->push_back(*itColonne);
+    itColonne --;
     lesMvtsPossibles->push_back(*itColonne);
     itLigne--;
     itColonne = (*itLigne)->begin();
@@ -80,3 +82,19 @@ std::vector<Case*>* Match::voirMouvementsPossibles(Case* uneCase)
     return lesMvtsPossibles;
 }
 
+void Match::firstClic(Joueur *unJoueur)
+{
+    // on appelle des fonctions qui affichent les caractéristiques du joueur :
+
+
+    //on sauvegarde le joueur cliqué :
+    sonJoueurFirstClic = unJoueur;
+
+}
+
+void Match::secondClic(Joueur *unJoueur)
+{
+
+
+
+}

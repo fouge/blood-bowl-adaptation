@@ -15,12 +15,15 @@ class Match
     int sesTours;
     coach quiJoue;
     Terrain* sonTerrain;
+    Joueur* sonJoueurFirstClic;
 public:
     Match(race raceEquipe1, int noEquipe1, race raceEquipe2, int noEquipe2);
     void afficheTerrain();
     int lancer1D6();
     Terrain* getTerrain();
     std::vector<Case*> * voirMouvementsPossibles(Case* uneCase);
+    void firstClic(Joueur* unJoueur);
+    void secondClic(Joueur* unJoueur);
 //    void deplacerJoueur(Case uneCase, int mouvementsRestants);
 //    void passerBallon(int unId);
 //    void botterBallon(Case uneCase);
