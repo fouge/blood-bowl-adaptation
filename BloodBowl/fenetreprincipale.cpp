@@ -1,5 +1,4 @@
 #include "fenetreprincipale.h"
-#include "case.h"
 
 FenetrePrincipale::FenetrePrincipale()
 {
@@ -19,8 +18,10 @@ void FenetrePrincipale::fenetreDemarrage()
     boutonQuitter = new QPushButton("Quitter");
 
     boutonNouvellePartie->setCursor(Qt::PointingHandCursor);
+    //boutonNouvellePartie->setFont(policeBB);
 
     boutonQuitter->setCursor(Qt::PointingHandCursor);
+   // boutonQuitter->setFont(policeBB);
 
     bannierebb->setPixmap(QPixmap("images/ihmbb.png"));
 
@@ -56,7 +57,11 @@ void FenetrePrincipale::fenetreSelectionEquipe()
     iconEquipeJ2 = new QLabel(this);
     boutonValiderSelection = new QPushButton("Confirmer");
 
+    //boxSelectionRace->setFont(policeBB);
+    //boxSelectionEquipe->setFont(policeBB);
+
     boutonValiderSelection->setFixedHeight(40);
+    //boutonValiderSelection->setFont(policeBB);
 
     iconRaceJ1->setPixmap(QPixmap("images/iconhumainbb.png"));
     iconRaceJ1->setAlignment(Qt::AlignCenter);
@@ -71,12 +76,16 @@ void FenetrePrincipale::fenetreSelectionEquipe()
     cBRaceJ1->addItem("Orque");
     cBRaceJ2->addItem("Humain");
     cBRaceJ2->addItem("Orque");
+    //cBRaceJ1->setFont(policeBB);
+    //cBRaceJ2->setFont(policeBB);
     cBEquipeJ1->addItem("Mittledorf Smashers");
     cBEquipeJ1->addItem("Holy Revengers");
     cBEquipeJ1->addItem("Reikland Reavers");
     cBEquipeJ2->addItem("Mittledorf Smashers");
     cBEquipeJ2->addItem("Holy Revengers");
     cBEquipeJ2->addItem("Reikland Reavers");
+    //cBEquipeJ1->setFont(policeBB);
+    //cBEquipeJ2->setFont(policeBB);
 
     gBoxSelecJ1->addWidget(iconRaceJ1);
     gBoxSelecJ1->addWidget(cBRaceJ1);
@@ -241,9 +250,232 @@ void FenetrePrincipale::fenetreMatch(race raceEquipeJ1, int indexEquipeJ1, race 
     delete(boxSelectionRace);
     delete(boxSelectionEquipe);
 
+    barreSuperieure = new QHBoxLayout;
+    panneauJ1 = new QGridLayout;
+    panneauJ2 = new QGridLayout;
+    boxJoueurJ1 = new QGroupBox(this);
+    boxJoueurJ2 = new QGroupBox(this);
+    boxJoueurJ1Layout = new QGridLayout(boxJoueurJ1);
+    boxJoueurJ2Layout = new QGridLayout(boxJoueurJ2);
+    texteEquipeJ1 = new QLabel(this);
+    texteEquipeJ2 = new QLabel(this);
+    scoreEquipeJ1 = new QLabel("0", this);
+    scoreEquipeJ2 = new QLabel("0", this);
+    texteRelancesJ1 = new QLabel("Relances :", this);
+    nbRelancesJ1 = new QLabel("0", this);
+    texteRelancesJ2 = new QLabel(": Relances", this);
+    nbRelancesJ2 = new QLabel("0", this);
+    texteTourJ1 = new QLabel("Tour :", this);
+    nbTourJ1 = new QLabel("0", this);
+    texteTourJ2 = new QLabel(": Tour", this);
+    nbTourJ2 = new QLabel("0", this);
+    iconEquipeJ1 = new QLabel(this);
+    iconEquipeJ2 = new QLabel(this);
+    finDeTourC1 = new QPushButton("Fin de Tour", this);
+    finDeTourC2 = new QPushButton("Fin de Tour", this);
+
+    //Instanciation contenu BoxJoueurJ1
+    mouvementJ1 = new QLabel("Mouvement :", this);
+    agiliteJ1 = new QLabel("Agilité :", this);
+    forceJ1 = new QLabel("Force :", this);
+    armureJ1 = new QLabel("Armure :", this);
+    nomJ1 = new QLabel("Nom : ", this);
+    posteJ1 = new QLabel("Poste : ", this);
+    mouvementJ1Chiffre = new QLabel("0",this);
+    agiliteJ1Chiffre = new QLabel("0",this);
+    forceJ1Chiffre = new QLabel("0",this);
+    armureJ1Chiffre = new QLabel("0",this);
+    nomJ1Texte = new QLabel("",this);
+    posteJ1Texte = new QLabel("",this);
+
+    //Instanciation contenu BoxJoueurJ2
+    mouvementJ2 = new QLabel(": Mouvement", this);
+    agiliteJ2 = new QLabel(": Agilité", this);
+    forceJ2 = new QLabel(": Force", this);
+    armureJ2 = new QLabel(": Armure", this);
+    nomJ2 = new QLabel(": Nom", this);
+    posteJ2 = new QLabel(": Poste", this);
+    mouvementJ2Chiffre = new QLabel("0",this);
+    agiliteJ2Chiffre = new QLabel("0",this);
+    forceJ2Chiffre = new QLabel("0",this);
+    armureJ2Chiffre = new QLabel("0",this);
+    nomJ2Texte = new QLabel("",this);
+    posteJ2Texte = new QLabel("",this);
+
+    //
+    //Initialisation de la barre superieure
+    //
+    texteEquipeJ2->setAlignment(Qt::AlignRight);
+    scoreEquipeJ1->setAlignment(Qt::AlignRight);
+
+    if (raceEquipeJ1 == humains)
+    {
+        switch (indexEquipeJ1)
+        {
+        case 0:
+            texteEquipeJ1->setText("Mittledorf Smashers");
+            iconEquipeJ1->setPixmap(QPixmap("images/equipeicon/mittledorfsmashersicon.png"));
+            break;
+        case 1:
+            texteEquipeJ1->setText("Holy Revengers");
+            iconEquipeJ1->setPixmap(QPixmap("images/equipeicon/holyrevengersicon.png"));
+            break;
+        case 2:
+            texteEquipeJ1->setText("Reikland Reavers");
+            iconEquipeJ1->setPixmap(QPixmap("images/equipeicon/reiklandreaversicon.png"));
+            break;
+        }
+    }
+    if (raceEquipeJ1 == orques)
+    {
+        switch (indexEquipeJ1)
+        {
+        case 0:
+            texteEquipeJ1->setText("Da Severed 'Eads");
+            iconEquipeJ1->setPixmap(QPixmap("images/equipeicon/daseveredeadsicon.png"));
+            break;
+        case 1:
+            texteEquipeJ1->setText("Greenskin Gutrippers");
+            iconEquipeJ1->setPixmap(QPixmap("images/equipeicon/greenskingutrippersicon.png"));
+            break;
+        case 2:
+            texteEquipeJ1->setText("Ironcrag Decimators");
+            iconEquipeJ1->setPixmap(QPixmap("images/equipeicon/ironcragdecimatorsicon.png"));
+            break;
+        }
+    }
+    if (raceEquipeJ2 == humains)
+    {
+        switch (indexEquipeJ2)
+        {
+        case 0:
+            texteEquipeJ2->setText("Mittledorf Smashers");
+            iconEquipeJ2->setPixmap(QPixmap("images/equipeicon/mittledorfsmashersicon.png"));
+            break;
+        case 1:
+            texteEquipeJ2->setText("Holy Revengers");
+            iconEquipeJ2->setPixmap(QPixmap("images/equipeicon/holyrevengersicon.png"));
+            break;
+        case 2:
+            texteEquipeJ2->setText("Reikland Reavers");
+            iconEquipeJ2->setPixmap(QPixmap("images/equipeicon/reiklandreaversicon.png"));
+            break;
+        }
+    }
+    if (raceEquipeJ2 == orques)
+    {
+        switch (indexEquipeJ2)
+        {
+        case 0:
+            texteEquipeJ2->setText("Da Severed 'Eads");
+            iconEquipeJ2->setPixmap(QPixmap("images/equipeicon/daseveredeadsicon.png"));
+            break;
+        case 1:
+            texteEquipeJ2->setText("Greenskin Gutrippers");
+            iconEquipeJ2->setPixmap(QPixmap("images/equipeicon/greenskingutrippersicon.png"));
+            break;
+        case 2:
+            texteEquipeJ2->setText("Ironcrag Decimators");
+            iconEquipeJ2->setPixmap(QPixmap("images/equipeicon/ironcragdecimatorsicon.png"));
+            break;
+        }
+    }
+
+    barreSuperieure->addWidget(texteEquipeJ1);
+    barreSuperieure->addWidget(scoreEquipeJ1);
+    barreSuperieure->addWidget(scoreEquipeJ2);
+    barreSuperieure->addWidget(texteEquipeJ2);
+
+    //
+    //Initialisation du panneau du joueur 1
+    //
+    boxJoueurJ1Layout->addWidget(nomJ1,0,0);
+    boxJoueurJ1Layout->addWidget(nomJ1Texte,0,1);
+    boxJoueurJ1Layout->addWidget(posteJ1,1,0);
+    boxJoueurJ1Layout->addWidget(posteJ1Texte,1,1);
+    boxJoueurJ1Layout->addWidget(mouvementJ1,3,0);
+    boxJoueurJ1Layout->addWidget(mouvementJ1Chiffre,3,1);
+    boxJoueurJ1Layout->addWidget(agiliteJ1,4,0);
+    boxJoueurJ1Layout->addWidget(agiliteJ1Chiffre,4,1);
+    boxJoueurJ1Layout->addWidget(forceJ1,5,0);
+    boxJoueurJ1Layout->addWidget(forceJ1Chiffre,5,1);
+    boxJoueurJ1Layout->addWidget(armureJ1,6,0);
+    boxJoueurJ1Layout->addWidget(armureJ1Chiffre,6,1);
+
+    panneauJ1->addWidget(iconEquipeJ1,0,0,4,3);
+    panneauJ1->addWidget(texteRelancesJ1,4,0,2,1);
+    panneauJ1->addWidget(nbRelancesJ1,4,2,1,1);
+    panneauJ1->addWidget(texteTourJ1,5,0,2,1);
+    panneauJ1->addWidget(nbTourJ1,5,2,1,1);
+    panneauJ1->addWidget(boxJoueurJ1,6,0,7,3);
+    panneauJ1->addWidget(finDeTourC1,14,0,3,3);
+
+    nomJ1->setAlignment(Qt::AlignLeft);
+    posteJ1->setAlignment(Qt::AlignLeft);
+    mouvementJ1->setAlignment(Qt::AlignLeft);
+    mouvementJ1Chiffre->setAlignment(Qt::AlignRight);
+    agiliteJ1->setAlignment(Qt::AlignLeft);
+    agiliteJ1Chiffre->setAlignment(Qt::AlignRight);
+    forceJ1->setAlignment(Qt::AlignLeft);
+    forceJ1Chiffre->setAlignment(Qt::AlignRight);
+    armureJ1->setAlignment(Qt::AlignLeft);
+    armureJ1Chiffre->setAlignment(Qt::AlignRight);
+    texteRelancesJ1->setAlignment(Qt::AlignLeft);
+    nbRelancesJ1->setAlignment(Qt::AlignRight);
+    texteTourJ1->setAlignment(Qt::AlignLeft);
+    nbTourJ1->setAlignment(Qt::AlignRight);
+
+    //
+    //Initialisation du panneau du joueur 2
+    //
+    boxJoueurJ2Layout->addWidget(nomJ2,0,1);
+    boxJoueurJ2Layout->addWidget(nomJ2Texte,0,0);
+    boxJoueurJ2Layout->addWidget(posteJ2,1,1);
+    boxJoueurJ2Layout->addWidget(posteJ2Texte,1,0);
+    boxJoueurJ2Layout->addWidget(mouvementJ2,3,1);
+    boxJoueurJ2Layout->addWidget(mouvementJ2Chiffre,3,0);
+    boxJoueurJ2Layout->addWidget(agiliteJ2,4,1);
+    boxJoueurJ2Layout->addWidget(agiliteJ2Chiffre,4,0);
+    boxJoueurJ2Layout->addWidget(forceJ2,5,1);
+    boxJoueurJ2Layout->addWidget(forceJ2Chiffre,5,0);
+    boxJoueurJ2Layout->addWidget(armureJ2,6,1);
+    boxJoueurJ2Layout->addWidget(armureJ2Chiffre,6,0);
+
+    panneauJ2->addWidget(iconEquipeJ2,0,0,4,3);
+    panneauJ2->addWidget(texteRelancesJ2,4,1,1,2);
+    panneauJ2->addWidget(nbRelancesJ2,4,0,1,1);
+    panneauJ2->addWidget(texteTourJ2,5,1,1,2);
+    panneauJ2->addWidget(nbTourJ2,5,0,1,1);
+    panneauJ2->addWidget(boxJoueurJ2,6,0,7,3);
+    panneauJ2->addWidget(finDeTourC2,14,0,3,3);
+
+    nomJ2->setAlignment(Qt::AlignRight);
+    posteJ2->setAlignment(Qt::AlignRight);
+    mouvementJ2->setAlignment(Qt::AlignRight);
+    mouvementJ2Chiffre->setAlignment(Qt::AlignLeft);
+    agiliteJ2->setAlignment(Qt::AlignRight);
+    agiliteJ2Chiffre->setAlignment(Qt::AlignLeft);
+    forceJ2->setAlignment(Qt::AlignRight);
+    forceJ2Chiffre->setAlignment(Qt::AlignLeft);
+    armureJ2->setAlignment(Qt::AlignRight);
+    armureJ2Chiffre->setAlignment(Qt::AlignLeft);
+    texteRelancesJ2->setAlignment(Qt::AlignRight);
+    nbRelancesJ2->setAlignment(Qt::AlignLeft);
+    texteTourJ2->setAlignment(Qt::AlignRight);
+    nbTourJ2->setAlignment(Qt::AlignLeft);
+
     leMatch = new Match(raceEquipeJ1,indexEquipeJ1,raceEquipeJ2,indexEquipeJ2);
 
-    layoutGrille->addWidget(leMatch->getTerrain());
+    layoutGrille->addLayout(panneauJ1,0,0,2,1);
+    layoutGrille->addLayout(panneauJ2,0,2,2,1);
+    layoutGrille->addLayout(barreSuperieure,0,1);
+    layoutGrille->addWidget(leMatch->getTerrain(),1,1);
 }
 
+/*void FenetrePrincipale::afficheJoueurPanneau(Joueur* unJoueur)
+{
+    if(unJoueur->getSonCote() == true)
+    {
 
+    }
+}*/

@@ -25,8 +25,9 @@ Terrain::Terrain(std::vector<std::vector<Case*>*> * unTerrain, Match* unMatch): 
 void Terrain::afficheMvts(JoueurWidget* unJoueur)
 {
     // si clique = false :
-    if(!clique && unJoueur->getCase()->sonJoueurDessus != 0)
+    if(!clique && unJoueur->getCase()->sonJoueurDessus != 0 && unJoueur->getCase()->sonJoueurDessus->getMouvements() > 0)
     {
+        //on modifie l'affichage de la case :
         std::vector<Case*>::iterator leIt;
         std::vector<Case*>* lesCases = sonMatch->voirMouvementsPossibles(unJoueur->getCase());
         for(leIt = lesCases->begin(); leIt != lesCases->end(); leIt++)
@@ -35,10 +36,8 @@ void Terrain::afficheMvts(JoueurWidget* unJoueur)
         }
         unJoueur->setGraphicsEffect(new QGraphicsColorizeEffect());
 
-        //envoyer les caractéristiques du joueur pour l'affichage :
 
-
-        // aller dans une fonction pour attente d'un nouveau clique pour deplacement... :
+        sonMatch->firstClic(unJoueur->getCase()->sonJoueurDessus);
 
 
         // on enregistre le joueur cliqué:
@@ -46,11 +45,17 @@ void Terrain::afficheMvts(JoueurWidget* unJoueur)
 
         clique = true;
     }
-
-    else if(clique)
+    else if(!clique && unJoueur->getCase()->sonJoueurDessus != 0 && unJoueur->getCase()->sonJoueurDessus->getMouvements() == 0)
     {
-        if(unJoueur == sonJoueurClique)
-        {
+        unJoueur->getCase()->getHerbe()->setGraphicsEffect(new QGraphicsColorizeEffect());
+        unJoueur->setGraphicsEffect(new QGraphicsColorizeEffect());
+        // on change pas la valeur de clique puisque le joueur ne peut rien faire, on attend un nouvel element cliquable
+    }
+
+    //si un clique deja effectué :
+        //on reclique sur le meme joueur :
+    else if(clique && unJoueur == sonJoueurClique)
+    {
             std::vector<Case*>::iterator leIt;
             std::vector<Case*>* lesCases = sonMatch->voirMouvementsPossibles(unJoueur->getCase());
             for(leIt = lesCases->begin(); leIt != lesCases->end(); leIt++)
@@ -59,23 +64,28 @@ void Terrain::afficheMvts(JoueurWidget* unJoueur)
             }
             unJoueur->setGraphicsEffect(0);
 
-
-            // il faut modifier l'affichage :
-
-        }
-
-
-
-
-        sonJoueurClique = 0;
-        clique = false;
+            //on enleve le joueur clique :
+            sonJoueurClique = 0;
+            clique = false;
     }
+
+        //on clique sur une case voisine :
+    else if( unJoueur != sonJoueurClique )
+    {
+        //on deplace le joueur sur la nouvelle case :
+
+        // on modifie l'affichage :
+
+        // puis on modifie le jeu
+    }
+
+}
 
 
 
 
 
     //si clique = true ...
-}
+
 
 

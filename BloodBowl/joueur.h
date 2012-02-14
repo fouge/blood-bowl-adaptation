@@ -21,13 +21,15 @@ class Joueur
     std::string sonNom;
     Case* saCase;
     etat sonEtat;
-    bool actionEffectue;
+    bool actionEffectue, sonCote;
 public:
     Joueur(type, std::vector<competences> desCompetences, int desMouvements, int uneForce,
            int uneAgilite, int uneArmure, std::string unNom, Case* uneCase, bool unCote);
     std::vector<competences> getCompetences();
     type getType();
     int getMouvements(), getForce(), getAgilite(), getArmure();
+    bool getCote();
+    void setCase(Case* uneCase);
 };
 
 #endif // JOUEUR_H

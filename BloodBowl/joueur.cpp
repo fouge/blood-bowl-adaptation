@@ -3,7 +3,7 @@
 Joueur::Joueur(type unType, std::vector<competences> desCompetences, int desMouvements, int uneForce,
                int uneAgilite, int uneArmure, std::string unNom, Case* uneCase,
                bool unCote):sonType(unType), sesCompetences(desCompetences),sesMouvements(desMouvements),
-    saForce(uneForce), sonAgilite(uneAgilite), sonArmure(uneArmure), sonNom(unNom), saCase(uneCase), sonEtat(debout), actionEffectue(false)
+    saForce(uneForce), sonAgilite(uneAgilite), sonArmure(uneArmure), sonNom(unNom), saCase(uneCase), sonEtat(debout), actionEffectue(false), sonCote(unCote)
 {
     // on fait le lien dans l'autre sens : la case a un joueur :
     saCase->sonJoueurDessus=this;
@@ -117,4 +117,13 @@ int Joueur::getAgilite()
 int Joueur::getArmure()
 {
     return sonArmure;
+}
+
+bool Joueur::getCote()
+{
+    return sonCote;
+}
+void Joueur::setCase(Case * uneCase)
+{
+    saCase = uneCase;
 }
