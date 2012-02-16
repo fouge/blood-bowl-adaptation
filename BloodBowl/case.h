@@ -18,16 +18,18 @@ class Case
     zone saZone;
     HerbeWidget* sonHerbe;
     QLabel* sonBallon;
-    JoueurWidget* sonJoueur;
+    JoueurWidget* sonJoueurWidget;
+    Joueur* sonJoueurDessus;
 public:
     Case(int unX, int unY);
     int getLigne();
     int getColonne();
     zone getZone();
     HerbeWidget* getHerbe();
-    JoueurWidget* getJoueur();
-    Joueur* sonJoueurDessus;
-    void setSonJoueur(QPixmap* );
+    JoueurWidget* getJoueurWidget();
+    Joueur* getJoueurDessus();
+    void setJoueurDessus(Joueur*);
+    void setJoueurWidget(QPixmap* );
     void setSonHerbe(QPixmap* );
 
 

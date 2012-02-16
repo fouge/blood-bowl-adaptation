@@ -21,7 +21,7 @@ class Terrain : public QWidget
 public:
     Terrain(std::vector<std::vector<Case*> *> * unTerrain, Match* unMatch);
 public slots:
-    void afficheMvts(JoueurWidget *);
+    void joueurOnReleaseEvent(JoueurWidget *);
 };
 
 #endif // TERRAIN_H

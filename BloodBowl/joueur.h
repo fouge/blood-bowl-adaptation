@@ -29,6 +29,7 @@ public:
     type getType();
     int getMouvements(), getForce(), getAgilite(), getArmure();
     bool getCote();
+    Case* getCase();
     void setCase(Case* uneCase);
 };
 

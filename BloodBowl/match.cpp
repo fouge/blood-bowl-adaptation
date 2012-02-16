@@ -11,7 +11,7 @@ Match::Match(race raceEquipe1, int noEquipe1, race raceEquipe2, int noEquipe2):q
     sonTableauCases = new std::vector<std::vector<Case*>*>;
     for(int i=0; i<26; i++)
 {
-        sonTableauCases->push_back(new std::vector<Case*>); // 2
+        sonTableauCases->push_back(new std::vector<Case*>);
 }
     // 3) on parcours les vecteurs pour créé des cases à l'intérieur :
     std::vector<std::vector<Case*>*>::iterator itLigne;
@@ -87,14 +87,43 @@ void Match::firstClic(Joueur *unJoueur)
     // on appelle des fonctions qui affichent les caractéristiques du joueur :
 
 
-    //on sauvegarde le joueur cliqué :
+    // Il faut vérifier le nombre de mouvments possibles !
+    //on modifie l'affichage de la case :
+    std::vector<Case*>::iterator leIt;
+    std::vector<Case*>* lesCases = voirMouvementsPossibles(unJoueur->getCase());
+    for(leIt = lesCases->begin(); leIt != lesCases->end(); leIt++)
+    {
+        (*leIt)->getHerbe()->setGraphicsEffect(new QGraphicsColorizeEffect());
+    }
+
+
+    // on enregistre le joueur cliqué:
     sonJoueurFirstClic = unJoueur;
+
 
 }
 
 void Match::secondClic(Joueur *unJoueur)
 {
+    //on enregistre les mouvements possibles pour la suite :
+    std::vector<Case*>::iterator leIt;
+    std::vector<Case*>* lesCases = voirMouvementsPossibles(unJoueur->getCase());
 
+    if(sonJoueurFirstClic == unJoueur)
+    {
+        for(leIt = lesCases->begin(); leIt != lesCases->end(); leIt++)
+        {
+            (*leIt)->getHerbe()->setGraphicsEffect(0);
+        }
+    }
 
+    //on clique sur une case vide
+    //
+    // ne fonctionne pas !
+    //
+    else if(sonJoueurFirstClic != unJoueur && unJoueur->getCase()->getJoueurDessus()==0)
+    {
+        qApp->aboutQt();
+    }
 
 }

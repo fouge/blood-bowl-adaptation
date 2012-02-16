@@ -1,11 +1,9 @@
 #include "case.h"
 
-
 Case::Case(int unX, int unY):sonX(unX),sonY(unY)
 {
-    sonJoueurDessus = 0;
     sonHerbe = new HerbeWidget(this);
-    sonJoueur = new JoueurWidget(this);
+    sonJoueurWidget = new JoueurWidget(this);
 //setVisible = 0 ?
     if(sonX == 1)
     {
@@ -58,17 +56,25 @@ HerbeWidget* Case::getHerbe()
 {
     return sonHerbe;
 }
-JoueurWidget* Case::getJoueur()
+JoueurWidget* Case::getJoueurWidget()
 {
-    return sonJoueur;
+    return sonJoueurWidget;
+}
+Joueur* Case::getJoueurDessus()
+{
+    return sonJoueurDessus;
 }
 
-void Case::setSonJoueur(QPixmap* lien)
+void Case::setJoueurWidget(QPixmap* lien)
 {
-    sonJoueur->setPixmap(*lien);
+    sonJoueurWidget->setPixmap(*lien);
 }
 void Case::setSonHerbe(QPixmap* lien)
 {
     sonHerbe->setPixmap(*lien);
+}
+void Case::setJoueurDessus(Joueur* unJoueur)
+{
+    sonJoueurDessus = unJoueur;
 }
 
