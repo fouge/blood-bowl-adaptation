@@ -6,6 +6,8 @@
 #include <QStringList>
 #include <QInputDialog>
 #include "match.h"
+#include <QGraphicsView>
+#include "pion.h"
 
 class FenetrePrincipale : public QWidget
 {
@@ -35,9 +37,11 @@ class FenetrePrincipale : public QWidget
     QComboBox *cBRaceJ1, *cBRaceJ2, *cBEquipeJ1, *cBEquipeJ2;
     QVBoxLayout *gBoxSelecJ1, *gBoxSelecJ2, *fenetreSelection;
     QHBoxLayout *barreSuperieure;
-    QGridLayout *layoutGrille, *panneauJ1, *panneauJ2, *boxJoueurJ1Layout, *boxJoueurJ2Layout;
+    QGridLayout *layoutGrille, *panneauJ1, *panneauJ2, *boxJoueurJ1Layout, *boxJoueurJ2Layout, *terrain;
 
-    Terrain* sonTerrain;
+    QGraphicsView* saVue;
+    QGraphicsScene* saScene;
+
     Match *leMatch;
 public:
     FenetrePrincipale();

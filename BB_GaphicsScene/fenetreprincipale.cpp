@@ -465,12 +465,21 @@ void FenetrePrincipale::fenetreMatch(race raceEquipeJ1, int indexEquipeJ1, race 
     nbTourJ2->setAlignment(Qt::AlignLeft);
 
     leMatch = new Match(raceEquipeJ1,indexEquipeJ1,raceEquipeJ2,indexEquipeJ2);
-    sonTerrain = new Terrain(leMatch->getTableauCases(),  leMatch);
+
+    saScene = new QGraphicsScene(this);
+    saScene->addText("Bonjour");
+    saVue = new QGraphicsView(saScene);
+    QGraphicsEllipseItem* uneEllipse = new QGraphicsEllipseItem(10, 10, 50, 20);
+    saScene->addItem(uneEllipse);
+
+    terrain = new QGridLayout;
+    terrain->addWidget(saVue);
+
 
     layoutGrille->addLayout(panneauJ1,0,0,2,1);
     layoutGrille->addLayout(panneauJ2,0,2,2,1);
     layoutGrille->addLayout(barreSuperieure,0,1);
-    layoutGrille->addWidget(sonTerrain,1,1);
+    layoutGrille->addLayout(terrain, 1, 1);
 }
 
 //void FenetrePrincipale::rechargerFenetre();

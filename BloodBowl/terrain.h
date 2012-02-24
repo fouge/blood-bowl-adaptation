@@ -18,6 +18,7 @@ class Terrain : public QWidget
     std::vector<std::vector<Case*>*> * sonTerrain;
     bool clique;
     JoueurWidget* sonJoueurClique;
+    JoueurWidget* sonJoueurWidget;
 public:
     Terrain(std::vector<std::vector<Case*> *> * unTerrain, Match* unMatch);
 public slots:

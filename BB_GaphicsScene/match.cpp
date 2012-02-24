@@ -34,10 +34,6 @@ Match::Match(race raceEquipe1, int noEquipe1, race raceEquipe2, int noEquipe2):q
 
 }
 
-void Match::afficheTerrain()
-{
-}
-
 int Match::lancer1D6() //donne un chiffre aléatoire entre 1 et 6
 {
     return rand() % 6 + 1;
@@ -88,16 +84,10 @@ void Match::firstClic(Joueur *unJoueur)
 
     // Il faut vérifier le nombre de mouvments possibles !
     //on modifie l'affichage de la case :
-    std::vector<Case*>::iterator leIt;
-    std::vector<Case*>* lesCases = voirMouvementsPossibles(unJoueur->getCase());
-    for(leIt = lesCases->begin(); leIt != lesCases->end(); leIt++)
-    {
-        (*leIt)->getHerbe()->setGraphicsEffect(new QGraphicsColorizeEffect());
-    }
+
 
 
     // on enregistre le joueur cliqué:
-    sonJoueurFirstClic = unJoueur;
 
 
 }
@@ -105,24 +95,10 @@ void Match::firstClic(Joueur *unJoueur)
 void Match::secondClic(Joueur *unJoueur)
 {
     //on enregistre les mouvements possibles pour la suite :
-    std::vector<Case*>::iterator leIt;
-    std::vector<Case*>* lesCases = voirMouvementsPossibles(unJoueur->getCase());
 
-    if(sonJoueurFirstClic == unJoueur)
-    {
-        for(leIt = lesCases->begin(); leIt != lesCases->end(); leIt++)
-        {
-            (*leIt)->getHerbe()->setGraphicsEffect(0);
-        }
-    }
 
     //on clique sur une case vide
     //
-    // ne fonctionne pas !
-    //
-    else if(sonJoueurFirstClic != unJoueur && unJoueur->getCase()->getJoueurDessus()==0)
-    {
-        qApp->aboutQt();
-    }
+
 
 }

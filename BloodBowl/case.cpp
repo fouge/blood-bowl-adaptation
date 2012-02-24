@@ -3,7 +3,7 @@
 Case::Case(int unX, int unY):sonX(unX),sonY(unY)
 {
     sonHerbe = new HerbeWidget(this);
-    sonJoueurWidget = new JoueurWidget(this);
+
 //setVisible = 0 ?
     if(sonX == 1)
     {

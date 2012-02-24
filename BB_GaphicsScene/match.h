@@ -5,7 +5,6 @@
 #include "case.h"
 #include "joueur.h"
 #include <vector>
-#include "terrain.h"
 
 enum coach{joueur1, joueur2};
 class Terrain;
@@ -17,7 +16,6 @@ class Match
     Joueur* sonJoueurFirstClic;
 public:
     Match(race raceEquipe1, int noEquipe1, race raceEquipe2, int noEquipe2);
-    void afficheTerrain();
     int lancer1D6();
     std::vector<std::vector<Case*> * >* getTableauCases();
     std::vector<Case*> * voirMouvementsPossibles(Case* uneCase);
