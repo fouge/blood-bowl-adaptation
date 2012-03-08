@@ -2,13 +2,14 @@
 #define CASE_H
 
 #include <QLabel>
+#include "ballon.h"
 #include "joueur.h"
+#include "enum.h"
 
-
+class Ballon;
 class Joueur;
 
 
-enum zone{enbut, laterale, engagement};
 
 class Case
 {
@@ -22,6 +23,7 @@ public:
     zone getZone();
     Joueur* getJoueurDessus();
     void setJoueurDessus(Joueur* unJoueur);
+    void setBallonDessus(Ballon* unBallon);
 };
 
 #endif // CASE_H

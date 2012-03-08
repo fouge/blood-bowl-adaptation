@@ -17,7 +17,8 @@ SOURCES += main.cpp\
     equipe.cpp \
     case.cpp \
     ballon.cpp \
-    pion.cpp
+    pion.cpp \
+    sceneterrain.cpp
 
 HEADERS  += fenetreprincipale.h \
     match.h \
@@ -25,7 +26,12 @@ HEADERS  += fenetreprincipale.h \
     equipe.h \
     case.h \
     ballon.h \
-    pion.h
+    pion.h \
+    sceneterrain.h \
+    enum.h
+
+
+
 
 
 

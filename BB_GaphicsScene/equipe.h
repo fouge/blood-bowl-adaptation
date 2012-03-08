@@ -3,6 +3,11 @@
 
 #include "joueur.h"
 #include "case.h"
+#include "enum.h"
+
+class Joueur;
+class Case;
+
 
 class Equipe
 {

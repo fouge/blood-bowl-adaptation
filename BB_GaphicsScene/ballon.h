@@ -1,12 +1,20 @@
 #ifndef BALLON_H
 #define BALLON_H
+
 #include "case.h"
+#include "match.h"
+
+class Case;
+class Match;
 
 class Ballon
 {
-    Case saCase;
+    Case* saCase;
+    Match* sonMatch;
 public:
-    Ballon(Case);
+    Ballon(Case*, Match*);
+    void rebondirBallon();
+    void setCase(Case* uneCase);
 };
 
 #endif // BALLON_H

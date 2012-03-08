@@ -1,17 +1,15 @@
 #ifndef JOUEUR_H
 #define JOUEUR_H
+
 #include "case.h"
 #include <vector>
 #include <string>
+#include "equipe.h"
+#include "enum.h"
 
 class Case;
 
-enum type{blitzeur, troisquarts, receveur, passeur, ogre, gobelin, bloqueur, troll};
-enum race{humains, orques};
-enum etat{debout, parterre};
-enum competences{esquive, reception, dexterite, passe, blocage, perso,
-                 cerveauLent, chataigne, craneEpais, lancerCoequipier,
-                 minus, poidsPlume, grosDebile, regeneration, toujoursAffame};
+class Equipe;
 
 class Joueur
 {

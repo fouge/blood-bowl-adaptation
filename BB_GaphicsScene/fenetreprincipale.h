@@ -8,6 +8,7 @@
 #include "match.h"
 #include <QGraphicsView>
 #include "pion.h"
+#include "sceneterrain.h"
 
 class FenetrePrincipale : public QWidget
 {
@@ -41,7 +42,7 @@ class FenetrePrincipale : public QWidget
 
     QGraphicsView* saVue;
     QGraphicsScene* saScene;
-
+    SceneTerrain* sonTerrain;
     Match *leMatch;
 public:
     FenetrePrincipale();

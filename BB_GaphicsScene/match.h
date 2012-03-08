@@ -1,13 +1,12 @@
 #ifndef MATCH_H
 #define MATCH_H
 
-#include "equipe.h"
-#include "case.h"
 #include "joueur.h"
 #include <vector>
+#include "enum.h"
 
-enum coach{joueur1, joueur2};
-class Terrain;
+class Joueur;
+class Case;
 class Match
 {
     std::vector<std::vector<Case*>*>* sonTableauCases;

@@ -1,5 +1,5 @@
 #include "equipe.h"
-
+#include "joueur.h"
 
 Equipe::Equipe(race uneRace, int uneComposition, std::vector<std::vector<Case*>*>* leTerrain, bool cote):saRace(uneRace), sonCote(cote)
 {
