@@ -471,8 +471,7 @@ void FenetrePrincipale::fenetreMatch(race raceEquipeJ1, int indexEquipeJ1, race 
 
 
 
-    sonTerrain = new SceneTerrain(15, 28, unModele);
-
+    sonTerrain = new SceneTerrain(15, 28, leMatch->getModel());
 
 
     layoutGrille->setSizeConstraint(QLayout::SetMinimumSize);

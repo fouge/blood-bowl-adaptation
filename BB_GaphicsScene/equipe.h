@@ -15,8 +15,8 @@ class Equipe
     std::vector<Joueur*>* sesJoueurs;
     bool sonCote;
 public:
-    Equipe(race, int, std::vector<std::vector<Case*>*>*, bool);
-    Case* getCase(int, int, std::vector<std::vector<Case*>*> *, bool);
+    Equipe(race, int, bool);
+    Case* getCase(int, int, bool);
 };
 
 #endif // EQUIPE_H

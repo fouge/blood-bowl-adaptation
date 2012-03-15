@@ -6,25 +6,9 @@
 Match::Match(race raceEquipe1, int noEquipe1, race raceEquipe2, int noEquipe2):quiJoue(joueur1), sesTours(16)
 {
     //Creation du terrain :
-    // 1) un vecteur (vecteur vertical) contient 26 vecteurs
-    // 2) Pour les 26 cases du vecteur, on instancie un vecteur (vecteur en ligne)
-    sonTableauCases = new std::vector<std::vector<Case*>*>;
-    for(int i=0; i<26; i++)
-{
-        sonTableauCases->push_back(new std::vector<Case*>);
-}
-    // 3) on parcours les vecteurs pour créé des cases à l'intérieur :
-    std::vector<std::vector<Case*>*>::iterator itLigne;
-    int x(1);
-    for(itLigne = sonTableauCases->begin(); itLigne != sonTableauCases->end(); itLigne++)
-    {
-        for(int i=1; i<16; i++)
-        {
-            (*itLigne)->push_back(new Case(x,i)); // chaque case a une coordonnée
-        }
-        x++;
-    }
+    sonTableauCases = new QStandardItemModel(15, 18, this);
 
+    // 3) on parcours les vecteurs pour créé des cases à l'intérieur :
 
 
 

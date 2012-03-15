@@ -1,6 +1,6 @@
 #include "case.h"
 
-Case::Case(int unX, int unY, QPixmap* unPixmap): QStandardItem(unPixmap, 0), sonX(unX),sonY(unY)
+Case::Case(int unX, int unY, QPixmap* lePixmap): QStandardItem(QPixmap(*lePixmap), 0), sonX(unX),sonY(unY)
 {
 
 //setVisible = 0 ?

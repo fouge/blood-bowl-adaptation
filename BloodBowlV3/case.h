@@ -4,7 +4,6 @@
 #include <QLabel>
 #include <QStandardItem>
 #include "ballon.h"
-#include "joueur.h"
 #include "enum.h"
 
 class Ballon;
@@ -18,7 +17,7 @@ class Case : public QStandardItem
     zone saZone;
     Joueur* sonJoueurDessus;
 public:
-    Case(int unX, int unY, QPixmap* unPixmap);
+    Case(int unX, int unY, QPixmap*);
     int getLigne();
     int getColonne();
     zone getZone();

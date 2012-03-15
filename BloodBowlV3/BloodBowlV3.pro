@@ -1,38 +1,28 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2012-02-23T16:09:52
+# Project created by QtCreator 2012-03-15T17:55:54
 #
 #-------------------------------------------------
 
 QT       += core gui
 
-TARGET = BB_GaphicsScene
+TARGET = BloodBowlV3
 TEMPLATE = app
 
 
 SOURCES += main.cpp\
         fenetreprincipale.cpp \
     match.cpp \
-    joueur.cpp \
+    sceneterrain.cpp \
     case.cpp \
-    ballon.cpp \
-    sceneterrain.cpp
+    ballon.cpp
 
 HEADERS  += fenetreprincipale.h \
     match.h \
-    joueur.h \
-    equipe.h \
-    case.h \
-    ballon.h \
+    enum.h \
     sceneterrain.h \
-    enum.h
-
-
-
-
-
-
-
+    case.h \
+    ballon.h
 
 
 
