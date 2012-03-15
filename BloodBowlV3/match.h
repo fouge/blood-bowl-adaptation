@@ -4,6 +4,7 @@
 #include <QStandardItemModel>
 #include <vector>
 #include "enum.h"
+#include "equipe.h"
 
 class Match
 {

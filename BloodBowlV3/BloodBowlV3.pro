@@ -14,15 +14,23 @@ SOURCES += main.cpp\
         fenetreprincipale.cpp \
     match.cpp \
     sceneterrain.cpp \
-    case.cpp \
-    ballon.cpp
+    ballon.cpp \
+    joueur.cpp \
+    equipe.cpp
 
 HEADERS  += fenetreprincipale.h \
     match.h \
     enum.h \
     sceneterrain.h \
-    case.h \
-    ballon.h
+    ballon.h \
+    joueur.h \
+    equipe.h
+
+
+
+
+
+
 
 
 

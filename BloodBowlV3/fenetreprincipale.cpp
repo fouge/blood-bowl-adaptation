@@ -469,8 +469,6 @@ void FenetrePrincipale::fenetreMatch(race raceEquipeJ1, int indexEquipeJ1, race 
 
     leMatch = new Match(raceEquipeJ1,indexEquipeJ1,raceEquipeJ2,indexEquipeJ2);
 
-
-
     sonTerrain = new SceneTerrain(15, 28, leMatch->getModel());
 
 

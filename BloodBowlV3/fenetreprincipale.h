@@ -39,7 +39,7 @@ class FenetrePrincipale : public QWidget
     QGraphicsView* saVue;
     QGraphicsScene* saScene;
     SceneTerrain* sonTerrain;
-    Match *leMatch;
+    Match* leMatch;
 public:
     FenetrePrincipale();
     void fenetreDemarrage();

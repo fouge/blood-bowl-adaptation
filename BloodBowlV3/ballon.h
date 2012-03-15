@@ -1,7 +1,6 @@
 #ifndef BALLON_H
 #define BALLON_H
 
-#include "case.h"
 #include "match.h"
 
 class Case;
