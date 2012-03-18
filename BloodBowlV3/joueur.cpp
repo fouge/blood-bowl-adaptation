@@ -103,11 +103,11 @@ Joueur::Joueur(typeJ unType, std::vector<competences> desCompetences, int desMou
     // ajouter au modele dans la bonne case grace à sonX, sonY et en fonction du coté !
     if(unCote)
     {
-        leTerrain->setItem(sonX, sonY+1, this);
+        leTerrain->setItem(sonX-1, sonY-1, this);
     }
     else
     {
-        leTerrain->setItem(14-sonX, 26-sonY, this);
+        leTerrain->setItem(15-sonX, 28-sonY, this);
     }
 
 

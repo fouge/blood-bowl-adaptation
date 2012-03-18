@@ -56,7 +56,7 @@ Equipe::Equipe(race uneRace, int uneComposition, bool cote, QStandardItemModel* 
             sesJoueurs->push_back(new Joueur(blitzeur, (*lesCompetencesBlitzeurs), 7, 3, 3, 8, "Leo Ulman", 12, 12, sonCote));
             sesJoueurs->push_back(new Joueur(blitzeur, (*lesCompetencesBlitzeurs), 7, 3, 3, 8, "Baldric Advar", 12, 2, sonCote));
             sesJoueurs->push_back(new Joueur(blitzeur, (*lesCompetencesBlitzeurs), 7, 3, 3, 8, "Bertolf Valdred", 5, 7, sonCote));
-            sesJoueurs->push_back(new Joueur(passeur, (*lesCompetencesPasseurs), 6, 3, 3, 8, "Leo Ulman", 2, 5, sonCote));
+            sesJoueurs->push_back(new Joueur(passeur, (*lesCompetencesPasseurs), 6, 3, 3, 8, "Leo Ulman", 1, 1, sonCote));
             sesJoueurs->push_back(new Joueur(receveur, (*lesCompetencesReceveurs), 8, 2, 3, 7, "Otto Meinard", 2, 9, sonCote));
             sesJoueurs->push_back(new Joueur(ogre, (*lesCompetencesOgres), 5, 5, 2, 9, "Maxime Girard", 12,7, sonCote));
             sesJoueurs->push_back(new Joueur(troisquarts, (*AucuneCompetence), 6, 3, 3, 8, "Edgar Le Couard",12, 10, sonCote));
@@ -100,7 +100,7 @@ Equipe::Equipe(race uneRace, int uneComposition, bool cote, QStandardItemModel* 
         switch(uneComposition)
         {
         case 0:
-            sesJoueurs->push_back(new Joueur(passeur, (*lesCompetencesPasseurs), 6, 3, 3, 8, "Aznok", 2 , 3, sonCote));
+            sesJoueurs->push_back(new Joueur(passeur, (*lesCompetencesPasseurs), 6, 3, 3, 8, "Aznok", 1 , 1, sonCote));
             sesJoueurs->push_back(new Joueur(bloqueur, (*AucuneCompetence), 4, 4, 2, 9, "Globrotta Casse'Main", 2 , 3, sonCote));
             sesJoueurs->push_back(new Joueur(bloqueur, (*AucuneCompetence), 4, 4, 2, 9, "Ulgrot Mange'Coeur", 2 , 3, sonCote));
             sesJoueurs->push_back(new Joueur(bloqueur, (*AucuneCompetence), 4, 4, 2, 9, "Ugluk Mange'tete", 2 , 3, sonCote));
