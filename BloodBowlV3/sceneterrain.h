@@ -7,10 +7,11 @@
 
 class SceneTerrain : public QTableView
 {
+    QStandardItemModel* sonModele;
 public:
     SceneTerrain(int nLignes, int nColonnes, QStandardItemModel* unModele);
-    ~SceneTerrain();
-    void adapterPage();
+    void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight);
+    void currentChanged(const QModelIndex &current, const QModelIndex &previous);
 };
 
 #endif // SCENETERRAIN_H

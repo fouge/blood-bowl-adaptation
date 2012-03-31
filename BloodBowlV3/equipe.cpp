@@ -4,8 +4,7 @@
 Equipe::Equipe(race uneRace, int uneComposition, bool cote, QStandardItemModel* unModele):saRace(uneRace), sonCote(cote)
 {
 
-    Joueur* lArbitre = new Joueur(unModele);
-
+    Joueur* leJoueurModele = new Joueur(unModele);
 //competences :
 //esquive, reception, dexterite, passe, blocage, perso,
 //cerveaulent, chataigne, crane, epais, lancercoequipier,

@@ -9,8 +9,6 @@ Match::Match(race raceEquipe1, int noEquipe1, race raceEquipe2, int noEquipe2):q
     //Creation du terrain :
     sonTableauCases = new QStandardItemModel(15, 28);
 
-
-
     Equipe * Equipe1 = new Equipe(raceEquipe1, noEquipe1, true, sonTableauCases);
     Equipe * Equipe2 = new Equipe(raceEquipe2, noEquipe2, false, sonTableauCases);
 

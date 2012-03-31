@@ -3,17 +3,13 @@
 
 #include "match.h"
 
-class Case;
 class Match;
 
 class Ballon
 {
-    Case* saCase;
     Match* sonMatch;
 public:
-    Ballon(Case*, Match*);
-    void rebondirBallon();
-    void setCase(Case* uneCase);
+    Ballon(Match*);
 };
 
 #endif // BALLON_H

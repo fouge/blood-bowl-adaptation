@@ -1,98 +1,92 @@
 #include "joueur.h"
-
+#include <iostream>
 
 QStandardItemModel* Joueur::leTerrain = 0;
 
-Joueur::Joueur(QStandardItemModel * unTerrain)
+
+Joueur::Joueur(QStandardItemModel *unModele)
 {
-    leTerrain = unTerrain;
+    leTerrain = unModele;
 }
 
 Joueur::Joueur(typeJ unType, std::vector<competences> desCompetences, int desMouvements, int uneForce,
                int uneAgilite, int uneArmure, std::string unNom, int unY, int unX,
                bool unCote)
-    : QStandardItem(), sonType(unType), sesCompetences(desCompetences),sesMouvements(desMouvements),
+    : sonType(unType), sesCompetences(desCompetences),sesMouvements(desMouvements),
       saForce(uneForce), sonAgilite(uneAgilite), sonArmure(uneArmure), sonNom(unNom), sonX(unX), sonY(unY), sonEtat(debout),
     actionEffectue(false), sonCote(unCote)
 {
 
-    // enum type{blitzeur, troisquarts, receveur, passeur, ogre, gobelin, bloqueur, troll};
+    sonItem = new QStandardItem();
 
-    // associer le pixmap en fonction du coté
     if(unCote)
     {
         switch(sonType)
        {
         case blitzeur:
-        {   QPixmap* unQPixmap = new QPixmap("images/joueurs/blitzeur1.png");
-            this->setIcon(QIcon(*unQPixmap));
+        {
+            sonItem->setData(QVariant(QPixmap("images/joueurs/blitzeur1.png")), 1) ;
             break;}
         case troisquarts :
-        {   QPixmap* unQPixmap = new QPixmap("images/joueurs/troisquart1.png");
-            this->setIcon(QIcon(*unQPixmap));
+        {
+            sonItem->setData(QVariant(QPixmap("images/joueurs/troisquart1.png")), 1) ;
             break;}
         case receveur:
-           { QPixmap* unQPixmap = new QPixmap("images/joueurs/receveur1.png");
-            this->setIcon(QIcon(*unQPixmap));
+           {
+            sonItem->setData(QVariant(QPixmap("images/joueurs/receveur1.png")), 1) ;
             break;}
         case passeur:
-           { QPixmap* unQPixmap = new QPixmap("images/joueurs/passeur1.png");
-            this->setIcon(QIcon(*unQPixmap));
+           {
+            sonItem->setData(QVariant(QPixmap("images/joueurs/passeur1.png")), 1) ;
             break;}
         case ogre:
-           { QPixmap* unQPixmap = new QPixmap("images/joueurs/ogre1.png");
-            this->setIcon(QIcon(*unQPixmap));
+           {
+            sonItem->setData(QVariant(QPixmap("images/joueurs/ogre1.png")), 1) ;
             break;}
         case gobelin:
-           { QPixmap* unQPixmap = new QPixmap("images/joueurs/gobelin1.png");
-            this->setIcon(QIcon(*unQPixmap));
+           {
+            sonItem->setData(QVariant(QPixmap("images/joueurs/gobelin1.png")), 1) ;
             break;}
         case bloqueur:
-           { QPixmap* unQPixmap = new QPixmap("images/joueurs/bloqueur1.png");
-            this->setIcon(QIcon(*unQPixmap));
+           {
+            sonItem->setData(QVariant(QPixmap("images/joueurs/bloqueur1.png")), 1) ;
             break;}
         case troll:
-           { QPixmap* unQPixmap = new QPixmap("images/joueurs/troll1.png");
-            this->setIcon(QIcon(*unQPixmap));
+           {
+            sonItem->setData(QVariant(QPixmap("images/joueurs/troll1.png")), 1) ;
             break;}
         default: ;
         }
     }
+
+
     else
-    {
+      {
         switch(sonType)
        {
         case blitzeur:
-           { QPixmap* unQPixmap = new QPixmap("images/joueurs/blitzeur2.png");
-            this->setIcon(QIcon(*unQPixmap));
+           { sonItem->setData(QVariant(QPixmap("images/joueurs/blitzeur2.png")), 1) ;
             break;}
         case troisquarts :
-           { QPixmap* unQPixmap = new QPixmap("images/joueurs/troisquart2.png");
-            this->setIcon(QIcon(*unQPixmap));
+           { sonItem->setData(QVariant(QPixmap("images/joueurs/troisquart2.png")), 1) ;
             break;}
         case receveur:
-           { QPixmap* unQPixmap = new QPixmap("images/joueurs/receveur2.png");
-            this->setIcon(QIcon(*unQPixmap));
+           { sonItem->setData(QVariant(QPixmap("images/joueurs/receveur2.png")), 1) ;
             break;}
         case passeur:
-           { QPixmap* unQPixmap = new QPixmap("images/joueurs/passeur2.png");
-            this->setIcon(QIcon(*unQPixmap));
+           { sonItem->setData(QVariant(QPixmap("images/joueurs/passeur2.png")), 1) ;
             break;}
         case ogre:
-           { QPixmap* unQPixmap = new QPixmap("images/joueurs/ogre2.png");
-            this->setIcon(QIcon(*unQPixmap));
+           { sonItem->setData(QVariant(QPixmap("images/joueurs/ogre2.png")), 1) ;
             break;}
         case gobelin:
-           { QPixmap* unQPixmap = new QPixmap("images/joueurs/gobelin2.png");
-            this->setIcon(QIcon(*unQPixmap));
+           { sonItem->setData(QVariant(QPixmap("images/joueurs/gobelin2.png")), 1) ;
             break;}
         case bloqueur:
-           { QPixmap* unQPixmap = new QPixmap("images/joueurs/bloqueur2.png");
-            this->setIcon(QIcon(*unQPixmap));
+           { sonItem->setData(QVariant(QPixmap("images/joueurs/bloqueur2.png")), 1) ;
             break;}
         case troll:
-           { QPixmap* unQPixmap = new QPixmap("images/joueurs/troll2.png");
-            this->setIcon(QIcon(*unQPixmap));
+           { sonItem->setData(QVariant(QPixmap("images/joueurs/troll2.png")), 1) ;
             break;}
         default: ;
         }
@@ -103,13 +97,19 @@ Joueur::Joueur(typeJ unType, std::vector<competences> desCompetences, int desMou
     // ajouter au modele dans la bonne case grace à sonX, sonY et en fonction du coté !
     if(unCote)
     {
-        leTerrain->setItem(sonX-1, sonY-1, this);
+        sonItem->setData(QVariant(sonCote), 33);
+        leTerrain->setItem(sonX - 1, sonY -1, sonItem);
     }
     else
     {
-        leTerrain->setItem(15-sonX, 28-sonY, this);
+        QVariant yo = QVariant(sonCote);
+        sonItem->setData(QVariant(sonCote), 33);
+        if(!yo.toBool())
+        {
+            std::cout<<"joueur créé"<<std::endl;
+        }
+        leTerrain->setItem(15-sonX, 28-sonY, sonItem);
     }
-
 
 }
 
@@ -138,7 +138,6 @@ int Joueur::getAgilite()
     return sonAgilite;
 }
 
-
 int Joueur::getArmure()
 {
     return sonArmure;
@@ -147,4 +146,13 @@ int Joueur::getArmure()
 bool Joueur::getCote()
 {
     return sonCote;
+}
+std::string Joueur::getNom()
+{
+    return sonNom;
+}
+
+int Joueur::type() const
+{
+    return 1000;
 }

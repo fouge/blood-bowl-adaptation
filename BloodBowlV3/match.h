@@ -1,10 +1,10 @@
 #ifndef MATCH_H
 #define MATCH_H
 
-#include <QStandardItemModel>
 #include <vector>
 #include "enum.h"
 #include "equipe.h"
+#include <QStandardItemModel>
 
 class Match
 {
