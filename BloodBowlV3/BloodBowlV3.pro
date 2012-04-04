@@ -27,10 +27,13 @@ HEADERS  += fenetreprincipale.h \
     joueur.h \
     equipe.h \
     tablemodel.h
+#------------------------------------------------
+#A faire :
+#------------------------------------------------
 
+# -> Joueur::updateAttributs() a mettre à jour car ne fonctionne pas
 
-
-
+# -> Empecher que le deuxieme clique sur un joueur affiche ses deplacements
 
 
 

@@ -10,13 +10,12 @@ Joueur::Joueur(TableModel *unModele)
 }
 
 Joueur::Joueur(typeJ unType, std::vector<competences> desCompetences, int desMouvements, int uneForce,
-               int uneAgilite, int uneArmure, std::string unNom, int unY, int unX,
+               int uneAgilite, int uneArmure, QString unNom, int unY, int unX,
                bool unCote)
     : sonType(unType), sesCompetences(desCompetences),sesMouvements(desMouvements),
       saForce(uneForce), sonAgilite(uneAgilite), sonArmure(uneArmure), sonNom(unNom), sonX(unX), sonY(unY), sonEtat(debout),
     actionEffectue(false), sonCote(unCote)
 {
-
     sonItem = new QStandardItem();
 
     if(unCote)
@@ -102,15 +101,30 @@ Joueur::Joueur(typeJ unType, std::vector<competences> desCompetences, int desMou
     }
     else
     {
-        QVariant yo = QVariant(sonCote);
         sonItem->setData(QVariant(sonCote), 33);
-        if(!yo.toBool())
-        {
-            std::cout<<"joueur créé"<<std::endl;
-        }
         leTerrain->setItem(15-sonX, 28-sonY, sonItem);
     }
 
+
+    sonItem->setData(QVariant(QBrush(QColor(110,210,50))), Qt::BackgroundRole);
+    sonItem->setData(QVariant(actionEffectue),34);
+    sonItem->setData(QVariant(sesMouvements),35);
+    sonItem->setData(QVariant(saForce),36);
+    sonItem->setData(QVariant(sonAgilite),37);
+    sonItem->setData(QVariant(sonArmure),38);
+    sonItem->setData(QVariant(sonId),39);
+    sonItem->setData(QVariant(sonX),40);
+    sonItem->setData(QVariant(sonY),41);
+    sonItem->setData(QVariant(sonNom),42);
+    sonItem->setData(QVariant(sonEtat),43);
+    sonItem->setData(QVariant(sonType),44);
+    sonItem->setData(QVariant(true),45);
+    std::vector<competences>::iterator it;
+    int valeurRole = 60;
+    for(it = sesCompetences.begin(); it != sesCompetences.end(); it++, valeurRole++)
+    {
+    sonItem->setData(QVariant((*it)), valeurRole);
+    }
 }
 
 
@@ -147,12 +161,18 @@ bool Joueur::getCote()
 {
     return sonCote;
 }
-std::string Joueur::getNom()
+QString Joueur::getNom()
 {
     return sonNom;
 }
 
-int Joueur::type() const
+void Joueur::updateAttributs()
 {
-    return 1000;
+   actionEffectue=(sonItem->data(34)).toBool();
+   sesMouvements=(sonItem->data(35)).toInt();
+   sonX=(sonItem->data(40)).toInt();
+   sonY=(sonItem->data(41)).toInt();
+   //Si il y a un soucis, ça vient de là!!
+   //sonEtat=(sonItem->data(43)).value();
 }
+

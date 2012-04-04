@@ -483,6 +483,7 @@ void FenetrePrincipale::fenetreMatch(race raceEquipeJ1, int indexEquipeJ1, race 
     layoutGrille->addLayout(terrainLayout, 1, 1);
 }
 
+
 //void FenetrePrincipale::rechargerFenetre();
 //{
 //delete sonTerrain;

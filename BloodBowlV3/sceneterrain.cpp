@@ -5,7 +5,7 @@
 #include <cstdio>
 #include <iostream>
 
-SceneTerrain::SceneTerrain(int nLignes, int nColonnes, TableModel* unModele):QTableView(), sonModele(unModele)
+SceneTerrain::SceneTerrain(int nLignes, int nColonnes, TableModel* unModele):QTableView(), sonModele(unModele), joueurSelectionne(false)
 {
     setModel(sonModele);
 
@@ -35,21 +35,77 @@ void SceneTerrain::dataChanged(const QModelIndex &topLeft, const QModelIndex &bo
 
 void SceneTerrain::currentChanged(const QModelIndex &current, const QModelIndex &previous)
 {
-    // coordonnées de QModelindex de base : 0,0
-    // faire +1
-    std::cout<<"colonne:"<<current.column()+1<<std::endl;
-    std::cout<<"ligne:"<< current.row()+1<<std::endl;
 
-    if(sonModele->item(current.row(), current.column())->data(33).toBool())
+    std::vector<QStandardItem*>* lesMouvementsPossibles = afficheMouvements(sonModele->item(current.row(), current.column()));
+
+    if(sonModele->item(current.row(), current.column())->data(45).toBool())
     {
-        std::cout<<"Equipe bleue"<<std::endl;
+        joueurSelectionne = true;
     }
     else
     {
-       std::cout<<"Equipe rouge"<<std::endl;
+        joueurSelectionne = false;
     }
 
-    if(previous.isValid())
-    sonModele->switchItems(sonModele->item(previous.row(), previous.column()), sonModele->item(current.row(), current.column()));
+    //Affichage :
+    if(joueurSelectionne)
+    {
+        std::vector<QStandardItem*>::iterator leIt;
+        for(leIt = lesMouvementsPossibles->begin(); leIt != lesMouvementsPossibles->end(); leIt++)
+            {
+            (*leIt)->setData(QVariant(QBrush(QColor(120, 50, 170))), Qt::BackgroundRole);
+            }
+    }
+    if(!joueurSelectionne || sonModele->item(previous.row(),previous.column())->data(35).toBool() != sonModele->item(current.row(),current.column())->data(35).toBool())
+    {
+        for(int i(0); i<15; i++)
+        {
+            for(int j(0); j<28; j++)
+            {
+                sonModele->item(i,j)->setData(QVariant(QBrush(QColor(110,210,50))), Qt::BackgroundRole);
+            }
+        }
+    }
+
+
+
+    //Deplacement :
+    if(previous.isValid() && sonModele->item(previous.row(), previous.column())->data(45).toBool() && !joueurSelectionne)
+    {
+        bool deplacementPossible(false);
+        std::vector<QStandardItem*>::iterator leIt;
+        for(leIt = lesMouvementsPossibles->begin(); leIt != lesMouvementsPossibles->end(); leIt++)
+        {
+            if((*leIt) == sonModele->item(current.row(), current.column()))
+            {
+              deplacementPossible = true;
+            }
+        }
+
+        if(deplacementPossible)
+        {
+        sonModele->switchItems(sonModele->item(previous.row(), previous.column()), sonModele->item(current.row(), current.column()));
+        }
+    }
 }
+
+std::vector<QStandardItem*>* SceneTerrain::afficheMouvements(QStandardItem *unItem)
+{
+    int rayon = unItem->data(35).toInt();
+    int x = unItem->row();
+    int y = unItem->column();
+    std::vector<QStandardItem*>* lesItems = new std::vector<QStandardItem*>();
+    for(int i(0); i<15; i++)
+    {
+        for(int j(0); j<28; j++)
+        {
+            if(rayon*rayon >= (x-i)*(x-i) + (y-j)*(y-j))
+            {
+                lesItems->push_back(sonModele->item(i,j));
+            }
+        }
+    }
+    return lesItems;
+}
+
 

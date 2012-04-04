@@ -14,6 +14,8 @@ Match::Match(race raceEquipe1, int noEquipe1, race raceEquipe2, int noEquipe2):q
         for (int j(0); j<28; j++)
         {
             sonTableauCases->setItem(i, j, new QStandardItem());
+            sonTableauCases->item(i,j)->setData(QVariant(QBrush(QColor(110,210,50))), Qt::BackgroundRole);
+            sonTableauCases->item(i,j)->setData(QVariant(false), 46);
         }
     }
 
