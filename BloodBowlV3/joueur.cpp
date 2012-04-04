@@ -1,10 +1,10 @@
 #include "joueur.h"
 #include <iostream>
 
-QStandardItemModel* Joueur::leTerrain = 0;
+TableModel* Joueur::leTerrain = 0;
 
 
-Joueur::Joueur(QStandardItemModel *unModele)
+Joueur::Joueur(TableModel *unModele)
 {
     leTerrain = unModele;
 }
@@ -25,35 +25,35 @@ Joueur::Joueur(typeJ unType, std::vector<competences> desCompetences, int desMou
        {
         case blitzeur:
         {
-            sonItem->setData(QVariant(QPixmap("images/joueurs/blitzeur1.png")), 1) ;
+            sonItem->setData(QVariant(QIcon("images/joueurs/blitzeur1.png")), 1) ;
             break;}
         case troisquarts :
         {
-            sonItem->setData(QVariant(QPixmap("images/joueurs/troisquart1.png")), 1) ;
+            sonItem->setData(QVariant(QIcon("images/joueurs/troisquart1.png")), 1) ;
             break;}
         case receveur:
            {
-            sonItem->setData(QVariant(QPixmap("images/joueurs/receveur1.png")), 1) ;
+            sonItem->setData(QVariant(QIcon("images/joueurs/receveur1.png")), 1) ;
             break;}
         case passeur:
            {
-            sonItem->setData(QVariant(QPixmap("images/joueurs/passeur1.png")), 1) ;
+            sonItem->setData(QVariant(QIcon("images/joueurs/passeur1.png")), 1) ;
             break;}
         case ogre:
            {
-            sonItem->setData(QVariant(QPixmap("images/joueurs/ogre1.png")), 1) ;
+            sonItem->setData(QVariant(QIcon("images/joueurs/ogre1.png")), 1) ;
             break;}
         case gobelin:
            {
-            sonItem->setData(QVariant(QPixmap("images/joueurs/gobelin1.png")), 1) ;
+            sonItem->setData(QVariant(QIcon("images/joueurs/gobelin1.png")), 1) ;
             break;}
         case bloqueur:
            {
-            sonItem->setData(QVariant(QPixmap("images/joueurs/bloqueur1.png")), 1) ;
+            sonItem->setData(QVariant(QIcon("images/joueurs/bloqueur1.png")), 1) ;
             break;}
         case troll:
            {
-            sonItem->setData(QVariant(QPixmap("images/joueurs/troll1.png")), 1) ;
+            sonItem->setData(QVariant(QIcon("images/joueurs/troll1.png")), 1) ;
             break;}
         default: ;
         }
@@ -65,28 +65,28 @@ Joueur::Joueur(typeJ unType, std::vector<competences> desCompetences, int desMou
         switch(sonType)
        {
         case blitzeur:
-           { sonItem->setData(QVariant(QPixmap("images/joueurs/blitzeur2.png")), 1) ;
+           { sonItem->setData(QVariant(QIcon("images/joueurs/blitzeur2.png")), 1) ;
             break;}
         case troisquarts :
-           { sonItem->setData(QVariant(QPixmap("images/joueurs/troisquart2.png")), 1) ;
+           { sonItem->setData(QVariant(QIcon("images/joueurs/troisquart2.png")), 1) ;
             break;}
         case receveur:
-           { sonItem->setData(QVariant(QPixmap("images/joueurs/receveur2.png")), 1) ;
+           { sonItem->setData(QVariant(QIcon("images/joueurs/receveur2.png")), 1) ;
             break;}
         case passeur:
-           { sonItem->setData(QVariant(QPixmap("images/joueurs/passeur2.png")), 1) ;
+           { sonItem->setData(QVariant(QIcon("images/joueurs/passeur2.png")), 1) ;
             break;}
         case ogre:
-           { sonItem->setData(QVariant(QPixmap("images/joueurs/ogre2.png")), 1) ;
+           { sonItem->setData(QVariant(QIcon("images/joueurs/ogre2.png")), 1) ;
             break;}
         case gobelin:
-           { sonItem->setData(QVariant(QPixmap("images/joueurs/gobelin2.png")), 1) ;
+           { sonItem->setData(QVariant(QIcon("images/joueurs/gobelin2.png")), 1) ;
             break;}
         case bloqueur:
-           { sonItem->setData(QVariant(QPixmap("images/joueurs/bloqueur2.png")), 1) ;
+           { sonItem->setData(QVariant(QIcon("images/joueurs/bloqueur2.png")), 1) ;
             break;}
         case troll:
-           { sonItem->setData(QVariant(QPixmap("images/joueurs/troll2.png")), 1) ;
+           { sonItem->setData(QVariant(QIcon("images/joueurs/troll2.png")), 1) ;
             break;}
         default: ;
         }

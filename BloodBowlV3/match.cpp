@@ -7,7 +7,16 @@
 Match::Match(race raceEquipe1, int noEquipe1, race raceEquipe2, int noEquipe2):quiJoue(joueur1), sesTours(16)
 {
     //Creation du terrain :
-    sonTableauCases = new QStandardItemModel(15, 28);
+    sonTableauCases = new TableModel(15, 28);
+
+    for(int i(0); i<15; i++)
+    {
+        for (int j(0); j<28; j++)
+        {
+            sonTableauCases->setItem(i, j, new QStandardItem());
+        }
+    }
+
 
     Equipe * Equipe1 = new Equipe(raceEquipe1, noEquipe1, true, sonTableauCases);
     Equipe * Equipe2 = new Equipe(raceEquipe2, noEquipe2, false, sonTableauCases);
@@ -19,7 +28,7 @@ int Match::lancer1D6() //donne un chiffre aléatoire entre 1 et 6
     return rand() % 6 + 1;
 }
 
-QStandardItemModel* Match::getModel()
+TableModel* Match::getModel()
 {
     return sonTableauCases;
 }

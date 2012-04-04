@@ -1,6 +1,6 @@
 #include "fenetreprincipale.h"
 
-#include <QStandardItemModel>
+#include "tablemodel.h"
 
 FenetrePrincipale::FenetrePrincipale()
 {

@@ -14,7 +14,7 @@ class Equipe
     std::vector<Joueur*>* sesJoueurs;
     bool sonCote;
 public:
-    Equipe(race, int, bool, QStandardItemModel*);
+    Equipe(race, int, bool, TableModel*);
 };
 
 #endif // EQUIPE_H

@@ -3,9 +3,9 @@
 
 #include <vector>
 #include <string>
-#include <QStandardItem>
+#include "tablemodel.h"
 #include "enum.h"
-#include <QStandardItemModel>
+
 
 
 class Joueur
@@ -17,9 +17,9 @@ class Joueur
     etat sonEtat;
     typeJ sonType;
     bool actionEffectue, sonCote;
-    static QStandardItemModel* leTerrain;
+    static TableModel* leTerrain;
 public:
-    Joueur(QStandardItemModel*);
+    Joueur(TableModel*);
     Joueur(typeJ, std::vector<competences> desCompetences, int desMouvements, int uneForce,
            int uneAgilite, int uneArmure, std::string unNom, int unX, int unY, bool unCote);
 
@@ -28,7 +28,7 @@ public:
     int getMouvements(), getForce(), getAgilite(), getArmure();
     bool getCote();
     std::string getNom();
-    void setLeTerrain(QStandardItemModel*);
+    void setLeTerrain(TableModel*);
     int type() const;
 
 };

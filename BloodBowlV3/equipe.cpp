@@ -1,7 +1,7 @@
 #include "equipe.h"
 #include "joueur.h"
 
-Equipe::Equipe(race uneRace, int uneComposition, bool cote, QStandardItemModel* unModele):saRace(uneRace), sonCote(cote)
+Equipe::Equipe(race uneRace, int uneComposition, bool cote, TableModel* unModele):saRace(uneRace), sonCote(cote)
 {
 
     Joueur* leJoueurModele = new Joueur(unModele);

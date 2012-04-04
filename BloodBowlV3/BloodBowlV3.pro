@@ -16,7 +16,8 @@ SOURCES += main.cpp\
     sceneterrain.cpp \
     ballon.cpp \
     joueur.cpp \
-    equipe.cpp
+    equipe.cpp \
+    tablemodel.cpp
 
 HEADERS  += fenetreprincipale.h \
     match.h \
@@ -24,7 +25,10 @@ HEADERS  += fenetreprincipale.h \
     sceneterrain.h \
     ballon.h \
     joueur.h \
-    equipe.h
+    equipe.h \
+    tablemodel.h
+
+
 
 
 

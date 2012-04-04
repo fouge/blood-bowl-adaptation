@@ -3,13 +3,13 @@
 
 #include <QGraphicsScene>
 #include <QTableView>
-#include <QStandardItemModel>
+#include "tablemodel.h"
 
 class SceneTerrain : public QTableView
 {
-    QStandardItemModel* sonModele;
+    TableModel* sonModele;
 public:
-    SceneTerrain(int nLignes, int nColonnes, QStandardItemModel* unModele);
+    SceneTerrain(int nLignes, int nColonnes, TableModel* unModele);
     void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight);
     void currentChanged(const QModelIndex &current, const QModelIndex &previous);
 };

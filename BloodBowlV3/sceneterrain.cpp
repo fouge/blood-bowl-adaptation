@@ -1,11 +1,11 @@
 #include "sceneterrain.h"
 #include <QHeaderView>
-#include <QStandardItem>
+#include "tablemodel.h"
 #include "joueur.h"
 #include <cstdio>
 #include <iostream>
 
-SceneTerrain::SceneTerrain(int nLignes, int nColonnes, QStandardItemModel* unModele):QTableView(), sonModele(unModele)
+SceneTerrain::SceneTerrain(int nLignes, int nColonnes, TableModel* unModele):QTableView(), sonModele(unModele)
 {
     setModel(sonModele);
 
@@ -49,4 +49,7 @@ void SceneTerrain::currentChanged(const QModelIndex &current, const QModelIndex 
        std::cout<<"Equipe rouge"<<std::endl;
     }
 
+    if(previous.isValid())
+    sonModele->switchItems(sonModele->item(previous.row(), previous.column()), sonModele->item(current.row(), current.column()));
 }
+
