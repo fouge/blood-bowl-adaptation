@@ -490,15 +490,45 @@ void FenetrePrincipale::updatePanneauJoueur(int action, QStandardItem *leJoueur)
 
     case 0:
         mouvementJ1Chiffre->setText(QString::number(leJoueur->data(35).toInt()));
+        forceJ1Chiffre->setText(QString::number(leJoueur->data(36).toInt()));
+        agiliteJ1Chiffre->setText(QString::number(leJoueur->data(37).toInt()));
+        armureJ1Chiffre->setText(QString::number(leJoueur->data(38).toInt()));
+        nomJ1Texte->setText(leJoueur->data(42).toString());
+        switch(leJoueur->data(44).toInt())
+        {
+        case 0:
+            posteJ1Texte->setText(QString("Blitzeur"));
+            break;
+        case 1:
+            posteJ1Texte->setText(QString("Trois-Quarts"));
+            break;
+        case 2:
+            posteJ1Texte->setText(QString("Receveur"));
+            break;
+        case 3:
+            posteJ1Texte->setText(QString("Passeur"));
+            break;
+        case 4:
+            posteJ1Texte->setText(QString("Ogre"));
+            break;
+        case 5:
+            posteJ1Texte->setText(QString("Gobelin"));
+            break;
+        case 6:
+            posteJ1Texte->setText(QString("Bloqueur"));
+            break;
+        case 7:
+            posteJ1Texte->setText(QString("Troll"));
+            break;
+        default : posteJ1Texte->setText(QString("Libéro..."));
+        }
+
         break;
 
     // 1 : coté droit : équipe rouge
     case 1:
         break;
 
-    // 2 : mise à jour du score
-    case 2:
-        break;
     default: ;
     }
 }

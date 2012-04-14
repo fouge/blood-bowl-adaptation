@@ -1,7 +1,5 @@
 #include "tablemodel.h"
 
-
-
 TableModel::TableModel(int rows, int columns): QStandardItemModel(rows, columns)
 {
 
