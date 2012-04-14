@@ -469,14 +469,12 @@ void FenetrePrincipale::fenetreMatch(race raceEquipeJ1, int indexEquipeJ1, race 
 
     leMatch = new Match(raceEquipeJ1,indexEquipeJ1,raceEquipeJ2,indexEquipeJ2);
 
-    sonTerrain = new SceneTerrain(15, 28, leMatch->getModel());
+    sonTerrain = new SceneTerrain(15, 28, leMatch->getModel(), this);
 
 
     layoutGrille->setSizeConstraint(QLayout::SetMinimumSize);
     QGridLayout * terrainLayout = new QGridLayout(this);
     terrainLayout->addWidget(sonTerrain);
-
-
     layoutGrille->addLayout(panneauJ1,0,0,2,1);
     layoutGrille->addLayout(panneauJ2,0,4,2,1);
     layoutGrille->addLayout(barreSuperieure,0,1);
@@ -484,13 +482,26 @@ void FenetrePrincipale::fenetreMatch(race raceEquipeJ1, int indexEquipeJ1, race 
 }
 
 
-//void FenetrePrincipale::rechargerFenetre();
-//{
-//delete sonTerrain;
-//on refait le terrain
-// on réaffiche tout
+void FenetrePrincipale::updatePanneauJoueur(int action, QStandardItem *leJoueur)
+{
+    switch(action)
+    {
+    // 0 : coté gauche : équipe bleue
 
-//}
+    case 0:
+        mouvementJ1Chiffre->setText(QString::number(leJoueur->data(35).toInt()));
+        break;
+
+    // 1 : coté droit : équipe rouge
+    case 1:
+        break;
+
+    // 2 : mise à jour du score
+    case 2:
+        break;
+    default: ;
+    }
+}
 
 
 

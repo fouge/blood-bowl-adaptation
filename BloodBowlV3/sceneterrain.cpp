@@ -5,7 +5,8 @@
 #include <cstdio>
 #include <iostream>
 
-SceneTerrain::SceneTerrain(int nLignes, int nColonnes, TableModel* unModele):QTableView(), sonModele(unModele), joueurSelectionne(false)
+
+SceneTerrain::SceneTerrain(int nLignes, int nColonnes, TableModel* unModele, FenetrePrincipale* parent):QTableView(), sonModele(unModele), joueurSelectionne(false), sonParent(parent)
 {
     setModel(sonModele);
 
@@ -36,6 +37,24 @@ void SceneTerrain::dataChanged(const QModelIndex &topLeft, const QModelIndex &bo
 void SceneTerrain::currentChanged(const QModelIndex &current, const QModelIndex &previous)
 {
 
+    if(current.isValid())
+    {
+    // son coté = 0 et current est joueur
+    // modification tableau affichage
+        if((sonModele->item(current.row(), current.column())->data(45).toBool()) && sonModele->item(current.row(), current.column())->data(33).toBool())
+        {
+            sonParent->updatePanneauJoueur(0,sonModele->item(current.row(), current.column()));
+        }
+
+
+    //son coté = 1 :
+    //modification tableau affichage
+        if(sonModele->item(current.row(), current.column())->data(45).toBool() && !(sonModele->item(current.row(), current.column())->data(33).toBool()))
+        {
+
+        }
+
+
     std::vector<QStandardItem*>* lesMouvementsPossibles = afficheMouvements(sonModele->item(current.row(), current.column()));
 
     if(sonModele->item(current.row(), current.column())->data(45).toBool())
@@ -56,7 +75,7 @@ void SceneTerrain::currentChanged(const QModelIndex &current, const QModelIndex 
             (*leIt)->setData(QVariant(QBrush(QColor(120, 50, 170))), Qt::BackgroundRole);
             }
     }
-    if(!joueurSelectionne || sonModele->item(previous.row(),previous.column())->data(35).toBool() != sonModele->item(current.row(),current.column())->data(35).toBool())
+    if(!joueurSelectionne)
     {
         for(int i(0); i<15; i++)
         {
@@ -86,6 +105,7 @@ void SceneTerrain::currentChanged(const QModelIndex &current, const QModelIndex 
         {
         sonModele->switchItems(sonModele->item(previous.row(), previous.column()), sonModele->item(current.row(), current.column()));
         }
+    }
     }
 }
 

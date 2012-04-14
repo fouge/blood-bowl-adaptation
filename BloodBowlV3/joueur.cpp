@@ -1,8 +1,21 @@
 #include "joueur.h"
 #include <iostream>
 
-TableModel* Joueur::leTerrain = 0;
+//#define jCote 33;
+//#define ACTIONEFFECTUE 34;
+//#define jMouvement 35;
+//#define jForce 36;
+//#define jAgilite 37;
+//#define jArmure 38;
+//#define jId 39;
+//#define jX 40;
+//#define jY 41;
+//#define jNom 42;
+//#define jEtat 43;
+//#define jType 44;
+//#define jEstJoueur 45;
 
+TableModel* Joueur::leTerrain = 0;
 
 Joueur::Joueur(TableModel *unModele)
 {
@@ -105,9 +118,8 @@ Joueur::Joueur(typeJ unType, std::vector<competences> desCompetences, int desMou
         leTerrain->setItem(15-sonX, 28-sonY, sonItem);
     }
 
-
     sonItem->setData(QVariant(QBrush(QColor(110,210,50))), Qt::BackgroundRole);
-    sonItem->setData(QVariant(actionEffectue),34);
+    sonItem->setData(QVariant(actionEffectue), 34);
     sonItem->setData(QVariant(sesMouvements),35);
     sonItem->setData(QVariant(saForce),36);
     sonItem->setData(QVariant(sonAgilite),37);

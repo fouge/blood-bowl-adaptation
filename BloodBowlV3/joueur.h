@@ -33,4 +33,5 @@ public:
     void updateAttributs();
 };
 
+
 #endif // JOUEUR_H

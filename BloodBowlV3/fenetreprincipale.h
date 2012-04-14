@@ -6,6 +6,8 @@
 #include "match.h"
 #include "sceneterrain.h"
 
+class SceneTerrain;
+
 class FenetrePrincipale : public QWidget
 {
     Q_OBJECT
@@ -44,6 +46,7 @@ public:
     FenetrePrincipale();
     void fenetreDemarrage();
     void fenetreMatch(race, int, race, int);
+    void updatePanneauJoueur(int action, QStandardItem* leJoueur);
 public slots:
     void fenetreSelectionEquipe();
     void changerEquipesJ1(int index);

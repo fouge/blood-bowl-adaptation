@@ -35,7 +35,7 @@ HEADERS  += fenetreprincipale.h \
 
 # -> Empecher que le deuxieme clique sur un joueur affiche ses deplacements
 
-
+# -> Mettre à jour FenetrePrincipale::updatePanneauJoueur()
 
 
 
