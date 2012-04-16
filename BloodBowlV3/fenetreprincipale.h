@@ -47,6 +47,8 @@ public:
     void fenetreDemarrage();
     void fenetreMatch(race, int, race, int);
     void updatePanneauJoueur(int action, QStandardItem* leJoueur);
+    void clearPanneauxJoueurs();
+
 public slots:
     void fenetreSelectionEquipe();
     void changerEquipesJ1(int index);

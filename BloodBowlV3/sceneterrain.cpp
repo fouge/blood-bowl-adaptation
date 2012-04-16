@@ -36,47 +36,49 @@ void SceneTerrain::dataChanged(const QModelIndex &topLeft, const QModelIndex &bo
 
 void SceneTerrain::currentChanged(const QModelIndex &current, const QModelIndex &previous)
 {
-
     if(current.isValid())
     {
-    // son coté = 0 et current est joueur
-    // modification tableau affichage
+    // current est joueur && joueur bleu :
+    // modification tableau affichage du joueur bleu
         if((sonModele->item(current.row(), current.column())->data(45).toBool()) && sonModele->item(current.row(), current.column())->data(33).toBool())
         {
             sonParent->updatePanneauJoueur(0,sonModele->item(current.row(), current.column()));
         }
 
-
-    //son coté = 1 :
-    //modification tableau affichage
+    // current joueur && joueur rouge :
+    //modification tableau affichage du joueur rouge
         if(sonModele->item(current.row(), current.column())->data(45).toBool() && !(sonModele->item(current.row(), current.column())->data(33).toBool()))
         {
+            sonParent->updatePanneauJoueur(1, sonModele->item(current.row(), current.column()));
+        }
 
+    //si current n'est pas joueur, on nettoie l'affichage des panneaux latéreaux :
+        if(!(sonModele->item(current.row(), current.column())->data(45).toBool()))
+        {
+            sonParent->clearPanneauxJoueurs();
         }
 
 
     std::vector<QStandardItem*>* lesMouvementsPossibles = afficheMouvements(sonModele->item(current.row(), current.column()));
 
-    if(sonModele->item(current.row(), current.column())->data(45).toBool())
+    // si pas joueur séléctionné, on supprime l'affichage mouvements :
+    if(!(sonModele->item(current.row(), current.column())->data(45).toBool()))
     {
-        joueurSelectionne = true;
+    for(int i(0); i<15; i++)
+    {
+        for(int j(0); j<28; j++)
+        {
+            sonModele->item(i,j)->setData(QVariant(QBrush(QColor(110,210,50))), Qt::BackgroundRole);
+        }
     }
-    else
-    {
-        joueurSelectionne = false;
     }
 
-    //Affichage :
-    if(joueurSelectionne)
+    // si previous est un joueur et current aussi :
+    if(previous.isValid() && sonModele->item(previous.row(), previous.column())->data(45).toBool() && sonModele->item(current.row(), current.column())->data(45).toBool())
     {
-        std::vector<QStandardItem*>::iterator leIt;
-        for(leIt = lesMouvementsPossibles->begin(); leIt != lesMouvementsPossibles->end(); leIt++)
-            {
-            (*leIt)->setData(QVariant(QBrush(QColor(120, 50, 170))), Qt::BackgroundRole);
-            }
-    }
-    if(!joueurSelectionne)
-    {
+        // on attaque :
+
+        // on actualise l'affichage :
         for(int i(0); i<15; i++)
         {
             for(int j(0); j<28; j++)
@@ -84,6 +86,16 @@ void SceneTerrain::currentChanged(const QModelIndex &current, const QModelIndex 
                 sonModele->item(i,j)->setData(QVariant(QBrush(QColor(110,210,50))), Qt::BackgroundRole);
             }
         }
+    }
+
+    // si previous n'est pas un joueur : on affiche les mouvements :
+    else if(previous.isValid() && sonModele->item(current.row(), current.column())->data(45).toBool() && !(sonModele->item(previous.row(), previous.column())->data(45).toBool()))
+    {
+        std::vector<QStandardItem*>::iterator leIt;
+        for(leIt = lesMouvementsPossibles->begin(); leIt != lesMouvementsPossibles->end(); leIt++)
+            {
+            (*leIt)->setData(QVariant(QBrush(QColor(120, 50, 170))), Qt::BackgroundRole);
+            }
     }
 
 

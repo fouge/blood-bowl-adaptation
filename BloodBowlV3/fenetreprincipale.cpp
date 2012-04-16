@@ -284,12 +284,12 @@ void FenetrePrincipale::fenetreMatch(race raceEquipeJ1, int indexEquipeJ1, race 
     armureJ1 = new QLabel("Armure :", this);
     nomJ1 = new QLabel("Nom : ", this);
     posteJ1 = new QLabel("Poste : ", this);
-    mouvementJ1Chiffre = new QLabel("0",this);
-    agiliteJ1Chiffre = new QLabel("0",this);
-    forceJ1Chiffre = new QLabel("0",this);
-    armureJ1Chiffre = new QLabel("0",this);
-    nomJ1Texte = new QLabel("",this);
-    posteJ1Texte = new QLabel("",this);
+    mouvementJ1Chiffre = new QLabel(this);
+    agiliteJ1Chiffre = new QLabel(this);
+    forceJ1Chiffre = new QLabel(this);
+    armureJ1Chiffre = new QLabel(this);
+    nomJ1Texte = new QLabel(this);
+    posteJ1Texte = new QLabel(this);
 
     //Instanciation contenu BoxJoueurJ2
     mouvementJ2 = new QLabel(": Mouvement", this);
@@ -298,12 +298,12 @@ void FenetrePrincipale::fenetreMatch(race raceEquipeJ1, int indexEquipeJ1, race 
     armureJ2 = new QLabel(": Armure", this);
     nomJ2 = new QLabel(": Nom", this);
     posteJ2 = new QLabel(": Poste", this);
-    mouvementJ2Chiffre = new QLabel("0",this);
-    agiliteJ2Chiffre = new QLabel("0",this);
-    forceJ2Chiffre = new QLabel("0",this);
-    armureJ2Chiffre = new QLabel("0",this);
-    nomJ2Texte = new QLabel("",this);
-    posteJ2Texte = new QLabel("",this);
+    mouvementJ2Chiffre = new QLabel(this);
+    agiliteJ2Chiffre = new QLabel(this);
+    forceJ2Chiffre = new QLabel(this);
+    armureJ2Chiffre = new QLabel(this);
+    nomJ2Texte = new QLabel(this);
+    posteJ2Texte = new QLabel(this);
 
     //
     //Initialisation de la barre superieure
@@ -525,14 +525,65 @@ void FenetrePrincipale::updatePanneauJoueur(int action, QStandardItem *leJoueur)
 
         break;
 
+
+        // si joueur rouge
     // 1 : coté droit : équipe rouge
     case 1:
-        break;
+        mouvementJ2Chiffre->setText(QString::number(leJoueur->data(35).toInt()));
+        forceJ2Chiffre->setText(QString::number(leJoueur->data(36).toInt()));
+        agiliteJ2Chiffre->setText(QString::number(leJoueur->data(37).toInt()));
+        armureJ2Chiffre->setText(QString::number(leJoueur->data(38).toInt()));
+        nomJ2Texte->setText(leJoueur->data(42).toString());
+
+        switch(leJoueur->data(44).toInt())
+        {
+        case 0:
+            posteJ2Texte->setText(QString("Blitzeur"));
+            break;
+        case 1:
+            posteJ2Texte->setText(QString("Trois-Quarts"));
+            break;
+        case 2:
+            posteJ2Texte->setText(QString("Receveur"));
+            break;
+        case 3:
+            posteJ2Texte->setText(QString("Passeur"));
+            break;
+        case 4:
+            posteJ2Texte->setText(QString("Ogre"));
+            break;
+        case 5:
+            posteJ2Texte->setText(QString("Gobelin"));
+            break;
+        case 6:
+            posteJ2Texte->setText(QString("Bloqueur"));
+            break;
+        case 7:
+            posteJ2Texte->setText(QString("Troll"));
+            break;
+        default : posteJ2Texte->setText(QString("Libéro..."));
+        }
 
     default: ;
     }
 }
 
+void FenetrePrincipale::clearPanneauxJoueurs()
+{
+    posteJ1Texte->clear();
+    mouvementJ1Chiffre->clear();
+    forceJ1Chiffre->clear();
+    agiliteJ1Chiffre->clear();
+    armureJ1Chiffre->clear();
+    nomJ1Texte->clear();
+
+    posteJ2Texte->clear();
+    mouvementJ2Chiffre->clear();
+    forceJ2Chiffre->clear();
+    agiliteJ2Chiffre->clear();
+    armureJ2Chiffre->clear();
+    nomJ2Texte->clear();
+}
 
 
 /*void FenetrePrincipale::afficheJoueurPanneau(Joueur* unJoueur)
