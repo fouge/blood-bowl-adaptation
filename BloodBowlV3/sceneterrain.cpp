@@ -6,7 +6,8 @@
 #include <iostream>
 
 
-SceneTerrain::SceneTerrain(int nLignes, int nColonnes, TableModel* unModele, FenetrePrincipale* parent):QTableView(), sonModele(unModele), joueurSelectionne(false), sonParent(parent)
+SceneTerrain::SceneTerrain(int nLignes, int nColonnes, TableModel* unModele, FenetrePrincipale* parent):QTableView(),
+    sonModele(unModele), joueurSelectionne(false), sonParent(parent), fClic(true), lesMouvementsPossibles(0)
 {
     setModel(sonModele);
 
@@ -36,89 +37,50 @@ void SceneTerrain::dataChanged(const QModelIndex &topLeft, const QModelIndex &bo
 
 void SceneTerrain::currentChanged(const QModelIndex &current, const QModelIndex &previous)
 {
-    if(current.isValid())
+    if(current.isValid() && previous.isValid() && fClic)
     {
-    // current est joueur && joueur bleu :
-    // modification tableau affichage du joueur bleu
-        if((sonModele->item(current.row(), current.column())->data(45).toBool()) && sonModele->item(current.row(), current.column())->data(33).toBool())
+        firstClic(current, previous);
+    }
+    else if(current.isValid() && previous.isValid() && !fClic)
+    {
+        secondClic(current, previous);
+    }
+    else if(!previous.isValid() && current.isValid())
+    {
+        if(sonModele->item(current.row(), current.column())->data(45).toBool())
         {
-            sonParent->updatePanneauJoueur(0,sonModele->item(current.row(), current.column()));
-        }
-
-    // current joueur && joueur rouge :
-    //modification tableau affichage du joueur rouge
-        if(sonModele->item(current.row(), current.column())->data(45).toBool() && !(sonModele->item(current.row(), current.column())->data(33).toBool()))
-        {
-            sonParent->updatePanneauJoueur(1, sonModele->item(current.row(), current.column()));
-        }
-
-    //si current n'est pas joueur, on nettoie l'affichage des panneaux latéreaux :
-        if(!(sonModele->item(current.row(), current.column())->data(45).toBool()))
-        {
+            //on nettoie l'affichage
             sonParent->clearPanneauxJoueurs();
-        }
-
-
-    std::vector<QStandardItem*>* lesMouvementsPossibles = afficheMouvements(sonModele->item(current.row(), current.column()));
-
-    // si pas joueur séléctionné, on supprime l'affichage mouvements :
-    if(!(sonModele->item(current.row(), current.column())->data(45).toBool()))
-    {
-    for(int i(0); i<15; i++)
-    {
-        for(int j(0); j<28; j++)
-        {
-            sonModele->item(i,j)->setData(QVariant(QBrush(QColor(110,210,50))), Qt::BackgroundRole);
-        }
-    }
-    }
-
-    // si previous est un joueur et current aussi :
-    if(previous.isValid() && sonModele->item(previous.row(), previous.column())->data(45).toBool() && sonModele->item(current.row(), current.column())->data(45).toBool())
-    {
-        // on attaque :
-
-        // on actualise l'affichage :
-        for(int i(0); i<15; i++)
-        {
-            for(int j(0); j<28; j++)
+            for(int i(0); i<15; i++)
             {
-                sonModele->item(i,j)->setData(QVariant(QBrush(QColor(110,210,50))), Qt::BackgroundRole);
+                for(int j(0); j<28; j++)
+                {
+                    sonModele->item(i,j)->setData(QVariant(QBrush(QColor(110,210,50))), Qt::BackgroundRole);
+                }
             }
-        }
-    }
 
-    // si previous n'est pas un joueur : on affiche les mouvements :
-    else if(previous.isValid() && sonModele->item(current.row(), current.column())->data(45).toBool() && !(sonModele->item(previous.row(), previous.column())->data(45).toBool()))
-    {
-        std::vector<QStandardItem*>::iterator leIt;
-        for(leIt = lesMouvementsPossibles->begin(); leIt != lesMouvementsPossibles->end(); leIt++)
+            // on affiche
+            if(sonModele->item(current.row(), current.column())->data(33).toBool())
             {
-            (*leIt)->setData(QVariant(QBrush(QColor(120, 50, 170))), Qt::BackgroundRole);
+                sonParent->updatePanneauJoueur(0,sonModele->item(current.row(), current.column()));
+                lesMouvementsPossibles = afficheMouvements(sonModele->item(current.row(), current.column()));
             }
-    }
-
-
-
-    //Deplacement :
-    if(previous.isValid() && sonModele->item(previous.row(), previous.column())->data(45).toBool() && !joueurSelectionne)
-    {
-        bool deplacementPossible(false);
-        std::vector<QStandardItem*>::iterator leIt;
-        for(leIt = lesMouvementsPossibles->begin(); leIt != lesMouvementsPossibles->end(); leIt++)
-        {
-            if((*leIt) == sonModele->item(current.row(), current.column()))
+            else
             {
-              deplacementPossible = true;
+                sonParent->updatePanneauJoueur(1, sonModele->item(current.row(), current.column()));
+                lesMouvementsPossibles = afficheMouvements(sonModele->item(current.row(), current.column()));
             }
-        }
 
-        if(deplacementPossible)
-        {
-        sonModele->switchItems(sonModele->item(previous.row(), previous.column()), sonModele->item(current.row(), current.column()));
+            std::vector<QStandardItem*>::iterator leIt;
+            for(leIt = lesMouvementsPossibles->begin(); leIt != lesMouvementsPossibles->end(); leIt++)
+                {
+                (*leIt)->setData(QVariant(QBrush(QColor(120, 50, 170))), Qt::BackgroundRole);
+                }
+
+            fClic = 0;
         }
     }
-    }
+
 }
 
 std::vector<QStandardItem*>* SceneTerrain::afficheMouvements(QStandardItem *unItem)
@@ -141,3 +103,119 @@ std::vector<QStandardItem*>* SceneTerrain::afficheMouvements(QStandardItem *unIt
 }
 
 
+
+void SceneTerrain::firstClic(const QModelIndex &current, const QModelIndex &previous)
+{
+
+    if(!sonModele->item(current.row(), current.column())->data(45).toBool() && !sonModele->item(previous.row(), previous.column())->data(45).toBool())
+    {
+        sonParent->clearPanneauxJoueurs();
+        for(int i(0); i<15; i++)
+        {
+            for(int j(0); j<28; j++)
+            {
+                sonModele->item(i,j)->setData(QVariant(QBrush(QColor(110,210,50))), Qt::BackgroundRole);
+            }
+        }
+
+        fClic = 1;
+    }
+
+
+    if((sonModele->item(current.row(), current.column())->data(45).toBool() && !sonModele->item(previous.row(), previous.column())->data(45).toBool() && !sonModele->item(current.row(), current.column())->data(33).toBool()) || (sonModele->item(previous.row(), previous.column())->data(33).toBool() && sonModele->item(current.row(), current.column())->data(45).toBool() && sonModele->item(current.row(), current.column())->data(33).toBool()) || (!sonModele->item(current.row(), current.column())->data(33).toBool() && sonModele->item(current.row(), current.column())->data(45).toBool() && (sonModele->item(current.row(), current.column())->data(33).toBool() != sonModele->item(previous.row(), previous.column())->data(45).toBool())) )
+    {
+        //on nettoie l'affichage
+        sonParent->clearPanneauxJoueurs();
+        for(int i(0); i<15; i++)
+        {
+            for(int j(0); j<28; j++)
+            {
+                sonModele->item(i,j)->setData(QVariant(QBrush(QColor(110,210,50))), Qt::BackgroundRole);
+            }
+        }
+
+
+
+        // on affiche
+        if(sonModele->item(current.row(), current.column())->data(33).toBool())
+        {
+            sonParent->updatePanneauJoueur(0,sonModele->item(current.row(), current.column()));
+            lesMouvementsPossibles = afficheMouvements(sonModele->item(current.row(), current.column()));
+        }
+        else
+        {
+            sonParent->updatePanneauJoueur(1, sonModele->item(current.row(), current.column()));
+            lesMouvementsPossibles = afficheMouvements(sonModele->item(current.row(), current.column()));
+        }
+
+        std::vector<QStandardItem*>::iterator leIt;
+        for(leIt = lesMouvementsPossibles->begin(); leIt != lesMouvementsPossibles->end(); leIt++)
+            {
+            (*leIt)->setData(QVariant(QBrush(QColor(120, 50, 170))), Qt::BackgroundRole);
+            }
+
+        fClic = 0;
+    }
+        else
+    {
+        secondClic(current, previous);
+    }
+}
+
+void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &previous)
+{
+    //si current n'est pas joueur, on nettoie l'affichage des panneaux latéreaux :
+        if(!(sonModele->item(current.row(), current.column())->data(45).toBool()))
+        {
+            sonParent->clearPanneauxJoueurs();
+            fClic = 1;
+        }
+
+
+        // si previous et current sont deux joueurs opposés :
+        if(previous.isValid() && sonModele->item(previous.row(), previous.column())->data(45).toBool() && sonModele->item(current.row(), current.column())->data(45).toBool() && sonModele->item(previous.row(), previous.column())->data(33).toBool() != sonModele->item(current.row(), current.column())->data(33).toBool())
+        {
+            // on attaque :
+            fClic = 1;
+        }
+
+        // si previous et current sont deux joueurs de la meme équipe :
+        if(previous.isValid() && sonModele->item(previous.row(), previous.column())->data(45).toBool() && sonModele->item(current.row(), current.column())->data(45).toBool() && sonModele->item(previous.row(), previous.column())->data(33).toBool() == sonModele->item(current.row(), current.column())->data(33).toBool())
+        {
+            firstClic(current, previous);
+        }
+
+
+
+        //Deplacement si previous est joueur et current est case
+        if(previous.isValid() && sonModele->item(previous.row(), previous.column())->data(45).toBool() && !joueurSelectionne)
+        {
+            bool deplacementPossible(false);
+            std::vector<QStandardItem*>::iterator leIt;
+            for(leIt = lesMouvementsPossibles->begin(); leIt != lesMouvementsPossibles->end(); leIt++)
+            {
+                if((*leIt) == sonModele->item(current.row(), current.column()))
+                {
+                  deplacementPossible = true;
+                }
+            }
+
+            if(deplacementPossible)
+            {
+            sonModele->switchItems(sonModele->item(previous.row(), previous.column()), sonModele->item(current.row(), current.column()));
+            }
+
+            fClic = 1;
+        }
+
+
+        // on actualise l'affichage :
+        for(int i(0); i<15; i++)
+        {
+            for(int j(0); j<28; j++)
+            {
+                sonModele->item(i,j)->setData(QVariant(QBrush(QColor(110,210,50))), Qt::BackgroundRole);
+            }
+        }
+
+}
