@@ -135,7 +135,6 @@ void SceneTerrain::firstClic(const QModelIndex &current, const QModelIndex &prev
         }
 
 
-
         // on affiche
         if(sonModele->item(current.row(), current.column())->data(33).toBool())
         {
