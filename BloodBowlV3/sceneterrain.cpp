@@ -37,6 +37,20 @@ void SceneTerrain::dataChanged(const QModelIndex &topLeft, const QModelIndex &bo
 
 void SceneTerrain::currentChanged(const QModelIndex &current, const QModelIndex &previous)
 {
+    if(current.isValid())
+    {
+        std::cout<<"current valide"<<std::endl;
+    }
+    else
+        std::cout<<"current non valide"<<std::endl;
+    if(previous.isValid())
+    {
+        std::cout<<"previous valide"<<std::endl;
+    }
+    else
+        std::cout<<"previous non valide"<<std::endl;
+
+
     if(current.isValid() && previous.isValid() && fClic)
     {
         firstClic(current, previous);
@@ -78,6 +92,16 @@ void SceneTerrain::currentChanged(const QModelIndex &current, const QModelIndex 
                 }
 
             fClic = 0;
+            std::cout<<"premier clic sur joueur"<<std::endl;
+        }
+        else
+        {
+            if(fClic)
+                std::cout<<"fCliv : vrai"<<std::endl;
+            else
+            {std::cout<<"fCliv : faux"<<std::endl;}
+
+        std::cout<<"premier clic sur terrain"<<std::endl;
         }
     }
 
@@ -121,9 +145,10 @@ void SceneTerrain::firstClic(const QModelIndex &current, const QModelIndex &prev
         fClic = 1;
     }
 
-
-    if((sonModele->item(current.row(), current.column())->data(45).toBool() && !sonModele->item(previous.row(), previous.column())->data(45).toBool() && !sonModele->item(current.row(), current.column())->data(33).toBool()) || (sonModele->item(previous.row(), previous.column())->data(33).toBool() && sonModele->item(current.row(), current.column())->data(45).toBool() && sonModele->item(current.row(), current.column())->data(33).toBool()) || (!sonModele->item(current.row(), current.column())->data(33).toBool() && sonModele->item(current.row(), current.column())->data(45).toBool() && (sonModele->item(current.row(), current.column())->data(33).toBool() != sonModele->item(previous.row(), previous.column())->data(45).toBool())) )
+    else if((!sonModele->item(previous.row(), previous.column())->data(45).toBool() && sonModele->item(current.row(), current.column())->data(45).toBool()) || (sonModele->item(previous.row(), previous.column())->data(45).toBool() && sonModele->item(current.row(), current.column())->data(45).toBool() && (!sonModele->item(previous.row(), previous.column())->data(45).toBool() && (sonModele->item(current.row(), current.column())->data(33).toBool() == sonModele->item(previous.row(), previous.column())->data(33).toBool()))) )
+    // Affichage des mouvements :
     {
+
         //on nettoie l'affichage
         sonParent->clearPanneauxJoueurs();
         for(int i(0); i<15; i++)
@@ -133,7 +158,6 @@ void SceneTerrain::firstClic(const QModelIndex &current, const QModelIndex &prev
                 sonModele->item(i,j)->setData(QVariant(QBrush(QColor(110,210,50))), Qt::BackgroundRole);
             }
         }
-
 
         // on affiche
         if(sonModele->item(current.row(), current.column())->data(33).toBool())
@@ -163,52 +187,25 @@ void SceneTerrain::firstClic(const QModelIndex &current, const QModelIndex &prev
 
 void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &previous)
 {
-    //si current n'est pas joueur, on nettoie l'affichage des panneaux latéreaux :
-        if(!(sonModele->item(current.row(), current.column())->data(45).toBool()))
+    if(sonModele->item(previous.row(), previous.column())->data(45).toBool() && !sonModele->item(current.row(), current.column())->data(45).toBool())
+    {
+        bool deplacementPossible(false);
+        std::vector<QStandardItem*>::iterator leIt;
+        for(leIt = lesMouvementsPossibles->begin(); leIt != lesMouvementsPossibles->end(); leIt++)
         {
-            sonParent->clearPanneauxJoueurs();
-            fClic = 1;
-        }
-
-
-        // si previous et current sont deux joueurs opposés :
-        if(previous.isValid() && sonModele->item(previous.row(), previous.column())->data(45).toBool() && sonModele->item(current.row(), current.column())->data(45).toBool() && sonModele->item(previous.row(), previous.column())->data(33).toBool() != sonModele->item(current.row(), current.column())->data(33).toBool())
-        {
-            // on attaque :
-            fClic = 1;
-        }
-
-        // si previous et current sont deux joueurs de la meme équipe :
-        if(previous.isValid() && sonModele->item(previous.row(), previous.column())->data(45).toBool() && sonModele->item(current.row(), current.column())->data(45).toBool() && sonModele->item(previous.row(), previous.column())->data(33).toBool() == sonModele->item(current.row(), current.column())->data(33).toBool())
-        {
-            firstClic(current, previous);
-        }
-
-
-
-        //Deplacement si previous est joueur et current est case
-        if(previous.isValid() && sonModele->item(previous.row(), previous.column())->data(45).toBool() && !joueurSelectionne)
-        {
-            bool deplacementPossible(false);
-            std::vector<QStandardItem*>::iterator leIt;
-            for(leIt = lesMouvementsPossibles->begin(); leIt != lesMouvementsPossibles->end(); leIt++)
+            if((*leIt) == sonModele->item(current.row(), current.column()))
             {
-                if((*leIt) == sonModele->item(current.row(), current.column()))
-                {
-                  deplacementPossible = true;
-                }
+              deplacementPossible = true;
             }
-
-            if(deplacementPossible)
-            {
-            sonModele->switchItems(sonModele->item(previous.row(), previous.column()), sonModele->item(current.row(), current.column()));
-            }
-
-            fClic = 1;
         }
 
+        if(deplacementPossible)
+        {
+        sonModele->switchItems(sonModele->item(previous.row(), previous.column()), sonModele->item(current.row(), current.column()));
+        }
 
-        // on actualise l'affichage :
+        // on nettoie l'affichage :
+        sonParent->clearPanneauxJoueurs();
         for(int i(0); i<15; i++)
         {
             for(int j(0); j<28; j++)
@@ -216,5 +213,31 @@ void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &pre
                 sonModele->item(i,j)->setData(QVariant(QBrush(QColor(110,210,50))), Qt::BackgroundRole);
             }
         }
+
+        fClic = 1;
+    }
+
+    else if(sonModele->item(previous.row(), previous.column())->data(45).toBool() && sonModele->item(current.row(), current.column())->data(45).toBool() && (sonModele->item(previous.row(), previous.column())->data(33).toBool() != sonModele->item(current.row(), current.column())->data(33).toBool()))
+    {
+        // on attaque
+        // ...
+        // ...
+
+        sonParent->clearPanneauxJoueurs();
+        for(int i(0); i<15; i++)
+        {
+            for(int j(0); j<28; j++)
+            {
+                sonModele->item(i,j)->setData(QVariant(QBrush(QColor(110,210,50))), Qt::BackgroundRole);
+            }
+        }
+        fClic = 1;
+    }
+
+   else
+    {
+        firstClic(current, previous);
+    }
+
 
 }
