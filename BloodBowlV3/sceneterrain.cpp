@@ -93,7 +93,7 @@ std::vector<QStandardItem*>* SceneTerrain::afficheMouvements(QStandardItem *unIt
     {
         for(int j(0); j<28; j++)
         {
-            if(rayon*rayon >= (x-i)*(x-i) + (y-j)*(y-j))
+            if(i >= x-rayon && i<= x+rayon && j>= y-rayon && j <= y+rayon)
             {
                 lesItems->push_back(sonModele->item(i,j));
             }
