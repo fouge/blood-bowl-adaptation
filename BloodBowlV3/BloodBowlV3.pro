@@ -37,7 +37,7 @@ HEADERS  += fenetreprincipale.h \
 
 # -> Mettre à jour FenetrePrincipale::updatePanneauJoueur()
 
-
+# -> probleme: premier clic sur joueur puis autre clic sur joueur de la même equipe
 
 
 

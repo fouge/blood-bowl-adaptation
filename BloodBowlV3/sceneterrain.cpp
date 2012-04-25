@@ -61,6 +61,7 @@ void SceneTerrain::currentChanged(const QModelIndex &current, const QModelIndex 
     }
     else if(!previous.isValid() && current.isValid())
     {
+        std::cout<<sonModele->item(current.row(), current.column())->data(43).toInt()<<std::endl;
         if(sonModele->item(current.row(), current.column())->data(45).toBool())
         {
             //on nettoie l'affichage
@@ -74,15 +75,21 @@ void SceneTerrain::currentChanged(const QModelIndex &current, const QModelIndex 
             }
 
             // on affiche
-            if(sonModele->item(current.row(), current.column())->data(33).toBool())
+            if(sonModele->item(current.row(), current.column())->data(33).toBool() )
             {
                 sonParent->updatePanneauJoueur(0,sonModele->item(current.row(), current.column()));
-                lesMouvementsPossibles = afficheMouvements(sonModele->item(current.row(), current.column()));
+                if(sonModele->item(current.row(), current.column())->data(43).toInt() == 0)
+                    lesMouvementsPossibles = afficheMouvements(sonModele->item(current.row(), current.column()));
+                else
+                    lesMouvementsPossibles->push_back(sonModele->item(current.row(), current.column()));
             }
             else
             {
                 sonParent->updatePanneauJoueur(1, sonModele->item(current.row(), current.column()));
-                lesMouvementsPossibles = afficheMouvements(sonModele->item(current.row(), current.column()));
+                if(sonModele->item(current.row(), current.column())->data(43).toInt() == 0)
+                    lesMouvementsPossibles = afficheMouvements(sonModele->item(current.row(), current.column()));
+                else
+                    lesMouvementsPossibles->push_back(sonModele->item(current.row(), current.column()));
             }
 
             std::vector<QStandardItem*>::iterator leIt;
@@ -145,8 +152,9 @@ void SceneTerrain::firstClic(const QModelIndex &current, const QModelIndex &prev
         fClic = 1;
     }
 
-    else if((!sonModele->item(previous.row(), previous.column())->data(45).toBool() && sonModele->item(current.row(), current.column())->data(45).toBool()) || (sonModele->item(previous.row(), previous.column())->data(45).toBool() && sonModele->item(current.row(), current.column())->data(45).toBool() && (!sonModele->item(previous.row(), previous.column())->data(45).toBool() && (sonModele->item(current.row(), current.column())->data(33).toBool() == sonModele->item(previous.row(), previous.column())->data(33).toBool()))) )
     // Affichage des mouvements :
+    else if((!sonModele->item(previous.row(), previous.column())->data(45).toBool() && sonModele->item(current.row(), current.column())->data(45).toBool())
+            || (sonModele->item(previous.row(), previous.column())->data(45).toBool() && sonModele->item(current.row(), current.column())->data(45).toBool() && (sonModele->item(current.row(), current.column())->data(33).toBool() == sonModele->item(previous.row(), previous.column())->data(33).toBool()) ) )
     {
 
         //on nettoie l'affichage
@@ -159,24 +167,29 @@ void SceneTerrain::firstClic(const QModelIndex &current, const QModelIndex &prev
             }
         }
 
-        // on affiche
-        if(sonModele->item(current.row(), current.column())->data(33).toBool())
+        // on affiche si le joueur est debout
+
+        if(sonModele->item(current.row(), current.column())->data(33).toBool() )
         {
             sonParent->updatePanneauJoueur(0,sonModele->item(current.row(), current.column()));
-            lesMouvementsPossibles = afficheMouvements(sonModele->item(current.row(), current.column()));
+            if(sonModele->item(current.row(), current.column())->data(43).toInt() == 0)
+                lesMouvementsPossibles = afficheMouvements(sonModele->item(current.row(), current.column()));
+            else
+                lesMouvementsPossibles->push_back(sonModele->item(current.row(), current.column()));
         }
         else
         {
             sonParent->updatePanneauJoueur(1, sonModele->item(current.row(), current.column()));
-            lesMouvementsPossibles = afficheMouvements(sonModele->item(current.row(), current.column()));
+            if(sonModele->item(current.row(), current.column())->data(43).toInt() == 0)
+                lesMouvementsPossibles = afficheMouvements(sonModele->item(current.row(), current.column()));
+            else
+                lesMouvementsPossibles->push_back(sonModele->item(current.row(), current.column()));
         }
-
         std::vector<QStandardItem*>::iterator leIt;
         for(leIt = lesMouvementsPossibles->begin(); leIt != lesMouvementsPossibles->end(); leIt++)
             {
             (*leIt)->setData(QVariant(QBrush(QColor(120, 50, 170))), Qt::BackgroundRole);
             }
-
         fClic = 0;
     }
         else
@@ -234,7 +247,7 @@ void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &pre
         fClic = 1;
     }
 
-   else
+    else if(sonModele->item(previous.row(), previous.column())->data(45).toBool() && sonModele->item(previous.row(), previous.column())->data(33).toBool() == sonModele->item(current.row(), current.column())->data(33).toBool())
     {
         firstClic(current, previous);
     }

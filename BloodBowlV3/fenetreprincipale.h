@@ -38,8 +38,8 @@ class FenetrePrincipale : public QWidget
     QHBoxLayout *barreSuperieure;
     QGridLayout *layoutGrille, *panneauJ1, *panneauJ2, *boxJoueurJ1Layout, *boxJoueurJ2Layout, *terrain;
 
-    QGraphicsView* saVue;
-    QGraphicsScene* saScene;
+
+    QPixmap *pixEquipe1, *pixEquipe2;
     SceneTerrain* sonTerrain;
     Match* leMatch;
 public:

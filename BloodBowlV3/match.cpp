@@ -34,29 +34,7 @@ TableModel* Match::getModel()
 {
     return sonTableauCases;
 }
-
-//void Match::firstClic(Joueur *unJoueur)
-//{
-    // on appelle des fonctions qui affichent les caractéristiques du joueur :
-
-
-    // Il faut vérifier le nombre de mouvments possibles !
-    //on modifie l'affichage de la case :
-
-
-
-    // on enregistre le joueur cliqué:
-
-
-//}
-
-//void Match::secondClic(Joueur *unJoueur)
-//{
-//    //on enregistre les mouvements possibles pour la suite :
-
-
-//    //on clique sur une case vide
-//    //
-
-
-//}
+coach Match::getQuiJoue()
+{
+    return quiJoue;
+}

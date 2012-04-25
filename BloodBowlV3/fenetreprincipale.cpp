@@ -65,6 +65,7 @@ void FenetrePrincipale::fenetreSelectionEquipe()
     boutonValiderSelection->setFixedHeight(40);
     //boutonValiderSelection->setFont(policeBB);
 
+
     iconRaceJ1->setPixmap(QPixmap("images/iconhumainbb.png"));
     iconRaceJ1->setAlignment(Qt::AlignCenter);
     iconRaceJ2->setPixmap(QPixmap("images/iconhumainbb.png"));
@@ -317,69 +318,83 @@ void FenetrePrincipale::fenetreMatch(race raceEquipeJ1, int indexEquipeJ1, race 
         {
         case 0:
             texteEquipeJ1->setText("Mittledorf Smashers");
-            iconEquipeJ1->setPixmap(QPixmap("images/equipeicon/mittledorfsmashersicon.png"));
+            pixEquipe1 = new QPixmap("images/equipeicon/mittledorfsmashersicon.png");
+            iconEquipeJ1->setPixmap(*pixEquipe1);
             break;
         case 1:
             texteEquipeJ1->setText("Holy Revengers");
-            iconEquipeJ1->setPixmap(QPixmap("images/equipeicon/holyrevengersicon.png"));
+            pixEquipe1 = new QPixmap("images/equipeicon/holyrevengersicon.png");
+            iconEquipeJ1->setPixmap(*pixEquipe1);
             break;
         case 2:
             texteEquipeJ1->setText("Reikland Reavers");
-            iconEquipeJ1->setPixmap(QPixmap("images/equipeicon/reiklandreaversicon.png"));
+            pixEquipe1 = new QPixmap("images/equipeicon/reiklandreaversicon.png");
+            iconEquipeJ1->setPixmap(*pixEquipe1);
             break;
         }
     }
-    if (raceEquipeJ1 == orques)
+    else if (raceEquipeJ1 == orques)
     {
         switch (indexEquipeJ1)
         {
         case 0:
             texteEquipeJ1->setText("Da Severed 'Eads");
-            iconEquipeJ1->setPixmap(QPixmap("images/equipeicon/daseveredeadsicon.png"));
+            pixEquipe1 = new QPixmap("images/equipeicon/daseveredeadsicon.png");
+            iconEquipeJ1->setPixmap(*pixEquipe1);
             break;
         case 1:
             texteEquipeJ1->setText("Greenskin Gutrippers");
-            iconEquipeJ1->setPixmap(QPixmap("images/equipeicon/greenskingutrippersicon.png"));
+            pixEquipe1 = new QPixmap("images/equipeicon/greenskingutrippersicon.png");
+            iconEquipeJ1->setPixmap(*pixEquipe1);
             break;
         case 2:
             texteEquipeJ1->setText("Ironcrag Decimators");
-            iconEquipeJ1->setPixmap(QPixmap("images/equipeicon/ironcragdecimatorsicon.png"));
+            pixEquipe1 = new QPixmap("images/equipeicon/ironcragdecimatorsicon.png");
+            iconEquipeJ1->setPixmap(*pixEquipe1);
             break;
         }
     }
+
     if (raceEquipeJ2 == humains)
     {
+
         switch (indexEquipeJ2)
         {
         case 0:
             texteEquipeJ2->setText("Mittledorf Smashers");
-            iconEquipeJ2->setPixmap(QPixmap("images/equipeicon/mittledorfsmashersicon.png"));
+            pixEquipe2 = new QPixmap("images/equipeicon/mittledorfsmashersicon.png");
+            iconEquipeJ2->setPixmap(*pixEquipe2);
             break;
         case 1:
             texteEquipeJ2->setText("Holy Revengers");
-            iconEquipeJ2->setPixmap(QPixmap("images/equipeicon/holyrevengersicon.png"));
+            pixEquipe2 = new QPixmap("images/equipeicon/holyrevengersicon.png");
+            iconEquipeJ2->setPixmap(*pixEquipe2);
             break;
         case 2:
             texteEquipeJ2->setText("Reikland Reavers");
-            iconEquipeJ2->setPixmap(QPixmap("images/equipeicon/reiklandreaversicon.png"));
+            pixEquipe2 = new QPixmap("images/equipeicon/reiklandreaversicon.png");
+            iconEquipeJ2->setPixmap(*pixEquipe2);
             break;
         }
     }
-    if (raceEquipeJ2 == orques)
+    else if (raceEquipeJ2 == orques)
     {
         switch (indexEquipeJ2)
         {
         case 0:
             texteEquipeJ2->setText("Da Severed 'Eads");
-            iconEquipeJ2->setPixmap(QPixmap("images/equipeicon/daseveredeadsicon.png"));
+            pixEquipe2 = new QPixmap("images/equipeicon/daseveredeadsicon.png");
+            iconEquipeJ1->setPixmap(*pixEquipe2);
             break;
         case 1:
             texteEquipeJ2->setText("Greenskin Gutrippers");
-            iconEquipeJ2->setPixmap(QPixmap("images/equipeicon/greenskingutrippersicon.png"));
+            pixEquipe2 = new QPixmap("images/equipeicon/greenskingutrippersicon.png");
+            iconEquipeJ2->setPixmap(*pixEquipe2);
             break;
         case 2:
             texteEquipeJ2->setText("Ironcrag Decimators");
-            iconEquipeJ2->setPixmap(QPixmap("images/equipeicon/ironcragdecimatorsicon.png"));
+            pixEquipe2 = new QPixmap("images/equipeicon/ironcragdecimatorsicon.png");
+            iconEquipeJ2->setPixmap(*pixEquipe2);
             break;
         }
     }
@@ -470,6 +485,15 @@ void FenetrePrincipale::fenetreMatch(race raceEquipeJ1, int indexEquipeJ1, race 
     leMatch = new Match(raceEquipeJ1,indexEquipeJ1,raceEquipeJ2,indexEquipeJ2);
 
     sonTerrain = new SceneTerrain(15, 28, leMatch->getModel(), this);
+
+    if(leMatch->getQuiJoue() == 0)
+    {
+        // on modifie le QPixmap
+    }
+    else
+    {
+        // on modifie le QPixmap
+    }
 
 
     layoutGrille->setSizeConstraint(QLayout::SetMinimumSize);
