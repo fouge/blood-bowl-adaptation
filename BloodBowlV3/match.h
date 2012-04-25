@@ -16,7 +16,7 @@ public:
     int lancer1D6();
     TableModel* getModel();
     coach getQuiJoue();
-
+    void setQuiJoue(bool joueur);
 
     // à implémenter
     void finTour();

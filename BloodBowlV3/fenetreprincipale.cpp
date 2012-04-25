@@ -278,6 +278,9 @@ void FenetrePrincipale::fenetreMatch(race raceEquipeJ1, int indexEquipeJ1, race 
     finDeTourC1 = new QPushButton("Fin de Tour", this);
     finDeTourC2 = new QPushButton("Fin de Tour", this);
 
+    QObject::connect(finDeTourC1, SIGNAL(clicked()), this, SLOT(finDeTour()));
+    QObject::connect(finDeTourC2, SIGNAL(clicked()), this, SLOT(finDeTour()));
+
     //Instanciation contenu BoxJoueurJ1
     mouvementJ1 = new QLabel("Mouvement :", this);
     agiliteJ1 = new QLabel("Agilité :", this);
@@ -594,36 +597,37 @@ void FenetrePrincipale::updatePanneauJoueur(int action, QStandardItem *leJoueur)
 
 void FenetrePrincipale::clearPanneauxJoueurs()
 {
-    //
-    //option 1 : on efface panneau coach 1
-    //option 2 : on efface panneau coach 2
-    //option 3 : on efface les deux panneaux
-    //
-//    if(option == 1 || option == 3)
-//    {
     posteJ1Texte->clear();
     mouvementJ1Chiffre->clear();
     forceJ1Chiffre->clear();
     agiliteJ1Chiffre->clear();
     armureJ1Chiffre->clear();
     nomJ1Texte->clear();
-//    }
-//    if(option == 2 || option == 3)
-//    {
+
     posteJ2Texte->clear();
     mouvementJ2Chiffre->clear();
     forceJ2Chiffre->clear();
     agiliteJ2Chiffre->clear();
     armureJ2Chiffre->clear();
     nomJ2Texte->clear();
-//    }
 }
 
-
-/*void FenetrePrincipale::afficheJoueurPanneau(Joueur* unJoueur)
+// gère l'affichage pour savoir qui joue :
+void FenetrePrincipale::changementJoueur()
 {
-    if(unJoueur->getSonCote() == true)
-    {
 
-    }
-}*/
+}
+
+// fin de tour
+void FenetrePrincipale::finDeTour()
+{
+    changementJoueur();
+
+    leMatch->setQuiJoue(!(leMatch->getQuiJoue() != 0));
+    //
+}
+
+Match* FenetrePrincipale::getLeMatch()
+{
+    return leMatch;
+}

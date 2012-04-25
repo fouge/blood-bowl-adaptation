@@ -19,6 +19,7 @@ Match::Match(race raceEquipe1, int noEquipe1, race raceEquipe2, int noEquipe2):q
         }
     }
 
+    std::cout<<"Joueur bleu joue"<<std::endl;
 
     Equipe * Equipe1 = new Equipe(raceEquipe1, noEquipe1, true, sonTableauCases);
     Equipe * Equipe2 = new Equipe(raceEquipe2, noEquipe2, false, sonTableauCases);
@@ -37,4 +38,14 @@ TableModel* Match::getModel()
 coach Match::getQuiJoue()
 {
     return quiJoue;
+}
+void Match::setQuiJoue(bool joueur)
+{
+    switch(joueur)
+    {
+    case 0:{ quiJoue = joueur1;
+        break;}
+    case 1:{ quiJoue = joueur2;
+        break;}
+    }
 }

@@ -37,29 +37,17 @@ void SceneTerrain::dataChanged(const QModelIndex &topLeft, const QModelIndex &bo
 
 void SceneTerrain::currentChanged(const QModelIndex &current, const QModelIndex &previous)
 {
-    if(current.isValid())
-    {
-        std::cout<<"current valide"<<std::endl;
-    }
-    else
-        std::cout<<"current non valide"<<std::endl;
-    if(previous.isValid())
-    {
-        std::cout<<"previous valide"<<std::endl;
-    }
-    else
-        std::cout<<"previous non valide"<<std::endl;
-
 
     if(current.isValid() && previous.isValid() && fClic)
     {
+        if(sonParent->getLeMatch()->getQuiJoue() == 0 && sonModele->item(current.row(), current.column())->data(33).toBool() || sonParent->getLeMatch()->getQuiJoue() != 0 && !sonModele->item(current.row(), current.column())->data(33).toBool())
         firstClic(current, previous);
     }
     else if(current.isValid() && previous.isValid() && !fClic)
     {
         secondClic(current, previous);
     }
-    else if(!previous.isValid() && current.isValid())
+    else if(!previous.isValid() && current.isValid() && (((sonParent->getLeMatch()->getQuiJoue() == 0) && sonModele->item(current.row(), current.column())->data(33).toBool()) || ((sonParent->getLeMatch()->getQuiJoue() != 0) && !sonModele->item(current.row(), current.column())->data(33).toBool())))
     {
         std::cout<<sonModele->item(current.row(), current.column())->data(43).toInt()<<std::endl;
         if(sonModele->item(current.row(), current.column())->data(45).toBool())
