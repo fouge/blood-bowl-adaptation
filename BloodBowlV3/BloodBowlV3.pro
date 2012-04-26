@@ -1,53 +1,31 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2012-03-15T17:55:54
+# Project created by QtCreator 2012-04-26T16:30:32
 #
 #-------------------------------------------------
 
 QT       += core gui
 
-TARGET = BloodBowlV3
+TARGET = BloodbowlV3
 TEMPLATE = app
 
 
 SOURCES += main.cpp\
         fenetreprincipale.cpp \
-    match.cpp \
-    sceneterrain.cpp \
-    ballon.cpp \
-    joueur.cpp \
     equipe.cpp \
-    tablemodel.cpp
+    joueur.cpp \
+    tablemodel.cpp \
+    match.cpp \
+    ballon.cpp \
+    sceneterrain.cpp
 
 HEADERS  += fenetreprincipale.h \
-    match.h \
-    enum.h \
-    sceneterrain.h \
-    ballon.h \
-    joueur.h \
     equipe.h \
-    tablemodel.h
-#------------------------------------------------
-#A faire :
-#------------------------------------------------
-
-# -> Joueur::updateAttributs() a mettre à jour car ne fonctionne pas
-
-# -> Empecher que le deuxieme clique sur un joueur affiche ses deplacements
-
-# -> Mettre à jour FenetrePrincipale::updatePanneauJoueur()
-
-# -> probleme: premier clic sur joueur puis autre clic sur joueur de la même equipe
-
-
-
-
-
-
-
-
-
-
-
+    tablemodel.h \
+    enum.h \
+    joueur.h \
+    match.h \
+    ballon.h \
+    sceneterrain.h
 
 

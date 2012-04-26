@@ -10,6 +10,7 @@ class FenetrePrincipale;
 
 class SceneTerrain : public QTableView
 {
+    Q_OBJECT
     TableModel* sonModele;
     bool joueurSelectionne;
     FenetrePrincipale* sonParent;
@@ -17,11 +18,17 @@ class SceneTerrain : public QTableView
     std::vector<QStandardItem*>* lesMouvementsPossibles;
 public:
     SceneTerrain(int nLignes, int nColonnes, TableModel* unModele, FenetrePrincipale* parent);
-    void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight);
-    void currentChanged(const QModelIndex &current, const QModelIndex &previous);
     std::vector<QStandardItem*>* afficheMouvements(QStandardItem* unItem);
     void firstClic(const QModelIndex &current, const QModelIndex &previous);
     void secondClic(const QModelIndex &current, const QModelIndex &previous);
+    void clearTerrain();
+
+protected:
+    void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight);
+    void currentChanged(const QModelIndex &current, const QModelIndex &previous);
+    void mouseReleaseEvent(QMouseEvent *event);
+signals:
+    void cliqueTerrain(int, QStandardItem*);
 };
 
 #endif // SCENETERRAIN_H

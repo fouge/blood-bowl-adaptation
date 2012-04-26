@@ -27,6 +27,7 @@ SceneTerrain::SceneTerrain(int nLignes, int nColonnes, TableModel* unModele, Fen
     horizontalHeader()->setVisible(false);
     setEditTriggers(NoEditTriggers);
     setSelectionMode(QAbstractItemView::SingleSelection);
+
 }
 
 void SceneTerrain::dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight)
@@ -241,4 +242,38 @@ void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &pre
     }
 
 
+}
+
+
+void SceneTerrain::clearTerrain()
+{
+    sonParent->clearPanneauxJoueurs();
+    setSelection(QRect(), QItemSelectionModel::Clear);
+    for(int i(0); i<15; i++)
+    {
+        for(int j(0); j<28; j++)
+        {
+            sonModele->item(i,j)->setData(QVariant(QBrush(QColor(110,210,50))), Qt::BackgroundRole);
+        }
+    }
+    fClic = 1;
+}
+
+void SceneTerrain::mouseReleaseEvent(QMouseEvent *event)
+{
+    int action(2);
+    if(sonModele->item(rowAt(event->y()),columnAt(event->x()))->data(33).toBool() && sonModele->item(rowAt(event->y()),columnAt(event->x()))->data(45).toBool())
+        {
+        action = 0;
+        std::cout<<"Joueur bleu cliqué"<<std::endl;
+        }
+    else if(!sonModele->item(rowAt(event->y()),columnAt(event->x()))->data(33).toBool() && sonModele->item(rowAt(event->y()),columnAt(event->x()))->data(45).toBool())
+        {
+        action = 1;
+        std::cout<<"Joueur rouge cliqué releaseEvent"<<std::endl;
+        }
+    else
+        {action = 2;}
+
+    emit cliqueTerrain(action, sonModele->item(rowAt(event->y()), columnAt(event->x())));
 }

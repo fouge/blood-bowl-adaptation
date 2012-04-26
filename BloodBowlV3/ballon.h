@@ -8,8 +8,13 @@ class Match;
 class Ballon
 {
     Match* sonMatch;
+    QStandardItemModel* sonModele;
+    int sonX;
+    int sonY;
 public:
-    Ballon(Match*);
+    Ballon(Match*, QStandardItemModel*, int, int);
+    void rebondir(QStandardItem* uneCase, int nRebondissements);
+
 };
 
 #endif // BALLON_H

@@ -46,7 +46,6 @@ public:
     FenetrePrincipale();
     void fenetreDemarrage();
     void fenetreMatch(race, int, race, int);
-    void updatePanneauJoueur(int action, QStandardItem* leJoueur);
     void clearPanneauxJoueurs();
     Match* getLeMatch();
 public slots:
@@ -56,6 +55,9 @@ public slots:
     void changerIconEquipeJ1(int index);
     void changerIconEquipeJ2(int index);
     void validationSelectionEquipes();
+    void updatePanneauJoueur(int action, QStandardItem* leJoueur);
+
+
     // a implementer :
     void finDeTour();
     void changementJoueur();

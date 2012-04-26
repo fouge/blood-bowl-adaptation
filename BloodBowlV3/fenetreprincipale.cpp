@@ -1,6 +1,8 @@
 #include "fenetreprincipale.h"
 
 #include "tablemodel.h"
+#include <cstdio>
+#include <iostream>
 
 FenetrePrincipale::FenetrePrincipale()
 {
@@ -489,6 +491,8 @@ void FenetrePrincipale::fenetreMatch(race raceEquipeJ1, int indexEquipeJ1, race 
 
     sonTerrain = new SceneTerrain(15, 28, leMatch->getModel(), this);
 
+    QObject::connect(sonTerrain, SIGNAL(cliqueTerrain(int,QStandardItem*)), this, SLOT(updatePanneauJoueur(int,QStandardItem*)));
+
     if(leMatch->getQuiJoue() == 0)
     {
         // on modifie le QPixmap
@@ -497,6 +501,7 @@ void FenetrePrincipale::fenetreMatch(race raceEquipeJ1, int indexEquipeJ1, race 
     {
         // on modifie le QPixmap
     }
+
 
 
     layoutGrille->setSizeConstraint(QLayout::SetMinimumSize);
@@ -516,6 +521,7 @@ void FenetrePrincipale::updatePanneauJoueur(int action, QStandardItem *leJoueur)
     // 0 : coté gauche : équipe bleue
 
     case 0:
+    {
         mouvementJ1Chiffre->setText(QString::number(leJoueur->data(35).toInt()));
         forceJ1Chiffre->setText(QString::number(leJoueur->data(36).toInt()));
         agiliteJ1Chiffre->setText(QString::number(leJoueur->data(37).toInt()));
@@ -551,12 +557,12 @@ void FenetrePrincipale::updatePanneauJoueur(int action, QStandardItem *leJoueur)
         }
 
         break;
-
+    }
 
         // si joueur rouge
     // 1 : coté droit : équipe rouge
     case 1:
-        mouvementJ2Chiffre->setText(QString::number(leJoueur->data(35).toInt()));
+    { mouvementJ2Chiffre->setText(QString::number(leJoueur->data(35).toInt()));
         forceJ2Chiffre->setText(QString::number(leJoueur->data(36).toInt()));
         agiliteJ2Chiffre->setText(QString::number(leJoueur->data(37).toInt()));
         armureJ2Chiffre->setText(QString::number(leJoueur->data(38).toInt()));
@@ -590,8 +596,10 @@ void FenetrePrincipale::updatePanneauJoueur(int action, QStandardItem *leJoueur)
             break;
         default : posteJ2Texte->setText(QString("Libéro..."));
         }
-
-    default: ;
+        break;
+    }
+    default: std::cout<<"default sur clique"<<std::endl;
+        clearPanneauxJoueurs();
     }
 }
 
@@ -623,6 +631,7 @@ void FenetrePrincipale::finDeTour()
 {
     changementJoueur();
 
+    sonTerrain->clearTerrain();
     leMatch->setQuiJoue(!(leMatch->getQuiJoue() != 0));
     //
 }
