@@ -65,3 +65,13 @@ void Match::finTour()
     }
 
 }
+
+Equipe* Match::getEquipe1()
+{
+    return sonEquipe1;
+}
+
+Equipe* Match::getEquipe2()
+{
+    return sonEquipe2;
+}

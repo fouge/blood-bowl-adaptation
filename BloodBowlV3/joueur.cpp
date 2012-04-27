@@ -17,6 +17,8 @@
 
 TableModel* Joueur::leTerrain = 0;
 
+int Joueur::id = 0;
+
 Joueur::Joueur(TableModel *unModele)
 {
     leTerrain = unModele;
@@ -29,6 +31,8 @@ Joueur::Joueur(typeJ unType, std::vector<competences> desCompetences, int desMou
       saForce(uneForce), sonAgilite(uneAgilite), sonArmure(uneArmure), sonNom(unNom), sonX(unX), sonY(unY), sonEtat(debout),
     actionEffectue(false), sonCote(unCote)
 {
+    sonId = id++;
+    std::cout<<sonId<<std::endl;
     sonItem = new QStandardItem();
 
     if(unCote)
@@ -180,6 +184,10 @@ QString Joueur::getNom()
 QStandardItem* Joueur::getItem()
 {
     return sonItem;
+}
+int Joueur::getId()
+{
+    return sonId;
 }
 
 void Joueur::updateAttributs()

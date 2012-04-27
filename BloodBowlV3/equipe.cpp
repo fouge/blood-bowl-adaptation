@@ -1,7 +1,9 @@
 #include "equipe.h"
 #include "joueur.h"
+#include <iostream>
+#include <QApplication>
 
-Equipe::Equipe(race uneRace, int uneComposition, bool cote, TableModel* unModele):saRace(uneRace), sonCote(cote)
+Equipe::Equipe(race uneRace, int uneComposition, bool cote, TableModel* unModele):saRace(uneRace), sonCote(cote), sonModele(unModele)
 {
 
     Joueur* leJoueurModele = new Joueur(unModele);
@@ -151,4 +153,40 @@ void Equipe::resetJoueurs()
     {
         (*leIt)->getItem()->setData(QVariant((*leIt)->getMouvements() ),35);
     }
+}
+
+std::map<int, std::vector<QStandardItem * > * >* Equipe::zonesTacle()
+{
+    std::map<int, std::vector<QStandardItem* >* >* lesZonesTacle = new std::map<int, std::vector<QStandardItem* >* >;
+    std::vector<Joueur*>::iterator leIt;
+
+    for(leIt = sesJoueurs->begin(); leIt != sesJoueurs->end(); leIt++)
+    {
+        std::vector<QStandardItem* >* zoneTacle = new std::vector<QStandardItem* >;
+        int x = (*leIt)->getItem()->row();
+        int y = (*leIt)->getItem()->column();
+
+        if(x-1>=0 && y-1>=0)
+        zoneTacle->push_back(sonModele->item(x-1, y-1));
+        if(x-1>=0)
+        zoneTacle->push_back(sonModele->item(x-1, y));
+        if(x-1>=0 && y+1<28)
+        zoneTacle->push_back(sonModele->item(x-1, y+1));
+        if(y-1>=0)
+        zoneTacle->push_back(sonModele->item(x, y-1));
+        if(y+1<28)
+        zoneTacle->push_back(sonModele->item(x, y+1));
+        if(x+1<15 && y-1>=0)
+        zoneTacle->push_back(sonModele->item(x+1, y-1));
+        if(x+1<15)
+        zoneTacle->push_back(sonModele->item(x+1, y));
+        if(x+1<15 && y+1<28)
+        zoneTacle->push_back(sonModele->item(x+1, y+1));
+
+
+        if(!zoneTacle->empty())
+        lesZonesTacle->insert(std::pair<int, std::vector<QStandardItem* >* >((*leIt)->getItem()->data(39).toInt(), zoneTacle));
+    }
+
+    return lesZonesTacle;
 }

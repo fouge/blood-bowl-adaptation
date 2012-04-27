@@ -19,10 +19,10 @@ class SceneTerrain : public QTableView
 public:
     SceneTerrain(int nLignes, int nColonnes, TableModel* unModele, FenetrePrincipale* parent);
     std::vector<QStandardItem*>* afficheMouvements(QStandardItem* unItem);
+    void afficheZonesTacle(Equipe*);
     void firstClic(const QModelIndex &current, const QModelIndex &previous);
     void secondClic(const QModelIndex &current, const QModelIndex &previous);
     void clearTerrain();
-
 protected:
     void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight);
     void currentChanged(const QModelIndex &current, const QModelIndex &previous);

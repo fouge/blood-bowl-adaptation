@@ -18,8 +18,8 @@ public:
     TableModel* getModel();
     coach getQuiJoue();
     void setQuiJoue(bool joueur);
-
-    // à implémenter
+    Equipe* getEquipe1();
+    Equipe* getEquipe2();
     void finTour();
 };
 

@@ -87,6 +87,17 @@ void SceneTerrain::currentChanged(const QModelIndex &current, const QModelIndex 
                 (*leIt)->setData(QVariant(QBrush(QColor(120, 50, 170))), Qt::BackgroundRole);
                 }
 
+
+            // Affichage zone de tacle:
+            if(sonModele->item(current.row(), current.column())->data(33).toBool())
+            {
+                afficheZonesTacle(sonParent->getLeMatch()->getEquipe2());
+            }
+            else
+            {
+                afficheZonesTacle(sonParent->getLeMatch()->getEquipe1());
+            }
+
             fClic = 0;
             std::cout<<"premier clic sur joueur"<<std::endl;
         }
@@ -101,25 +112,6 @@ void SceneTerrain::currentChanged(const QModelIndex &current, const QModelIndex 
         }
     }
 
-}
-
-std::vector<QStandardItem*>* SceneTerrain::afficheMouvements(QStandardItem *unItem)
-{
-    int rayon = unItem->data(35).toInt();
-    int x = unItem->row();
-    int y = unItem->column();
-    std::vector<QStandardItem*>* lesItems = new std::vector<QStandardItem*>();
-    for(int i(0); i<15; i++)
-    {
-        for(int j(0); j<28; j++)
-        {
-            if(i >= x-rayon && i<= x+rayon && j>= y-rayon && j <= y+rayon)
-            {
-                lesItems->push_back(sonModele->item(i,j));
-            }
-        }
-    }
-    return lesItems;
 }
 
 
@@ -179,6 +171,17 @@ void SceneTerrain::firstClic(const QModelIndex &current, const QModelIndex &prev
             {
             (*leIt)->setData(QVariant(QBrush(QColor(120, 50, 170))), Qt::BackgroundRole);
             }
+
+        // Affichage zone de tacle:
+        if(sonModele->item(current.row(), current.column())->data(33).toBool())
+        {
+            afficheZonesTacle(sonParent->getLeMatch()->getEquipe1());
+        }
+        else
+        {
+            afficheZonesTacle(sonParent->getLeMatch()->getEquipe2());
+        }
+
         fClic = 0;
     }
         else
@@ -291,4 +294,40 @@ void SceneTerrain::mouseReleaseEvent(QMouseEvent *event)
         {action = 2;}
 
     emit cliqueTerrain(action, sonModele->item(rowAt(event->y()), columnAt(event->x())));
+}
+
+
+std::vector<QStandardItem*>* SceneTerrain::afficheMouvements(QStandardItem *unItem)
+{
+    int rayon = unItem->data(35).toInt();
+    int x = unItem->row();
+    int y = unItem->column();
+    std::vector<QStandardItem*>* lesItems = new std::vector<QStandardItem*>();
+    for(int i(0); i<15; i++)
+    {
+        for(int j(0); j<28; j++)
+        {
+            if(i >= x-rayon && i<= x+rayon && j>= y-rayon && j <= y+rayon)
+            {
+                lesItems->push_back(sonModele->item(i,j));
+            }
+        }
+    }
+    return lesItems;
+}
+
+
+void SceneTerrain::afficheZonesTacle(Equipe * uneEquipe)
+{
+    std::map<int, std::vector<QStandardItem* >* >::iterator itMap;
+    std::map<int, std::vector<QStandardItem* >* > * lesZonesTacle = uneEquipe->zonesTacle();
+    for(itMap = lesZonesTacle->begin(); itMap != lesZonesTacle->end(); itMap++)
+    {
+        std::vector<QStandardItem* >::iterator itVect;
+        for(itVect = itMap->second->begin(); itVect != itMap->second->end(); itVect++)
+        {
+            (*itVect)->setData(QVariant(QBrush(QColor(241,132,22))), Qt::BackgroundRole);
+        }
+    }
+
 }

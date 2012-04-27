@@ -12,6 +12,5 @@ void TableModel::switchItems(QStandardItem *item1, QStandardItem *item2)
     QStandardItem *temp2 = item2->clone();
     setItem(item1->row(), item1->column(), temp2);
     setItem(item2->row(), item2->column(), temp1);
-
 }
 

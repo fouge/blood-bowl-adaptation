@@ -18,6 +18,7 @@ class Joueur
     typeJ sonType;
     bool actionEffectue, sonCote;
     static TableModel* leTerrain;
+    static int id;
 public:
     Joueur(TableModel*);
     Joueur(typeJ, std::vector<competences> desCompetences, int desMouvements, int uneForce,
@@ -25,7 +26,7 @@ public:
 
     std::vector<competences> getCompetences();
     typeJ getType();
-    int getMouvements(), getForce(), getAgilite(), getArmure();
+    int getMouvements(), getForce(), getAgilite(), getArmure(), getId();
     bool getCote();
     QString getNom();
     QStandardItem* getItem();
