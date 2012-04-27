@@ -21,8 +21,8 @@ Match::Match(race raceEquipe1, int noEquipe1, race raceEquipe2, int noEquipe2):q
 
     std::cout<<"Joueur bleu joue"<<std::endl;
 
-    Equipe * Equipe1 = new Equipe(raceEquipe1, noEquipe1, true, sonTableauCases);
-    Equipe * Equipe2 = new Equipe(raceEquipe2, noEquipe2, false, sonTableauCases);
+    sonEquipe1 = new Equipe(raceEquipe1, noEquipe1, true, sonTableauCases);
+    sonEquipe2 = new Equipe(raceEquipe2, noEquipe2, false, sonTableauCases);
 
 }
 
@@ -48,4 +48,20 @@ void Match::setQuiJoue(bool joueur)
     case 1:{ quiJoue = joueur2;
         break;}
     }
+}
+
+void Match::finTour()
+{
+    setQuiJoue(!quiJoue);
+
+    // reset des mouvements des joueurs :
+    if(quiJoue)
+    {
+        sonEquipe1->resetJoueurs();
+    }
+    else
+    {
+        sonEquipe2->resetJoueurs();
+    }
+
 }

@@ -11,6 +11,7 @@ class Match
     TableModel* sonTableauCases;
     int sesTours;
     coach quiJoue;
+    Equipe* sonEquipe1, *sonEquipe2;
 public:
     Match(race raceEquipe1, int noEquipe1, race raceEquipe2, int noEquipe2);
     int lancer1D6();

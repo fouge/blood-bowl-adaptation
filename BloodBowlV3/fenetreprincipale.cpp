@@ -632,8 +632,7 @@ void FenetrePrincipale::finDeTour()
     changementJoueur();
 
     sonTerrain->clearTerrain();
-    leMatch->setQuiJoue(!(leMatch->getQuiJoue() != 0));
-    //
+    leMatch->finTour();
 }
 
 Match* FenetrePrincipale::getLeMatch()

@@ -144,3 +144,11 @@ Equipe::Equipe(race uneRace, int uneComposition, bool cote, TableModel* unModele
     }
 }
 
+void Equipe::resetJoueurs()
+{
+    std::vector<Joueur*>::iterator leIt;
+    for(leIt = sesJoueurs->begin(); leIt != sesJoueurs->end(); leIt++)
+    {
+        (*leIt)->getItem()->setData(QVariant((*leIt)->getMouvements() ),35);
+    }
+}

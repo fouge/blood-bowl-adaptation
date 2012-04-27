@@ -28,6 +28,8 @@ public:
     int getMouvements(), getForce(), getAgilite(), getArmure();
     bool getCote();
     QString getNom();
+    QStandardItem* getItem();
+
     void setLeTerrain(TableModel*);
     int type() const;
     void updateAttributs();

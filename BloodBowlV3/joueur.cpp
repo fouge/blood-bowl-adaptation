@@ -177,6 +177,10 @@ QString Joueur::getNom()
 {
     return sonNom;
 }
+QStandardItem* Joueur::getItem()
+{
+    return sonItem;
+}
 
 void Joueur::updateAttributs()
 {

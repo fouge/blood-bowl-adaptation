@@ -15,6 +15,7 @@ class Equipe
     bool sonCote;
 public:
     Equipe(race, int, bool, TableModel*);
+    void resetJoueurs();
 };
 
 #endif // EQUIPE_H

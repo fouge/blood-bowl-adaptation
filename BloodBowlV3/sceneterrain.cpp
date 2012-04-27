@@ -203,7 +203,22 @@ void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &pre
 
         if(deplacementPossible)
         {
+        // on enleve le nombre de mouvements effectués :
+        int mvts = sonModele->item(previous.row(), previous.column())->data(35).toInt();
+        signed int x = previous.row() - current.row();
+        signed int y = previous.column() - current.column();
+        if(abs(x) >= abs(y))
+        {
+            sonModele->item(previous.row(),previous.column())->setData(QVariant(mvts - abs(x)), 35);
+        }
+        else
+        {
+            sonModele->item(previous.row(), previous.column())->setData(QVariant(mvts - abs(y)), 35);
+        }
+
+        // on déplace le joueur :
         sonModele->switchItems(sonModele->item(previous.row(), previous.column()), sonModele->item(current.row(), current.column()));
+
         }
 
         // on nettoie l'affichage :
