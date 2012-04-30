@@ -149,10 +149,14 @@ Equipe::Equipe(race uneRace, int uneComposition, bool cote, TableModel* unModele
 void Equipe::resetJoueurs()
 {
     std::vector<Joueur*>::iterator leIt;
+    int no(0);
     for(leIt = sesJoueurs->begin(); leIt != sesJoueurs->end(); leIt++)
     {
-        (*leIt)->getItem()->setData(QVariant((*leIt)->getMouvements() ),35);
+        std::cout<<no<<std::endl;
+        (*leIt)->resetData();
+        no++;
     }
+
 }
 
 std::map<int, std::vector<QStandardItem * > * >* Equipe::zonesTacle()

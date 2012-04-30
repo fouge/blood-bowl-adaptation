@@ -1,6 +1,7 @@
 #include "match.h"
 #include <iostream>
 #include <stdlib.h>
+#include <QApplication>
 
 
 
@@ -53,17 +54,8 @@ void Match::setQuiJoue(bool joueur)
 void Match::finTour()
 {
     setQuiJoue(!quiJoue);
-    std::cout<<"Fin de tour : Reset des mouvements des joueurs"<<std::endl;
-    // reset des mouvements des joueurs :
-    if(quiJoue)
-    {
-        sonEquipe1->resetJoueurs();
-    }
-    else
-    {
-        sonEquipe2->resetJoueurs();
-    }
-
+    sonEquipe1->resetJoueurs();
+    sonEquipe2->resetJoueurs();
 }
 
 Equipe* Match::getEquipe1()

@@ -30,10 +30,9 @@ public:
     bool getCote();
     QString getNom();
     QStandardItem* getItem();
-
+    void resetData();
     void setLeTerrain(TableModel*);
     int type() const;
-    void updateAttributs();
 };
 
 

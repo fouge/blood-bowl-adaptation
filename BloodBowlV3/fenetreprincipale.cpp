@@ -632,9 +632,7 @@ void FenetrePrincipale::finDeTour()
     changementJoueur();
 
     sonTerrain->clearTerrain();
-
     leMatch->finTour();
-    qApp->aboutQt();
 }
 
 Match* FenetrePrincipale::getLeMatch()

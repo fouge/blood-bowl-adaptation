@@ -1,5 +1,6 @@
 #include "joueur.h"
 #include <iostream>
+#include <QApplication>
 
 //#define jCote 33;
 //#define ACTIONEFFECTUE 34;
@@ -122,6 +123,9 @@ Joueur::Joueur(typeJ unType, std::vector<competences> desCompetences, int desMou
         leTerrain->setItem(15-sonX, 28-sonY, sonItem);
     }
 
+
+    sonItem->setEditable(true);
+
     sonItem->setData(QVariant(QBrush(QColor(110,210,50))), Qt::BackgroundRole);
     sonItem->setData(QVariant(actionEffectue), 34);
     sonItem->setData(QVariant(sesMouvements),35);
@@ -190,13 +194,9 @@ int Joueur::getId()
     return sonId;
 }
 
-void Joueur::updateAttributs()
+void Joueur::resetData()
 {
-   actionEffectue=(sonItem->data(34)).toBool();
-   sesMouvements=(sonItem->data(35)).toInt();
-   sonX=(sonItem->data(40)).toInt();
-   sonY=(sonItem->data(41)).toInt();
-   //Si il y a un soucis, ça vient de là!!
-   //sonEtat=(sonItem->data(43)).value();
+    int i = sonItem->row();
+    int j = sonItem->column();
+    leTerrain->item(i, j)->setData(QVariant(sesMouvements), 35);
 }
-
