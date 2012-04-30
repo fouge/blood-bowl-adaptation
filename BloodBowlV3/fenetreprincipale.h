@@ -30,14 +30,16 @@ class FenetrePrincipale : public QWidget
             *mouvementJ2Chiffre, *forceJ2Chiffre, *agiliteJ2Chiffre, *armureJ2Chiffre,
             *nomJ2Texte, *posteJ2Texte;
 
+    //QLabel Barre Inferieure
+    QLabel  *quiJoue, *quiJoueTexte, *resultatDes, *resultatDesTexte;
+
     QPushButton *boutonNouvellePartie, *boutonQuitter, *boutonValiderSelection,
                 *finDeTourC1, *finDeTourC2;
     QGroupBox *boxSelectionRace, *boxSelectionEquipe, *boxJoueurJ1, *boxJoueurJ2;
     QComboBox *cBRaceJ1, *cBRaceJ2, *cBEquipeJ1, *cBEquipeJ2;
     QVBoxLayout *gBoxSelecJ1, *gBoxSelecJ2, *fenetreSelection;
-    QHBoxLayout *barreSuperieure;
+    QHBoxLayout *barreSuperieure, *barreInferieure;
     QGridLayout *layoutGrille, *panneauJ1, *panneauJ2, *boxJoueurJ1Layout, *boxJoueurJ2Layout, *terrain;
-
 
     QPixmap *pixEquipe1, *pixEquipe2;
     SceneTerrain* sonTerrain;

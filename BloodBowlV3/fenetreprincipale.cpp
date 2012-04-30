@@ -493,6 +493,18 @@ void FenetrePrincipale::fenetreMatch(race raceEquipeJ1, int indexEquipeJ1, race 
 
     QObject::connect(sonTerrain, SIGNAL(cliqueTerrain(int,QStandardItem*)), this, SLOT(updatePanneauJoueur(int,QStandardItem*)));
 
+    //Initialisation Barre Inferieure
+    barreInferieure = new QHBoxLayout();
+    quiJoue = new QLabel("A Qui le tour : ", this);
+    quiJoueTexte = new QLabel("Joueur 1", this);
+    resultatDes = new QLabel("Resultat des Dés : ", this);
+    resultatDesTexte = new QLabel("", this);
+
+    barreInferieure->addWidget(quiJoue);
+    barreInferieure->addWidget(quiJoueTexte);
+    barreInferieure->addWidget(resultatDes);
+    barreInferieure->addWidget(resultatDesTexte);
+
     if(leMatch->getQuiJoue() == 0)
     {
         // on modifie le QPixmap
@@ -502,17 +514,15 @@ void FenetrePrincipale::fenetreMatch(race raceEquipeJ1, int indexEquipeJ1, race 
         // on modifie le QPixmap
     }
 
-
-
     layoutGrille->setSizeConstraint(QLayout::SetMinimumSize);
     QGridLayout * terrainLayout = new QGridLayout(this);
     terrainLayout->addWidget(sonTerrain);
-    layoutGrille->addLayout(panneauJ1,0,0,2,1);
-    layoutGrille->addLayout(panneauJ2,0,4,2,1);
+    layoutGrille->addLayout(panneauJ1,0,0,3,1);
+    layoutGrille->addLayout(panneauJ2,0,4,3,1);
     layoutGrille->addLayout(barreSuperieure,0,1);
     layoutGrille->addLayout(terrainLayout, 1, 1);
+    layoutGrille->addLayout(barreInferieure,2,1);
 }
-
 
 void FenetrePrincipale::updatePanneauJoueur(int action, QStandardItem *leJoueur)
 {
@@ -630,6 +640,15 @@ void FenetrePrincipale::changementJoueur()
 void FenetrePrincipale::finDeTour()
 {
     changementJoueur();
+
+    if(leMatch->getQuiJoue() == joueur1)
+    {
+        quiJoueTexte->setText("Joueur 2");
+    }
+    if(leMatch->getQuiJoue() == joueur2)
+    {
+        quiJoueTexte->setText("Joueur 1");
+    }
 
     sonTerrain->clearTerrain();
     leMatch->finTour();
