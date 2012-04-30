@@ -175,11 +175,11 @@ void SceneTerrain::firstClic(const QModelIndex &current, const QModelIndex &prev
         // Affichage zone de tacle:
         if(sonModele->item(current.row(), current.column())->data(33).toBool())
         {
-            afficheZonesTacle(sonParent->getLeMatch()->getEquipe1());
+            afficheZonesTacle(sonParent->getLeMatch()->getEquipe2());
         }
         else
         {
-            afficheZonesTacle(sonParent->getLeMatch()->getEquipe2());
+            afficheZonesTacle(sonParent->getLeMatch()->getEquipe1());
         }
 
         fClic = 0;

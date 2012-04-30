@@ -53,7 +53,7 @@ void Match::setQuiJoue(bool joueur)
 void Match::finTour()
 {
     setQuiJoue(!quiJoue);
-
+    std::cout<<"Fin de tour : Reset des mouvements des joueurs"<<std::endl;
     // reset des mouvements des joueurs :
     if(quiJoue)
     {

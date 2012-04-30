@@ -183,10 +183,9 @@ std::map<int, std::vector<QStandardItem * > * >* Equipe::zonesTacle()
         if(x+1<15 && y+1<28)
         zoneTacle->push_back(sonModele->item(x+1, y+1));
 
-
         if(!zoneTacle->empty())
         lesZonesTacle->insert(std::pair<int, std::vector<QStandardItem* >* >((*leIt)->getItem()->data(39).toInt(), zoneTacle));
-    }
 
+    }
     return lesZonesTacle;
 }

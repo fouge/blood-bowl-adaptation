@@ -598,7 +598,7 @@ void FenetrePrincipale::updatePanneauJoueur(int action, QStandardItem *leJoueur)
         }
         break;
     }
-    default: std::cout<<"default sur clique"<<std::endl;
+    default: std::cout<<"pas de race"<<std::endl;
         clearPanneauxJoueurs();
     }
 }
@@ -632,7 +632,9 @@ void FenetrePrincipale::finDeTour()
     changementJoueur();
 
     sonTerrain->clearTerrain();
+
     leMatch->finTour();
+    qApp->aboutQt();
 }
 
 Match* FenetrePrincipale::getLeMatch()
