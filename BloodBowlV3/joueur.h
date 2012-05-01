@@ -6,7 +6,7 @@
 #include "tablemodel.h"
 #include "enum.h"
 
-
+class TableModel;
 
 class Joueur
 {
@@ -32,6 +32,7 @@ public:
     QStandardItem* getItem();
     void resetData();
     void setLeTerrain(TableModel*);
+    void setItem(QStandardItem* unItem);
     int type() const;
 };
 

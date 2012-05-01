@@ -2,12 +2,19 @@
 #define TABLEMODEL_H
 
 #include <QStandardItemModel>
+#include "equipe.h"
+
+class Equipe;
 
 class TableModel : public QStandardItemModel
 {
+    Equipe *sonEquipe1, *sonEquipe2;
 public:
     TableModel(int, int);
     void switchItems(QStandardItem* item1, QStandardItem* item2);
+    void resetAllJoueurs();
+    void setEquipes(Equipe*, Equipe*);
+
 };
 
 #endif // TABLEMODEL_H

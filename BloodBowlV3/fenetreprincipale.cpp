@@ -633,14 +633,6 @@ void FenetrePrincipale::clearPanneauxJoueurs()
 // gère l'affichage pour savoir qui joue :
 void FenetrePrincipale::changementJoueur()
 {
-
-}
-
-// fin de tour
-void FenetrePrincipale::finDeTour()
-{
-    changementJoueur();
-
     if(leMatch->getQuiJoue() == joueur1)
     {
         quiJoueTexte->setText("Joueur 2");
@@ -649,6 +641,12 @@ void FenetrePrincipale::finDeTour()
     {
         quiJoueTexte->setText("Joueur 1");
     }
+}
+
+// fin de tour
+void FenetrePrincipale::finDeTour()
+{
+    changementJoueur();
 
     sonTerrain->clearTerrain();
     leMatch->finTour();

@@ -221,7 +221,6 @@ void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &pre
         }
         // on déplace le joueur :
         sonModele->switchItems(sonModele->item(previous.row(), previous.column()), sonModele->item(current.row(), current.column()));
-
         }
 
         // on nettoie l'affichage :
@@ -259,14 +258,12 @@ void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &pre
         firstClic(current, previous);
     }
 
-
 }
 
 
 void SceneTerrain::clearTerrain()
 {
     sonParent->clearPanneauxJoueurs();
-    setSelection(QRect(), QItemSelectionModel::Clear);
     for(int i(0); i<15; i++)
     {
         for(int j(0); j<28; j++)
@@ -276,6 +273,7 @@ void SceneTerrain::clearTerrain()
     }
     fClic = 1;
 }
+
 
 void SceneTerrain::mouseReleaseEvent(QMouseEvent *event)
 {

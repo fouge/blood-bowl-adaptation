@@ -6,7 +6,7 @@
 
 class Joueur;
 
-
+class TableModel;
 
 class Equipe
 {
@@ -17,6 +17,7 @@ class Equipe
 public:
     Equipe(race, int, bool, TableModel*);
     void resetJoueurs();
+    std::vector<Joueur*>* getSesJoueurs();
     std::map<int, std::vector<QStandardItem* >* >* zonesTacle();
 };
 

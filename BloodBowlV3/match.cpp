@@ -16,7 +16,7 @@ Match::Match(race raceEquipe1, int noEquipe1, race raceEquipe2, int noEquipe2):q
         {
             sonTableauCases->setItem(i, j, new QStandardItem());
             sonTableauCases->item(i,j)->setData(QVariant(QBrush(QColor(110,210,50))), Qt::BackgroundRole);
-            sonTableauCases->item(i,j)->setData(QVariant(false), 46);
+            sonTableauCases->item(i,j)->setData(QVariant(false), 45);
         }
     }
 
@@ -24,6 +24,8 @@ Match::Match(race raceEquipe1, int noEquipe1, race raceEquipe2, int noEquipe2):q
 
     sonEquipe1 = new Equipe(raceEquipe1, noEquipe1, true, sonTableauCases);
     sonEquipe2 = new Equipe(raceEquipe2, noEquipe2, false, sonTableauCases);
+
+    sonTableauCases->setEquipes(sonEquipe1, sonEquipe2);
 
 }
 

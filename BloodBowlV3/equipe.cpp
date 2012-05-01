@@ -194,3 +194,8 @@ std::map<int, std::vector<QStandardItem * > * >* Equipe::zonesTacle()
     }
     return lesZonesTacle;
 }
+
+std::vector<Joueur*>* Equipe::getSesJoueurs()
+{
+    return sesJoueurs;
+}

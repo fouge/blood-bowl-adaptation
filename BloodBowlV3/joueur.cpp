@@ -125,7 +125,6 @@ Joueur::Joueur(typeJ unType, std::vector<competences> desCompetences, int desMou
 
 
     sonItem->setEditable(true);
-
     sonItem->setData(QVariant(QBrush(QColor(110,210,50))), Qt::BackgroundRole);
     sonItem->setData(QVariant(actionEffectue), 34);
     sonItem->setData(QVariant(sesMouvements),35);
@@ -196,7 +195,15 @@ int Joueur::getId()
 
 void Joueur::resetData()
 {
+
+    std::cout<<sonItem->row()<<";"<<sonItem->column()<<std::endl;
     int i = sonItem->row();
     int j = sonItem->column();
+//    leTerrain->takeItem(sonItem->row(), sonItem->column())->setData(QVariant(sesMouvements), 35);
     leTerrain->item(i, j)->setData(QVariant(sesMouvements), 35);
+}
+
+void Joueur::setItem(QStandardItem *unItem)
+{
+    sonItem = unItem;
 }
