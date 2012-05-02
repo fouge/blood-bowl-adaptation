@@ -135,9 +135,13 @@ Joueur::Joueur(typeJ unType, std::vector<competences> desCompetences, int desMou
     sonItem->setData(QVariant(sonX),40);
     sonItem->setData(QVariant(sonY),41);
     sonItem->setData(QVariant(sonNom),42);
-    sonItem->setData(QVariant(sonEtat),43);
+    if(sonEtat == debout)
+    {
+    sonItem->setData(QVariant(true),43);
+    }
     sonItem->setData(QVariant(sonType),44);
     sonItem->setData(QVariant(true),45);
+
     std::vector<competences>::iterator it;
     int valeurRole = 60;
     for(it = sesCompetences.begin(); it != sesCompetences.end(); it++, valeurRole++)
@@ -191,16 +195,6 @@ QStandardItem* Joueur::getItem()
 int Joueur::getId()
 {
     return sonId;
-}
-
-void Joueur::resetData()
-{
-
-    std::cout<<sonItem->row()<<";"<<sonItem->column()<<std::endl;
-    int i = sonItem->row();
-    int j = sonItem->column();
-//    leTerrain->takeItem(sonItem->row(), sonItem->column())->setData(QVariant(sesMouvements), 35);
-    leTerrain->item(i, j)->setData(QVariant(sesMouvements), 35);
 }
 
 void Joueur::setItem(QStandardItem *unItem)

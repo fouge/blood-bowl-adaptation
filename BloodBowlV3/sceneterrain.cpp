@@ -27,8 +27,8 @@ SceneTerrain::SceneTerrain(int nLignes, int nColonnes, TableModel* unModele, Fen
     horizontalHeader()->setVisible(false);
     setEditTriggers(NoEditTriggers);
     setSelectionMode(QAbstractItemView::SingleSelection);
-
 }
+
 
 void SceneTerrain::dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight)
 {
@@ -67,18 +67,26 @@ void SceneTerrain::currentChanged(const QModelIndex &current, const QModelIndex 
             if(sonModele->item(current.row(), current.column())->data(33).toBool() )
             {
                 sonParent->updatePanneauJoueur(0,sonModele->item(current.row(), current.column()));
-                if(sonModele->item(current.row(), current.column())->data(43).toInt() == 0)
+                if(sonModele->item(current.row(), current.column())->data(43).toBool() == true)
                     lesMouvementsPossibles = afficheMouvements(sonModele->item(current.row(), current.column()));
                 else
-                    lesMouvementsPossibles->push_back(sonModele->item(current.row(), current.column()));
+                {
+                    std::cout<<"Le joueur se relève pour un coût de 3 cases"<<std::endl;
+                    sonModele->item(current.row(), current.column())->setData(QVariant(sonModele->item(current.row(), current.column())->data(35).toInt() - 3), 35);
+                    lesMouvementsPossibles = afficheMouvements(sonModele->item(current.row(), current.column()));
+                }
             }
             else
             {
                 sonParent->updatePanneauJoueur(1, sonModele->item(current.row(), current.column()));
-                if(sonModele->item(current.row(), current.column())->data(43).toInt() == 0)
+                if(sonModele->item(current.row(), current.column())->data(43).toBool() == true)
                     lesMouvementsPossibles = afficheMouvements(sonModele->item(current.row(), current.column()));
                 else
-                    lesMouvementsPossibles->push_back(sonModele->item(current.row(), current.column()));
+                {
+                    std::cout<<"Le joueur se relève pour un coût de 3 cases"<<std::endl;
+                    sonModele->item(current.row(), current.column())->setData(QVariant(sonModele->item(current.row(), current.column())->data(35).toInt() - 3), 35);
+                    lesMouvementsPossibles = afficheMouvements(sonModele->item(current.row(), current.column()));
+                }
             }
 
             std::vector<QStandardItem*>::iterator leIt;
@@ -153,18 +161,26 @@ void SceneTerrain::firstClic(const QModelIndex &current, const QModelIndex &prev
         if(sonModele->item(current.row(), current.column())->data(33).toBool() )
         {
             sonParent->updatePanneauJoueur(0,sonModele->item(current.row(), current.column()));
-            if(sonModele->item(current.row(), current.column())->data(43).toInt() == 0)
+            if(sonModele->item(current.row(), current.column())->data(43).toBool() == true)
                 lesMouvementsPossibles = afficheMouvements(sonModele->item(current.row(), current.column()));
             else
-                lesMouvementsPossibles->push_back(sonModele->item(current.row(), current.column()));
+            {
+                std::cout<<"Le joueur se relève pour un coût de 3 cases"<<std::endl;
+                sonModele->item(current.row(), current.column())->setData(QVariant(sonModele->item(current.row(), current.column())->data(35).toInt() - 3), 35);
+                lesMouvementsPossibles = afficheMouvements(sonModele->item(current.row(), current.column()));
+            }
         }
         else
         {
             sonParent->updatePanneauJoueur(1, sonModele->item(current.row(), current.column()));
-            if(sonModele->item(current.row(), current.column())->data(43).toInt() == 0)
+            if(sonModele->item(current.row(), current.column())->data(43).toBool() == true)
                 lesMouvementsPossibles = afficheMouvements(sonModele->item(current.row(), current.column()));
             else
-                lesMouvementsPossibles->push_back(sonModele->item(current.row(), current.column()));
+            {
+                std::cout<<"Le joueur se relève pour un coût de 3 cases"<<std::endl;
+                sonModele->item(current.row(), current.column())->setData(QVariant(sonModele->item(current.row(), current.column())->data(35).toInt() - 3), 35);
+                lesMouvementsPossibles = afficheMouvements(sonModele->item(current.row(), current.column()));
+            }
         }
         std::vector<QStandardItem*>::iterator leIt;
         for(leIt = lesMouvementsPossibles->begin(); leIt != lesMouvementsPossibles->end(); leIt++)
@@ -192,8 +208,10 @@ void SceneTerrain::firstClic(const QModelIndex &current, const QModelIndex &prev
 
 void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &previous)
 {
+
     if(sonModele->item(previous.row(), previous.column())->data(45).toBool() && !sonModele->item(current.row(), current.column())->data(45).toBool())
     {
+        std::cout<<"Deplacement :"<<std::endl;
         bool deplacementPossible(false);
         std::vector<QStandardItem*>::iterator leIt;
         for(leIt = lesMouvementsPossibles->begin(); leIt != lesMouvementsPossibles->end(); leIt++)
@@ -219,8 +237,10 @@ void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &pre
         {
             sonModele->item(previous.row(), previous.column())->setData(QVariant(mvts - abs(y)), 35);
         }
+
         // on déplace le joueur :
         sonModele->switchItems(sonModele->item(previous.row(), previous.column()), sonModele->item(current.row(), current.column()));
+
         }
 
         // on nettoie l'affichage :
@@ -239,8 +259,12 @@ void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &pre
     else if(sonModele->item(previous.row(), previous.column())->data(45).toBool() && sonModele->item(current.row(), current.column())->data(45).toBool() && (sonModele->item(previous.row(), previous.column())->data(33).toBool() != sonModele->item(current.row(), current.column())->data(33).toBool()))
     {
         // on attaque
-        // ...
-        // ...
+        // si joueur sur une case adjacente : BLOCAGE
+
+
+        // si Joueur plus loin : blitz
+        // un seul par equipe par tour,
+        // enleve un mouvement
 
         sonParent->clearPanneauxJoueurs();
         for(int i(0); i<15; i++)
@@ -251,10 +275,23 @@ void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &pre
             }
         }
         fClic = 1;
+
+        // action effectué
+        sonModele->item(previous.row(), previous.column())->setData(QVariant(true), 34);
     }
 
     else if(sonModele->item(previous.row(), previous.column())->data(45).toBool() && sonModele->item(previous.row(), previous.column())->data(33).toBool() == sonModele->item(current.row(), current.column())->data(33).toBool())
     {
+        // on effectue une passe ou transmission :
+
+
+        // action effectue :
+        sonModele->item(previous.row(), previous.column())->setData(QVariant(true), 34);
+
+
+        //
+        //commenter cette ligne une fois l'implementation effectué !!!!!
+        //
         firstClic(current, previous);
     }
 

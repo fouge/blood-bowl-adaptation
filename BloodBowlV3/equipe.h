@@ -14,11 +14,13 @@ class Equipe
     std::vector<Joueur*>* sesJoueurs;
     bool sonCote;
     TableModel* sonModele;
+    bool blitzEffectue;
 public:
     Equipe(race, int, bool, TableModel*);
     void resetJoueurs();
     std::vector<Joueur*>* getSesJoueurs();
     std::map<int, std::vector<QStandardItem* >* >* zonesTacle();
+    void setBlitzEffectue(bool);
 };
 
 #endif // EQUIPE_H

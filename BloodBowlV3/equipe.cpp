@@ -3,7 +3,7 @@
 #include <iostream>
 #include <QApplication>
 
-Equipe::Equipe(race uneRace, int uneComposition, bool cote, TableModel* unModele):saRace(uneRace), sonCote(cote), sonModele(unModele)
+Equipe::Equipe(race uneRace, int uneComposition, bool cote, TableModel* unModele):saRace(uneRace), sonCote(cote), sonModele(unModele), blitzEffectue(false)
 {
 
     Joueur* leJoueurModele = new Joueur(unModele);
@@ -150,14 +150,10 @@ Equipe::Equipe(race uneRace, int uneComposition, bool cote, TableModel* unModele
 void Equipe::resetJoueurs()
 {
     std::vector<Joueur*>::iterator leIt;
-    int no(0);
     for(leIt = sesJoueurs->begin(); leIt != sesJoueurs->end(); leIt++)
     {
-        std::cout<<no<<std::endl;
-        (*leIt)->resetData();
-        no++;
+        (*leIt)->getItem()->setData(QVariant((*leIt)->getMouvements()), 35);
     }
-
 }
 
 std::map<int, std::vector<QStandardItem * > * >* Equipe::zonesTacle()
@@ -170,7 +166,8 @@ std::map<int, std::vector<QStandardItem * > * >* Equipe::zonesTacle()
         std::vector<QStandardItem* >* zoneTacle = new std::vector<QStandardItem* >;
         int x = (*leIt)->getItem()->row();
         int y = (*leIt)->getItem()->column();
-
+        if((*leIt)->getItem()->data(43).toInt() == 0)
+        {
         if(x-1>=0 && y-1>=0)
         zoneTacle->push_back(sonModele->item(x-1, y-1));
         if(x-1>=0)
@@ -190,7 +187,7 @@ std::map<int, std::vector<QStandardItem * > * >* Equipe::zonesTacle()
 
         if(!zoneTacle->empty())
         lesZonesTacle->insert(std::pair<int, std::vector<QStandardItem* >* >((*leIt)->getItem()->data(39).toInt(), zoneTacle));
-
+        }
     }
     return lesZonesTacle;
 }
@@ -198,4 +195,9 @@ std::map<int, std::vector<QStandardItem * > * >* Equipe::zonesTacle()
 std::vector<Joueur*>* Equipe::getSesJoueurs()
 {
     return sesJoueurs;
+}
+
+void Equipe::setBlitzEffectue(bool unBool)
+{
+    blitzEffectue = unBool;
 }

@@ -56,6 +56,8 @@ void Match::setQuiJoue(bool joueur)
 void Match::finTour()
 {
     setQuiJoue(!quiJoue);
+    sonEquipe1->setBlitzEffectue(false);
+    sonEquipe2->setBlitzEffectue(false);
     sonEquipe1->resetJoueurs();
     sonEquipe2->resetJoueurs();
 }
