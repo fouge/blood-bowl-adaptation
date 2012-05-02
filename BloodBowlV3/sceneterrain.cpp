@@ -41,7 +41,7 @@ void SceneTerrain::currentChanged(const QModelIndex &current, const QModelIndex 
 
     if(current.isValid() && previous.isValid() && fClic)
     {
-        if(sonParent->getLeMatch()->getQuiJoue() == 0 && sonModele->item(current.row(), current.column())->data(33).toBool() || sonParent->getLeMatch()->getQuiJoue() != 0 && !sonModele->item(current.row(), current.column())->data(33).toBool())
+        if((sonParent->getLeMatch()->getQuiJoue() == 0 && sonModele->item(current.row(), current.column())->data(33).toBool()) || (sonParent->getLeMatch()->getQuiJoue() != 0 && !sonModele->item(current.row(), current.column())->data(33).toBool()))
         firstClic(current, previous);
     }
     else if(current.isValid() && previous.isValid() && !fClic)
@@ -185,9 +185,9 @@ void SceneTerrain::firstClic(const QModelIndex &current, const QModelIndex &prev
 void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &previous)
 {
 
-    if(!sonModele->item(previous.row(), previous.column())->data(34).toBool() && (sonModele->item(previous.row(), previous.column())->data(45).toBool() && !sonModele->item(current.row(), current.column())->data(45).toBool()))
+    if(!(sonModele->item(previous.row(), previous.column())->data(34).toBool()) && (sonModele->item(previous.row(), previous.column())->data(45).toBool() && !sonModele->item(current.row(), current.column())->data(45).toBool()))
     {
-        std::cout<<"Deplacement :"<<std::endl;
+        std::cout<<"Deplacement"<<std::endl;
         bool deplacementPossible(false);
         std::vector<QStandardItem*>::iterator leIt;
         for(leIt = lesMouvementsPossibles->begin(); leIt != lesMouvementsPossibles->end(); leIt++)
@@ -241,16 +241,14 @@ void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &pre
 
     else if(!sonModele->item(previous.row(), previous.column())->data(34).toBool() && (sonModele->item(previous.row(), previous.column())->data(45).toBool() && sonModele->item(previous.row(), previous.column())->data(33).toBool() == sonModele->item(current.row(), current.column())->data(33).toBool()))
     {
-        // on effectue une passe ou transmission :
-
-
-
-
-        // action effectue :
-        sonModele->item(previous.row(), previous.column())->setData(QVariant(true), 34);
-        //
-        //commenter cette ligne une fois l'implementation effectué !!!!!
-        //
+        // on effectue une passe ou transmission si le joueur a le ballon :
+//        if(ballon->row())
+//        {
+//            clearTerrain();
+//            // action effectue :
+//            sonModele->item(previous.row(), previous.column())->setData(QVariant(true), 34);
+//        }
+//        else
         firstClic(current, previous);
     }
 
@@ -266,7 +264,7 @@ void SceneTerrain::clearTerrain()
         {
             if(sonModele->item(i, j)->data(45).toBool() && !sonModele->item(i, j)->data(43).toBool())
             {
-                sonModele->item(i,j)->setData(QVariant(QBrush(QColor(34,177,76))), Qt::BackgroundRole);
+                sonModele->item(i,j)->setData(QVariant(QBrush(QColor(177,0,0))), Qt::BackgroundRole);
             }
             else
             sonModele->item(i,j)->setData(QVariant(QBrush(QColor(110,210,50))), Qt::BackgroundRole);

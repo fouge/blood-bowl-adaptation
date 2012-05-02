@@ -152,7 +152,10 @@ void Equipe::resetJoueurs()
     std::vector<Joueur*>::iterator leIt;
     for(leIt = sesJoueurs->begin(); leIt != sesJoueurs->end(); leIt++)
     {
+        //on remet les mouvements des joueurs
         (*leIt)->getItem()->setData(QVariant((*leIt)->getMouvements()), 35);
+        //l'action du joueur n'est pas effectuée :
+        (*leIt)->getItem()->setData(QVariant(false), 34);
     }
 }
 

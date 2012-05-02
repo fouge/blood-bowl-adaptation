@@ -1,6 +1,7 @@
 #include "match.h"
 #include <iostream>
 #include <stdlib.h>
+#include <time.h>
 #include <QApplication>
 #include <QMessageBox>
 
@@ -31,6 +32,7 @@ Match::Match(race raceEquipe1, int noEquipe1, race raceEquipe2, int noEquipe2, F
 
 int Match::lancer1D6() //donne un chiffre aléatoire entre 1 et 6
 {
+    srand(time(NULL));
     return rand() % 6 + 1;
 }
 
@@ -81,10 +83,10 @@ void Match::turnover(int action)
     // 2 : limite de 4 min depassé
     switch(action)
     {
-    case 0: {QMessageBox* alert = new QMessageBox(QMessageBox::Warning, "Turnover", "Le joueur n'a pas réussi son action, il subit un turnover !");
+    case 0: {QMessageBox* alert = new QMessageBox(QMessageBox::Warning, "Turnover!", "Le joueur n'a pas réussi son action, turnover !");
         alert->show();
         break;}
-    case 1: {QMessageBox* alert = new QMessageBox(QMessageBox::Information, "Turnover", "Buuuut !");
+    case 1: {QMessageBox* alert = new QMessageBox(QMessageBox::Information, "Turnover!", "Buuuut !");
         alert->show();
         break;}
     default : std::cout<<"Turnover inconnu"<<std::endl;
