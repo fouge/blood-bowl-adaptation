@@ -15,13 +15,16 @@ class Equipe
     bool sonCote;
     TableModel* sonModele;
     bool blitzEffectue;
-    int relance;
+    int sesRelances, sonNoTour, sesPoints;
 public:
     Equipe(race, int, bool, TableModel*);
     void resetJoueurs();
     std::vector<Joueur*>* getSesJoueurs();
     std::map<int, std::vector<QStandardItem* >* >* zonesTacle();
     void setBlitzEffectue(bool);
+    void incrementeTour();
+    int getTour();
+    int getPoints();
 };
 
 #endif // EQUIPE_H

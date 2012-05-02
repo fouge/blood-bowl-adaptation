@@ -9,6 +9,7 @@
 SceneTerrain::SceneTerrain(int nLignes, int nColonnes, TableModel* unModele, FenetrePrincipale* parent):QTableView(),
     sonModele(unModele), joueurSelectionne(false), sonParent(parent), fClic(true), lesMouvementsPossibles(0)
 {
+    changementJoueur = false;
     setModel(sonModele);
 
     // init :
@@ -48,7 +49,7 @@ void SceneTerrain::currentChanged(const QModelIndex &current, const QModelIndex 
     {
         secondClic(current, previous);
     }
-    else if(!previous.isValid() && current.isValid() && (((sonParent->getLeMatch()->getQuiJoue() == 0) && sonModele->item(current.row(), current.column())->data(33).toBool()) || ((sonParent->getLeMatch()->getQuiJoue() != 0) && !sonModele->item(current.row(), current.column())->data(33).toBool())))
+    else if(changementJoueur || (!previous.isValid() && current.isValid() && (((sonParent->getLeMatch()->getQuiJoue() == 0) && sonModele->item(current.row(), current.column())->data(33).toBool()) || ((sonParent->getLeMatch()->getQuiJoue() != 0) && !sonModele->item(current.row(), current.column())->data(33).toBool()))))
     {
         std::cout<<sonModele->item(current.row(), current.column())->data(43).toInt()<<std::endl;
         if(sonModele->item(current.row(), current.column())->data(45).toBool())
@@ -109,7 +110,7 @@ void SceneTerrain::currentChanged(const QModelIndex &current, const QModelIndex 
         std::cout<<"premier clic sur terrain"<<std::endl;
         }
     }
-
+    changementJoueur = false;
 }
 
 
@@ -368,4 +369,9 @@ bool SceneTerrain::esquive(int row, int column)
     {
         return true;
     }
+}
+
+void SceneTerrain::setChangementJoueur(bool aChangeJoueur)
+{
+    changementJoueur = aChangeJoueur;
 }

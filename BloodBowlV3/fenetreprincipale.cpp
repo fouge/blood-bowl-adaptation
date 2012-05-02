@@ -3,6 +3,7 @@
 #include "tablemodel.h"
 #include <cstdio>
 #include <iostream>
+#include <QMessageBox>
 
 FenetrePrincipale::FenetrePrincipale()
 {
@@ -641,10 +642,14 @@ void FenetrePrincipale::changementJoueur()
 {
     if(leMatch->getQuiJoue() == joueur1)
     {
+        leMatch->getEquipe1()->incrementeTour();
+        nbTourJ1->setText(QString(""+QString::number(leMatch->getEquipe1()->getTour())+"/16"));
         quiJoueTexte->setText("Joueur 2");
     }
     if(leMatch->getQuiJoue() == joueur2)
     {
+        leMatch->getEquipe2()->incrementeTour();
+        nbTourJ2->setText(QString(""+QString::number(leMatch->getEquipe2()->getTour())+"/16"));
         quiJoueTexte->setText("Joueur 1");
     }
 }
@@ -653,9 +658,31 @@ void FenetrePrincipale::changementJoueur()
 void FenetrePrincipale::finDeTour()
 {
     changementJoueur();
-
     sonTerrain->clearTerrain();
+    sonTerrain->setChangementJoueur(true);
     leMatch->finTour();
+
+    if(leMatch->getEquipe1()->getTour() == 16 && leMatch->getEquipe2()->getTour() == 16)
+    {
+        if(leMatch->getEquipe1()->getPoints() < leMatch->getEquipe2()->getPoints())
+        {
+            QMessageBox* alert = new QMessageBox(QMessageBox::Information, "Partie terminée", "Le joueur 1 l'emporte ! A bientôt pour un nouveau match !");
+            alert->show();
+            qApp->quit();
+        }
+        else if(leMatch->getEquipe1()->getPoints() == leMatch->getEquipe2()->getPoints())
+        {
+            QMessageBox* alert = new QMessageBox(QMessageBox::Information, "Partie terminée", "Ex-eaquo ! Bien joué aux deux joueurs. A bientôt pour un nouveau match !");
+            alert->show();
+            qApp->quit();
+        }
+        else
+        {
+            QMessageBox* alert = new QMessageBox(QMessageBox::Information, "Partie terminée", "Le joueur 2 l'emporte ! A bientôt pour un nouveau match !");
+            alert->show();
+            qApp->quit();
+        }
+    }
 }
 
 Match* FenetrePrincipale::getLeMatch()

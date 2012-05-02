@@ -3,7 +3,7 @@
 #include <iostream>
 #include <QApplication>
 
-Equipe::Equipe(race uneRace, int uneComposition, bool cote, TableModel* unModele):saRace(uneRace), sonCote(cote), sonModele(unModele), blitzEffectue(false)
+Equipe::Equipe(race uneRace, int uneComposition, bool cote, TableModel* unModele):sesPoints(0), saRace(uneRace), sonCote(cote), sonModele(unModele), blitzEffectue(false), sonNoTour(0)
 {
 
     Joueur* leJoueurModele = new Joueur(unModele);
@@ -203,4 +203,17 @@ std::vector<Joueur*>* Equipe::getSesJoueurs()
 void Equipe::setBlitzEffectue(bool unBool)
 {
     blitzEffectue = unBool;
+}
+void Equipe::incrementeTour()
+{
+    sonNoTour++;
+}
+int Equipe::getTour()
+{
+    return sonNoTour;
+}
+
+int Equipe::getPoints()
+{
+    return sesPoints;
 }
