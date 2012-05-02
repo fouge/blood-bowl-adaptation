@@ -15,6 +15,7 @@ class Equipe
     bool sonCote;
     TableModel* sonModele;
     bool blitzEffectue;
+    int relance;
 public:
     Equipe(race, int, bool, TableModel*);
     void resetJoueurs();

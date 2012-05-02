@@ -5,6 +5,9 @@
 #include "enum.h"
 #include "equipe.h"
 #include "tablemodel.h"
+#include "fenetreprincipale.h"
+
+class FenetrePrincipale;
 
 class Match
 {
@@ -12,8 +15,9 @@ class Match
     int sesTours;
     coach quiJoue;
     Equipe* sonEquipe1, *sonEquipe2;
+    FenetrePrincipale* saFenetre;
 public:
-    Match(race raceEquipe1, int noEquipe1, race raceEquipe2, int noEquipe2);
+    Match(race raceEquipe1, int noEquipe1, race raceEquipe2, int noEquipe2, FenetrePrincipale* uneFenetre);
     int lancer1D6();
     TableModel* getModel();
     coach getQuiJoue();
@@ -21,6 +25,8 @@ public:
     Equipe* getEquipe1();
     Equipe* getEquipe2();
     void finTour();
+public slots:
+    void turnover(int);
 };
 
 #endif // MATCH_H

@@ -487,7 +487,7 @@ void FenetrePrincipale::fenetreMatch(race raceEquipeJ1, int indexEquipeJ1, race 
     texteTourJ2->setAlignment(Qt::AlignRight);
     nbTourJ2->setAlignment(Qt::AlignLeft);
 
-    leMatch = new Match(raceEquipeJ1,indexEquipeJ1,raceEquipeJ2,indexEquipeJ2);
+    leMatch = new Match(raceEquipeJ1,indexEquipeJ1,raceEquipeJ2,indexEquipeJ2, this);
 
     sonTerrain = new SceneTerrain(15, 28, leMatch->getModel(), this);
 
@@ -613,6 +613,11 @@ void FenetrePrincipale::updatePanneauJoueur(int action, QStandardItem *leJoueur)
     }
 }
 
+void FenetrePrincipale::updateResultatsDes(int de)
+{
+    resultatDesTexte->setText(QString::number(de));
+}
+
 void FenetrePrincipale::clearPanneauxJoueurs()
 {
     posteJ1Texte->clear();
@@ -628,6 +633,7 @@ void FenetrePrincipale::clearPanneauxJoueurs()
     agiliteJ2Chiffre->clear();
     armureJ2Chiffre->clear();
     nomJ2Texte->clear();
+
 }
 
 // gère l'affichage pour savoir qui joue :

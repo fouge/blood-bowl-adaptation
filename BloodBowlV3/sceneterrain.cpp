@@ -54,14 +54,7 @@ void SceneTerrain::currentChanged(const QModelIndex &current, const QModelIndex 
         if(sonModele->item(current.row(), current.column())->data(45).toBool())
         {
             //on nettoie l'affichage
-            sonParent->clearPanneauxJoueurs();
-            for(int i(0); i<15; i++)
-            {
-                for(int j(0); j<28; j++)
-                {
-                    sonModele->item(i,j)->setData(QVariant(QBrush(QColor(110,210,50))), Qt::BackgroundRole);
-                }
-            }
+            clearTerrain();
 
             // on affiche
             if(sonModele->item(current.row(), current.column())->data(33).toBool() )
@@ -73,6 +66,7 @@ void SceneTerrain::currentChanged(const QModelIndex &current, const QModelIndex 
                 {
                     std::cout<<"Le joueur se relève pour un coût de 3 cases"<<std::endl;
                     sonModele->item(current.row(), current.column())->setData(QVariant(sonModele->item(current.row(), current.column())->data(35).toInt() - 3), 35);
+                    sonModele->item(current.row(), current.column())->setData(QVariant(true), 43);
                     lesMouvementsPossibles = afficheMouvements(sonModele->item(current.row(), current.column()));
                 }
             }
@@ -85,6 +79,7 @@ void SceneTerrain::currentChanged(const QModelIndex &current, const QModelIndex 
                 {
                     std::cout<<"Le joueur se relève pour un coût de 3 cases"<<std::endl;
                     sonModele->item(current.row(), current.column())->setData(QVariant(sonModele->item(current.row(), current.column())->data(35).toInt() - 3), 35);
+                    sonModele->item(current.row(), current.column())->setData(QVariant(true), 43);
                     lesMouvementsPossibles = afficheMouvements(sonModele->item(current.row(), current.column()));
                 }
             }
@@ -111,11 +106,6 @@ void SceneTerrain::currentChanged(const QModelIndex &current, const QModelIndex 
         }
         else
         {
-            if(fClic)
-                std::cout<<"fCliv : vrai"<<std::endl;
-            else
-            {std::cout<<"fCliv : faux"<<std::endl;}
-
         std::cout<<"premier clic sur terrain"<<std::endl;
         }
     }
@@ -129,16 +119,7 @@ void SceneTerrain::firstClic(const QModelIndex &current, const QModelIndex &prev
 
     if(!sonModele->item(current.row(), current.column())->data(45).toBool() && !sonModele->item(previous.row(), previous.column())->data(45).toBool())
     {
-        sonParent->clearPanneauxJoueurs();
-        for(int i(0); i<15; i++)
-        {
-            for(int j(0); j<28; j++)
-            {
-                sonModele->item(i,j)->setData(QVariant(QBrush(QColor(110,210,50))), Qt::BackgroundRole);
-            }
-        }
-
-        fClic = 1;
+        clearTerrain();
     }
 
     // Affichage des mouvements :
@@ -147,14 +128,7 @@ void SceneTerrain::firstClic(const QModelIndex &current, const QModelIndex &prev
     {
 
         //on nettoie l'affichage
-        sonParent->clearPanneauxJoueurs();
-        for(int i(0); i<15; i++)
-        {
-            for(int j(0); j<28; j++)
-            {
-                sonModele->item(i,j)->setData(QVariant(QBrush(QColor(110,210,50))), Qt::BackgroundRole);
-            }
-        }
+        clearTerrain();
 
         // on affiche si le joueur est debout
 
@@ -167,6 +141,7 @@ void SceneTerrain::firstClic(const QModelIndex &current, const QModelIndex &prev
             {
                 std::cout<<"Le joueur se relève pour un coût de 3 cases"<<std::endl;
                 sonModele->item(current.row(), current.column())->setData(QVariant(sonModele->item(current.row(), current.column())->data(35).toInt() - 3), 35);
+                sonModele->item(current.row(), current.column())->setData(QVariant(true), 43);
                 lesMouvementsPossibles = afficheMouvements(sonModele->item(current.row(), current.column()));
             }
         }
@@ -179,6 +154,7 @@ void SceneTerrain::firstClic(const QModelIndex &current, const QModelIndex &prev
             {
                 std::cout<<"Le joueur se relève pour un coût de 3 cases"<<std::endl;
                 sonModele->item(current.row(), current.column())->setData(QVariant(sonModele->item(current.row(), current.column())->data(35).toInt() - 3), 35);
+                sonModele->item(current.row(), current.column())->setData(QVariant(true), 43);
                 lesMouvementsPossibles = afficheMouvements(sonModele->item(current.row(), current.column()));
             }
         }
@@ -209,7 +185,7 @@ void SceneTerrain::firstClic(const QModelIndex &current, const QModelIndex &prev
 void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &previous)
 {
 
-    if(sonModele->item(previous.row(), previous.column())->data(45).toBool() && !sonModele->item(current.row(), current.column())->data(45).toBool())
+    if(!sonModele->item(previous.row(), previous.column())->data(34).toBool() && (sonModele->item(previous.row(), previous.column())->data(45).toBool() && !sonModele->item(current.row(), current.column())->data(45).toBool()))
     {
         std::cout<<"Deplacement :"<<std::endl;
         bool deplacementPossible(false);
@@ -222,7 +198,7 @@ void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &pre
             }
         }
 
-        if(deplacementPossible)
+        if(deplacementPossible && esquive(previous.row(), previous.column()))
         {
         // on enleve le nombre de mouvements effectués :
         int mvts = sonModele->item(previous.row(), previous.column())->data(35).toInt();
@@ -244,19 +220,10 @@ void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &pre
         }
 
         // on nettoie l'affichage :
-        sonParent->clearPanneauxJoueurs();
-        for(int i(0); i<15; i++)
-        {
-            for(int j(0); j<28; j++)
-            {
-                sonModele->item(i,j)->setData(QVariant(QBrush(QColor(110,210,50))), Qt::BackgroundRole);
-            }
-        }
-
-        fClic = 1;
+        clearTerrain();
     }
 
-    else if(sonModele->item(previous.row(), previous.column())->data(45).toBool() && sonModele->item(current.row(), current.column())->data(45).toBool() && (sonModele->item(previous.row(), previous.column())->data(33).toBool() != sonModele->item(current.row(), current.column())->data(33).toBool()))
+    else if(!sonModele->item(previous.row(), previous.column())->data(34).toBool() && (sonModele->item(previous.row(), previous.column())->data(45).toBool() && sonModele->item(current.row(), current.column())->data(45).toBool() && (sonModele->item(previous.row(), previous.column())->data(33).toBool() != sonModele->item(current.row(), current.column())->data(33).toBool())))
     {
         // on attaque
         // si joueur sur une case adjacente : BLOCAGE
@@ -266,29 +233,21 @@ void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &pre
         // un seul par equipe par tour,
         // enleve un mouvement
 
-        sonParent->clearPanneauxJoueurs();
-        for(int i(0); i<15; i++)
-        {
-            for(int j(0); j<28; j++)
-            {
-                sonModele->item(i,j)->setData(QVariant(QBrush(QColor(110,210,50))), Qt::BackgroundRole);
-            }
-        }
-        fClic = 1;
 
+        clearTerrain();
         // action effectué
         sonModele->item(previous.row(), previous.column())->setData(QVariant(true), 34);
     }
 
-    else if(sonModele->item(previous.row(), previous.column())->data(45).toBool() && sonModele->item(previous.row(), previous.column())->data(33).toBool() == sonModele->item(current.row(), current.column())->data(33).toBool())
+    else if(!sonModele->item(previous.row(), previous.column())->data(34).toBool() && (sonModele->item(previous.row(), previous.column())->data(45).toBool() && sonModele->item(previous.row(), previous.column())->data(33).toBool() == sonModele->item(current.row(), current.column())->data(33).toBool()))
     {
         // on effectue une passe ou transmission :
 
 
+
+
         // action effectue :
         sonModele->item(previous.row(), previous.column())->setData(QVariant(true), 34);
-
-
         //
         //commenter cette ligne une fois l'implementation effectué !!!!!
         //
@@ -305,6 +264,11 @@ void SceneTerrain::clearTerrain()
     {
         for(int j(0); j<28; j++)
         {
+            if(sonModele->item(i, j)->data(45).toBool() && !sonModele->item(i, j)->data(43).toBool())
+            {
+                sonModele->item(i,j)->setData(QVariant(QBrush(QColor(34,177,76))), Qt::BackgroundRole);
+            }
+            else
             sonModele->item(i,j)->setData(QVariant(QBrush(QColor(110,210,50))), Qt::BackgroundRole);
         }
     }
@@ -355,7 +319,7 @@ std::vector<QStandardItem*>* SceneTerrain::afficheMouvements(QStandardItem *unIt
 void SceneTerrain::afficheZonesTacle(Equipe * uneEquipe)
 {
     std::map<int, std::vector<QStandardItem* >* >::iterator itMap;
-    std::map<int, std::vector<QStandardItem* >* > * lesZonesTacle = uneEquipe->zonesTacle();
+    lesZonesTacle = uneEquipe->zonesTacle();
     for(itMap = lesZonesTacle->begin(); itMap != lesZonesTacle->end(); itMap++)
     {
         std::vector<QStandardItem* >::iterator itVect;
@@ -365,4 +329,45 @@ void SceneTerrain::afficheZonesTacle(Equipe * uneEquipe)
         }
     }
 
+}
+
+bool SceneTerrain::esquive(int row, int column)
+{
+    bool enZone = false;
+    int penalite = 0;
+    std::map<int, std::vector<QStandardItem* >* >::iterator itMap;
+    for(itMap = lesZonesTacle->begin(); itMap != lesZonesTacle->end(); itMap++)
+    {
+        std::vector<QStandardItem* >::iterator itVect;
+        for(itVect = itMap->second->begin(); itVect != itMap->second->end(); itVect++)
+        {
+            if(sonModele->item(row, column)==(*itVect))
+            {
+                penalite++;
+                enZone = true;
+            }
+        }
+    }
+
+    if(enZone)
+    {
+        // esquive
+        int de = sonParent->getLeMatch()->lancer1D6();
+        sonParent->updateResultatsDes(de);
+        if((de + sonModele->item(row, column)->data(37).toInt() - penalite) >= 7)
+        {
+            return true;
+        }
+        else
+        {
+            sonModele->item(row, column)->setData(QVariant(false), 43);
+            sonModele->item(row,  column)->setData(QVariant(true), 34);
+            sonParent->getLeMatch()->turnover(0);
+            return false;
+        }
+    }
+    else
+    {
+        return true;
+    }
 }

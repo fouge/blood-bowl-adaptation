@@ -2,10 +2,10 @@
 #include <iostream>
 #include <stdlib.h>
 #include <QApplication>
+#include <QMessageBox>
 
 
-
-Match::Match(race raceEquipe1, int noEquipe1, race raceEquipe2, int noEquipe2):quiJoue(joueur1), sesTours(16)
+Match::Match(race raceEquipe1, int noEquipe1, race raceEquipe2, int noEquipe2, FenetrePrincipale* uneFenetre):quiJoue(joueur1), sesTours(16), saFenetre(uneFenetre)
 {
     //Creation du terrain :
     sonTableauCases = new TableModel(15, 28);
@@ -70,4 +70,24 @@ Equipe* Match::getEquipe1()
 Equipe* Match::getEquipe2()
 {
     return sonEquipe2;
+}
+
+void Match::turnover(int action)
+{
+
+    // 0 : action non reussi
+    // 1 : but
+    // pas encore implémenté :
+    // 2 : limite de 4 min depassé
+    switch(action)
+    {
+    case 0: {QMessageBox* alert = new QMessageBox(QMessageBox::Warning, "Turnover", "Le joueur n'a pas réussi son action, il subit un turnover !");
+        alert->show();
+        break;}
+    case 1: {QMessageBox* alert = new QMessageBox(QMessageBox::Information, "Turnover", "Buuuut !");
+        alert->show();
+        break;}
+    default : std::cout<<"Turnover inconnu"<<std::endl;
+    }
+    saFenetre->finDeTour();
 }

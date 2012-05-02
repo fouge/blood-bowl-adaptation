@@ -16,6 +16,7 @@ class SceneTerrain : public QTableView
     FenetrePrincipale* sonParent;
     bool fClic;
     std::vector<QStandardItem*>* lesMouvementsPossibles;
+    std::map<int, std::vector<QStandardItem* >* > * lesZonesTacle;
 public:
     SceneTerrain(int nLignes, int nColonnes, TableModel* unModele, FenetrePrincipale* parent);
     std::vector<QStandardItem*>* afficheMouvements(QStandardItem* unItem);
@@ -23,6 +24,7 @@ public:
     void firstClic(const QModelIndex &current, const QModelIndex &previous);
     void secondClic(const QModelIndex &current, const QModelIndex &previous);
     void clearTerrain();
+    bool esquive(int, int);
 protected:
     void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight);
     void currentChanged(const QModelIndex &current, const QModelIndex &previous);

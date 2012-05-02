@@ -166,7 +166,7 @@ std::map<int, std::vector<QStandardItem * > * >* Equipe::zonesTacle()
         std::vector<QStandardItem* >* zoneTacle = new std::vector<QStandardItem* >;
         int x = (*leIt)->getItem()->row();
         int y = (*leIt)->getItem()->column();
-        if((*leIt)->getItem()->data(43).toInt() == 0)
+        if((*leIt)->getItem()->data(43).toBool() == true)
         {
         if(x-1>=0 && y-1>=0)
         zoneTacle->push_back(sonModele->item(x-1, y-1));

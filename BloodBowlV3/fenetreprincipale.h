@@ -7,6 +7,7 @@
 #include "sceneterrain.h"
 
 class SceneTerrain;
+class Match;
 
 class FenetrePrincipale : public QWidget
 {
@@ -58,7 +59,7 @@ public slots:
     void changerIconEquipeJ2(int index);
     void validationSelectionEquipes();
     void updatePanneauJoueur(int action, QStandardItem* leJoueur);
-
+    void updateResultatsDes(int de);
 
     // a implementer :
     void finDeTour();
