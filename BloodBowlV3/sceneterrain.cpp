@@ -303,14 +303,14 @@ void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &pre
                 case 3:
                 case 4: {
                     std::cout<<"dé : 3 ou 4 : defenseur repoussé"<<std::endl;
-                    int difX = current.row() - previous.row();
-                    int difY = current.column() - previous.column();
+                    int difX = previous.row() - current.row();
+                    int difY = previous.column() - current.column();
                     if(current.row()<14 && current.row()>0 && current.column()<27 && current.column()>0)
                     {
                         if(current.row() == previous.row()) //si sur la meme ligne on bouge que la ligne
                         {
                              if(!sonModele->item(current.row(), (current.column()-difY))->data(45).toBool())
-                                 sonModele->switchItems(sonModele->item(current.row(), current.column()), sonModele->item(current.row(), current.column()-difY));
+                                 sonModele->switchItems(sonModele->item(current.row(), current.column()), sonModele->item(current.row(), (current.column()-difY)));
                         }
                         else if(current.column() == previous.column()) // si sur la meme colonne
                         {
@@ -336,21 +336,25 @@ void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &pre
                     }
                     if(!aCompetence)
                     {
-                        int difX = current.row() - previous.row();
-                        int difY = current.column() - previous.column();
+                        int difX = previous.row() - current.row();
+                        int difY = previous.column() - current.column();
                         if(current.row()<14 && current.row()>0 && current.column()<27 && current.column()>0)
                         {
                             if(current.row() == previous.row()) //si sur la meme ligne on bouge que la ligne
                             {
                                 std::cout<<"Les deux joueurs sont sur la meme ligne"<<std::endl;
                                  if(!sonModele->item(current.row(), (current.column()-difY))->data(45).toBool())
-                                     sonModele->switchItems(sonModele->item(current.row(), current.column()), sonModele->item(current.row(), current.column()-difY));
+                                 {
+                                     sonModele->switchItems(sonModele->item(current.row(), current.column()), sonModele->item(current.row(), (current.column()-difY)));
+                                 }
                             }
                             else if(current.column() == previous.column()) // si sur la meme colonne
                             {
                                 std::cout<<"Les deux joueurs sont sur la meme colonne"<<std::endl;
                                  if(!sonModele->item((current.row() - difX), (current.column()))->data(45).toBool())
-                                 sonModele->switchItems(sonModele->item(current.row(), current.column()), sonModele->item(current.row() - difX, current.column()));
+                                 {
+                                 sonModele->switchItems(sonModele->item(current.row(), current.column()), sonModele->item((current.row() - difX), current.column()));
+                                 }
                             }
                         }
                     }
@@ -363,8 +367,8 @@ void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &pre
 
                     // defenseur repoussé et plaqué dans la case ou il a été deplacé / attaquant peut poursuivre
                     sonModele->item(current.row(), current.column())->setData(QVariant(false), 43);
-                    int difX = current.row() - previous.row();
-                    int difY = current.column() - previous.column();
+                    int difX = previous.row() - current.row();
+                    int difY = previous.column() - current.column();
                     if(current.row()<14 && current.row()>0 && current.column()<27 && current.column()>0)
                     {
                         if(current.row() == previous.row()) //si sur la meme ligne on bouge que la ligne

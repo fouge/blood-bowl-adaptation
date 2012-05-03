@@ -667,19 +667,19 @@ void FenetrePrincipale::finDeTour()
         if(leMatch->getEquipe1()->getPoints() < leMatch->getEquipe2()->getPoints())
         {
             QMessageBox* alert = new QMessageBox(QMessageBox::Information, "Partie terminée", "Le joueur 1 l'emporte ! A bientôt pour un nouveau match !");
-            QObject::connect(alert, SIGNAL(accepted()), qApp, SLOT(quit()));
+            QObject::connect(alert, SIGNAL(destroyed()), qApp, SLOT(quit()));
             alert->show();
         }
         else if(leMatch->getEquipe1()->getPoints() == leMatch->getEquipe2()->getPoints())
         {
             QMessageBox* alert = new QMessageBox(QMessageBox::Information, "Partie terminée", "Ex-eaquo ! Bien joué aux deux joueurs. A bientôt pour un nouveau match !");
-            QObject::connect(alert, SIGNAL(accepted()), qApp, SLOT(quit()));
+            QObject::connect(alert, SIGNAL(destroyed()), qApp, SLOT(quit()));
             alert->show();
         }
         else
         {
             QMessageBox* alert = new QMessageBox(QMessageBox::Information, "Partie terminée", "Le joueur 2 l'emporte ! A bientôt pour un nouveau match !");
-            QObject::connect(alert, SIGNAL(accepted()), qApp, SLOT(quit()));
+            QObject::connect(alert, SIGNAL(destroyed()), qApp, SLOT(quit()));
             alert->show();
         }
     }
