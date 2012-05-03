@@ -54,43 +54,43 @@ Equipe::Equipe(race uneRace, int uneComposition, bool cote, TableModel* unModele
             switch(uneComposition)
             {
             case 0:
-                sesJoueurs->push_back(new Joueur(blitzeur, (*lesCompetencesBlitzeurs), 7, 3, 3, 8, "Leo Ulman", 13, 3, sonCote));
-                sesJoueurs->push_back(new Joueur(blitzeur, (*lesCompetencesBlitzeurs), 7, 3, 3, 8, "Baldric Advar", 11, 8, sonCote));
-                sesJoueurs->push_back(new Joueur(blitzeur, (*lesCompetencesBlitzeurs), 7, 3, 3, 8, "Bertolf Valdred", 13, 13, sonCote));
-                sesJoueurs->push_back(new Joueur(passeur, (*lesCompetencesPasseurs), 6, 3, 3, 8, "Leo Ulman", 5, 8, sonCote));
-                sesJoueurs->push_back(new Joueur(receveur, (*lesCompetencesReceveurs), 8, 2, 3, 7, "Otto Meinard", 12, 2, sonCote));
-                sesJoueurs->push_back(new Joueur(receveur, (*lesCompetencesReceveurs), 6, 3, 3, 8, "Edgar Le Couard", 12, 14, sonCote));
-                sesJoueurs->push_back(new Joueur(ogre, (*lesCompetencesOgres), 8, 2, 3, 7, "Maxime Girard", 14, 8, sonCote));
-                sesJoueurs->push_back(new Joueur(troisquarts, (*AucuneCompetence), 6, 3, 3, 8, "Boris Le Destructeur", 13, 6, sonCote));
-                sesJoueurs->push_back(new Joueur(troisquarts, (*AucuneCompetence), 6, 3, 3, 8, "Griswold L'Affreux", 14, 7, sonCote));
-                sesJoueurs->push_back(new Joueur(troisquarts, (*AucuneCompetence), 6, 3, 3, 8, "Karl Le Troubadour", 14, 9, sonCote));
-                sesJoueurs->push_back(new Joueur(troisquarts, (*AucuneCompetence), 6, 3, 3, 8, "Hob le Bel",13, 10, sonCote));
+                sesJoueurs->push_back(new Joueur(blitzeur, (lesCompetencesBlitzeurs), 7, 3, 3, 8, "Leo Ulman", 13, 3, sonCote));
+                sesJoueurs->push_back(new Joueur(blitzeur, (lesCompetencesBlitzeurs), 7, 3, 3, 8, "Baldric Advar", 11, 8, sonCote));
+                sesJoueurs->push_back(new Joueur(blitzeur, (lesCompetencesBlitzeurs), 7, 3, 3, 8, "Bertolf Valdred", 13, 13, sonCote));
+                sesJoueurs->push_back(new Joueur(passeur, (lesCompetencesPasseurs), 6, 3, 3, 8, "Leo Ulman", 5, 8, sonCote));
+                sesJoueurs->push_back(new Joueur(receveur, (lesCompetencesReceveurs), 8, 2, 3, 7, "Otto Meinard", 12, 2, sonCote));
+                sesJoueurs->push_back(new Joueur(receveur, (lesCompetencesReceveurs), 6, 3, 3, 8, "Edgar Le Couard", 12, 14, sonCote));
+                sesJoueurs->push_back(new Joueur(ogre, (lesCompetencesOgres), 8, 2, 3, 7, "Maxime Girard", 14, 8, sonCote));
+                sesJoueurs->push_back(new Joueur(troisquarts, (AucuneCompetence), 6, 3, 3, 8, "Boris Le Destructeur", 13, 6, sonCote));
+                sesJoueurs->push_back(new Joueur(troisquarts, (AucuneCompetence), 6, 3, 3, 8, "Griswold L'Affreux", 14, 7, sonCote));
+                sesJoueurs->push_back(new Joueur(troisquarts, (AucuneCompetence), 6, 3, 3, 8, "Karl Le Troubadour", 14, 9, sonCote));
+                sesJoueurs->push_back(new Joueur(troisquarts, (AucuneCompetence), 6, 3, 3, 8, "Hob le Bel",13, 10, sonCote));
                 break;
             case 1:
-                sesJoueurs->push_back(new Joueur(passeur, (*lesCompetencesPasseurs), 6, 3, 3, 8, "Hans Flick", 5, 5, sonCote));
-                sesJoueurs->push_back(new Joueur(passeur, (*lesCompetencesPasseurs), 6, 3, 3, 8, "Gothard Seppel", 5, 11, sonCote));
-                sesJoueurs->push_back(new Joueur(receveur, (*lesCompetencesReceveurs), 8, 2, 3, 7, "Bertolf Gottlob", 12, 2, sonCote));
-                sesJoueurs->push_back(new Joueur(receveur, (*lesCompetencesReceveurs), 8, 2, 3, 7, "Mordred Wilfried", 12, 14, sonCote));
-                sesJoueurs->push_back(new Joueur(ogre, (*lesCompetencesOgres), 5, 5, 2, 9, "Aggrut Devis-Tete", 14, 8, sonCote));
-                sesJoueurs->push_back(new Joueur(troisquarts, (*AucuneCompetence), 7, 3, 3, 8, "Gerhart Leopold",14, 3, sonCote));
-                sesJoueurs->push_back(new Joueur(troisquarts, (*AucuneCompetence), 6, 3, 3, 8, "Hector le Bavard", 14, 6, sonCote));
-                sesJoueurs->push_back(new Joueur(troisquarts, (*AucuneCompetence), 6, 3, 3, 8, "Admmund le Droit", 14, 7, sonCote));
-                sesJoueurs->push_back(new Joueur(troisquarts, (*AucuneCompetence), 6, 3, 3, 8, "Davion le Verteux", 14, 9, sonCote));
-                sesJoueurs->push_back(new Joueur(troisquarts, (*AucuneCompetence), 6, 3, 3, 8, "Viggo le Buveur", 14, 10, sonCote));
-                sesJoueurs->push_back(new Joueur(troisquarts, (*AucuneCompetence), 6, 3, 3, 8, "Fracist le Gros", 14, 13, sonCote));
+                sesJoueurs->push_back(new Joueur(passeur, (lesCompetencesPasseurs), 6, 3, 3, 8, "Hans Flick", 5, 5, sonCote));
+                sesJoueurs->push_back(new Joueur(passeur, (lesCompetencesPasseurs), 6, 3, 3, 8, "Gothard Seppel", 5, 11, sonCote));
+                sesJoueurs->push_back(new Joueur(receveur, (lesCompetencesReceveurs), 8, 2, 3, 7, "Bertolf Gottlob", 12, 2, sonCote));
+                sesJoueurs->push_back(new Joueur(receveur, (lesCompetencesReceveurs), 8, 2, 3, 7, "Mordred Wilfried", 12, 14, sonCote));
+                sesJoueurs->push_back(new Joueur(ogre, (lesCompetencesOgres), 5, 5, 2, 9, "Aggrut Devis-Tete", 14, 8, sonCote));
+                sesJoueurs->push_back(new Joueur(troisquarts, (AucuneCompetence), 7, 3, 3, 8, "Gerhart Leopold",14, 3, sonCote));
+                sesJoueurs->push_back(new Joueur(troisquarts, (AucuneCompetence), 6, 3, 3, 8, "Hector le Bavard", 14, 6, sonCote));
+                sesJoueurs->push_back(new Joueur(troisquarts, (AucuneCompetence), 6, 3, 3, 8, "Admmund le Droit", 14, 7, sonCote));
+                sesJoueurs->push_back(new Joueur(troisquarts, (AucuneCompetence), 6, 3, 3, 8, "Davion le Verteux", 14, 9, sonCote));
+                sesJoueurs->push_back(new Joueur(troisquarts, (AucuneCompetence), 6, 3, 3, 8, "Viggo le Buveur", 14, 10, sonCote));
+                sesJoueurs->push_back(new Joueur(troisquarts, (AucuneCompetence), 6, 3, 3, 8, "Fracist le Gros", 14, 13, sonCote));
                 break;
             case 2:
-                sesJoueurs->push_back(new Joueur(passeur, (*lesCompetencesPasseurs), 6, 3, 3, 8, "Jacob von Altdorf",5, 5, sonCote));
-                sesJoueurs->push_back(new Joueur(passeur, (*lesCompetencesPasseurs), 6, 3, 3, 8, "Fat Mittbrot", 5, 11, sonCote));
-                sesJoueurs->push_back(new Joueur(receveur, (*lesCompetencesReceveurs), 8, 2, 3, 7, "Fast Ben Jansen", 12, 2, sonCote));
-                sesJoueurs->push_back(new Joueur(receveur, (*lesCompetencesReceveurs), 8, 2, 3, 7, "Gregor Meissen", 12, 14, sonCote));
-                sesJoueurs->push_back(new Joueur(blitzeur, (*lesCompetencesBlitzeurs), 7, 3, 3, 8, "Sebastien Chabal", 13, 3,  sonCote));
-                sesJoueurs->push_back(new Joueur(blitzeur, (*lesCompetencesBlitzeurs), 7, 3, 3, 8, "Christiano Ronaldo", 13, 5,  sonCote));
-                sesJoueurs->push_back(new Joueur(blitzeur, (*lesCompetencesBlitzeurs), 7, 3, 3, 8, "Cyril Fougeray", 13, 11,  sonCote));
-                sesJoueurs->push_back(new Joueur(blitzeur, (*lesCompetencesBlitzeurs), 7, 3, 3, 8, "Johnny Boy",13, 13,  sonCote));
-                sesJoueurs->push_back(new Joueur(troisquarts, (*AucuneCompetence), 6, 3, 3, 8, "Bobby Marley",14, 7,  sonCote));
-                sesJoueurs->push_back(new Joueur(troisquarts, (*AucuneCompetence), 6, 3, 3, 8, "Skrillex", 14, 9,  sonCote));
-                sesJoueurs->push_back(new Joueur(ogre, (*lesCompetencesOgres), 5, 5, 2, 9, "Zugg", 14, 8,  sonCote));
+                sesJoueurs->push_back(new Joueur(passeur, (lesCompetencesPasseurs), 6, 3, 3, 8, "Jacob von Altdorf",5, 5, sonCote));
+                sesJoueurs->push_back(new Joueur(passeur, (lesCompetencesPasseurs), 6, 3, 3, 8, "Fat Mittbrot", 5, 11, sonCote));
+                sesJoueurs->push_back(new Joueur(receveur, (lesCompetencesReceveurs), 8, 2, 3, 7, "Fast Ben Jansen", 12, 2, sonCote));
+                sesJoueurs->push_back(new Joueur(receveur, (lesCompetencesReceveurs), 8, 2, 3, 7, "Gregor Meissen", 12, 14, sonCote));
+                sesJoueurs->push_back(new Joueur(blitzeur, (lesCompetencesBlitzeurs), 7, 3, 3, 8, "Sebastien Chabal", 13, 3,  sonCote));
+                sesJoueurs->push_back(new Joueur(blitzeur, (lesCompetencesBlitzeurs), 7, 3, 3, 8, "Christiano Ronaldo", 13, 5,  sonCote));
+                sesJoueurs->push_back(new Joueur(blitzeur, (lesCompetencesBlitzeurs), 7, 3, 3, 8, "Cyril Fougeray", 13, 11,  sonCote));
+                sesJoueurs->push_back(new Joueur(blitzeur, (lesCompetencesBlitzeurs), 7, 3, 3, 8, "Johnny Boy",13, 13,  sonCote));
+                sesJoueurs->push_back(new Joueur(troisquarts, (AucuneCompetence), 6, 3, 3, 8, "Bobby Marley",14, 7,  sonCote));
+                sesJoueurs->push_back(new Joueur(troisquarts, (AucuneCompetence), 6, 3, 3, 8, "Skrillex", 14, 9,  sonCote));
+                sesJoueurs->push_back(new Joueur(ogre, (lesCompetencesOgres), 5, 5, 2, 9, "Zugg", 14, 8,  sonCote));
                 break;
 
             default: ;
@@ -102,45 +102,45 @@ Equipe::Equipe(race uneRace, int uneComposition, bool cote, TableModel* unModele
             switch(uneComposition)
             {
             case 0:
-                sesJoueurs->push_back(new Joueur(passeur, (*lesCompetencesPasseurs), 6, 3, 3, 8, "Aznok", 5 , 8, sonCote));
-                sesJoueurs->push_back(new Joueur(bloqueur, (*AucuneCompetence), 4, 4, 2, 9, "Globrotta Casse'Main", 14 , 6, sonCote));
-                sesJoueurs->push_back(new Joueur(bloqueur, (*AucuneCompetence), 4, 4, 2, 9, "Ulgrot Mange'Coeur", 14 , 7, sonCote));
-                sesJoueurs->push_back(new Joueur(bloqueur, (*AucuneCompetence), 4, 4, 2, 9, "Ugluk Mange'tete", 14 ,9, sonCote));
-                sesJoueurs->push_back(new Joueur(bloqueur, (*AucuneCompetence), 4, 4, 2, 9, "Ugroth Casse'Crane", 14 , 10, sonCote));
-                sesJoueurs->push_back(new Joueur(blitzeur, (*lesCompetencesBlitzeurs), 7, 3, 3, 8, "Mug-guzzla", 12 , 2, sonCote));
-                sesJoueurs->push_back(new Joueur(blitzeur, (*lesCompetencesBlitzeurs), 7, 3, 3, 8, "Ugglut Gutlug", 13 , 3, sonCote));
-                sesJoueurs->push_back(new Joueur(blitzeur, (*lesCompetencesBlitzeurs), 7, 3, 3, 8, "Flashgit-Stompfoot", 13 , 13, sonCote));
-                sesJoueurs->push_back(new Joueur(blitzeur, (*lesCompetencesBlitzeurs), 7, 3, 3, 8, "Roglut-Zigzagga", 12 , 14, sonCote));
-                sesJoueurs->push_back(new Joueur(gobelin, (*lesCompetencesGobelins), 6, 2, 3, 7, "Kursh", 11 , 5, sonCote));
-                sesJoueurs->push_back(new Joueur(gobelin, (*lesCompetencesGobelins), 6, 2, 3, 7, "Molgor", 11 , 11, sonCote));
+                sesJoueurs->push_back(new Joueur(passeur, (lesCompetencesPasseurs), 6, 3, 3, 8, "Aznok", 5 , 8, sonCote));
+                sesJoueurs->push_back(new Joueur(bloqueur, (AucuneCompetence), 4, 4, 2, 9, "Globrotta Casse'Main", 14 , 6, sonCote));
+                sesJoueurs->push_back(new Joueur(bloqueur, (AucuneCompetence), 4, 4, 2, 9, "Ulgrot Mange'Coeur", 14 , 7, sonCote));
+                sesJoueurs->push_back(new Joueur(bloqueur, (AucuneCompetence), 4, 4, 2, 9, "Ugluk Mange'tete", 14 ,9, sonCote));
+                sesJoueurs->push_back(new Joueur(bloqueur, (AucuneCompetence), 4, 4, 2, 9, "Ugroth Casse'Crane", 14 , 10, sonCote));
+                sesJoueurs->push_back(new Joueur(blitzeur, (lesCompetencesBlitzeurs), 7, 3, 3, 8, "Mug-guzzla", 12 , 2, sonCote));
+                sesJoueurs->push_back(new Joueur(blitzeur, (lesCompetencesBlitzeurs), 7, 3, 3, 8, "Ugglut Gutlug", 13 , 3, sonCote));
+                sesJoueurs->push_back(new Joueur(blitzeur, (lesCompetencesBlitzeurs), 7, 3, 3, 8, "Flashgit-Stompfoot", 13 , 13, sonCote));
+                sesJoueurs->push_back(new Joueur(blitzeur, (lesCompetencesBlitzeurs), 7, 3, 3, 8, "Roglut-Zigzagga", 12 , 14, sonCote));
+                sesJoueurs->push_back(new Joueur(gobelin, (lesCompetencesGobelins), 6, 2, 3, 7, "Kursh", 11 , 5, sonCote));
+                sesJoueurs->push_back(new Joueur(gobelin, (lesCompetencesGobelins), 6, 2, 3, 7, "Molgor", 11 , 11, sonCote));
 
                 break;
             case 1:
-                sesJoueurs->push_back(new Joueur(bloqueur, (*AucuneCompetence), 4, 4, 2, 9, "Gorfang MangeTaTete", 14 , 6, sonCote));
-                sesJoueurs->push_back(new Joueur(bloqueur, (*AucuneCompetence), 4, 4, 2, 9, "Grubak Broye'main", 14 , 10, sonCote));
-                sesJoueurs->push_back(new Joueur(gobelin, (*lesCompetencesGobelins), 6, 2, 3, 7, "Makefile", 11 , 5, sonCote));
-                sesJoueurs->push_back(new Joueur(blitzeur, (*lesCompetencesBlitzeurs), 7, 3, 3, 8, "Grogu Grintouf", 13 , 3, sonCote));
-                sesJoueurs->push_back(new Joueur(blitzeur, (*lesCompetencesBlitzeurs), 7, 3, 3, 8, "Gutnok", 13 , 13, sonCote));
-                sesJoueurs->push_back(new Joueur(passeur, (*lesCompetencesPasseurs), 6, 3, 3, 8, "Muchteef-slogga", 5 , 8, sonCote));
-                sesJoueurs->push_back(new Joueur(blitzeur, (*lesCompetencesBlitzeurs), 7, 3, 3, 8, "Stilaz", 11 , 8, sonCote));
-                sesJoueurs->push_back(new Joueur(gobelin, (*lesCompetencesGobelins), 6, 2, 3, 7, "Makedir", 11 , 11, sonCote));
-                sesJoueurs->push_back(new Joueur(troll, (*lesCompetencesTroll), 6, 2, 3, 7, "Powed", 14 , 8, sonCote));
-                sesJoueurs->push_back(new Joueur(troisquarts, (*AucuneCompetence), 5, 3, 3, 9, "Ragzag", 14 , 7, sonCote));
-                sesJoueurs->push_back(new Joueur(troisquarts, (*AucuneCompetence), 5, 3, 3, 9, "Lugnub", 14 , 9, sonCote));
+                sesJoueurs->push_back(new Joueur(bloqueur, (AucuneCompetence), 4, 4, 2, 9, "Gorfang MangeTaTete", 14 , 6, sonCote));
+                sesJoueurs->push_back(new Joueur(bloqueur, (AucuneCompetence), 4, 4, 2, 9, "Grubak Broye'main", 14 , 10, sonCote));
+                sesJoueurs->push_back(new Joueur(gobelin, (lesCompetencesGobelins), 6, 2, 3, 7, "Makefile", 11 , 5, sonCote));
+                sesJoueurs->push_back(new Joueur(blitzeur, (lesCompetencesBlitzeurs), 7, 3, 3, 8, "Grogu Grintouf", 13 , 3, sonCote));
+                sesJoueurs->push_back(new Joueur(blitzeur, (lesCompetencesBlitzeurs), 7, 3, 3, 8, "Gutnok", 13 , 13, sonCote));
+                sesJoueurs->push_back(new Joueur(passeur, (lesCompetencesPasseurs), 6, 3, 3, 8, "Muchteef-slogga", 5 , 8, sonCote));
+                sesJoueurs->push_back(new Joueur(blitzeur, (lesCompetencesBlitzeurs), 7, 3, 3, 8, "Stilaz", 11 , 8, sonCote));
+                sesJoueurs->push_back(new Joueur(gobelin, (lesCompetencesGobelins), 6, 2, 3, 7, "Makedir", 11 , 11, sonCote));
+                sesJoueurs->push_back(new Joueur(troll, (lesCompetencesTroll), 6, 2, 3, 7, "Powed", 14 , 8, sonCote));
+                sesJoueurs->push_back(new Joueur(troisquarts, (AucuneCompetence), 5, 3, 3, 9, "Ragzag", 14 , 7, sonCote));
+                sesJoueurs->push_back(new Joueur(troisquarts, (AucuneCompetence), 5, 3, 3, 9, "Lugnub", 14 , 9, sonCote));
 
                 break;
             case 2:
-                sesJoueurs->push_back(new Joueur(bloqueur, (*AucuneCompetence), 4, 4, 2, 9, "Crase'Cerveau", 14 , 6, sonCote));
-                sesJoueurs->push_back(new Joueur(bloqueur, (*AucuneCompetence), 4, 4, 2, 9, "Ecari'seur", 14 , 7, sonCote));
-                sesJoueurs->push_back(new Joueur(bloqueur, (*AucuneCompetence), 4, 4, 2, 9, "Crase'Main", 14, 9, sonCote));
-                sesJoueurs->push_back(new Joueur(bloqueur, (*AucuneCompetence), 4, 4, 2, 9, "Gobfang", 14, 10, sonCote));
-                sesJoueurs->push_back(new Joueur(blitzeur, (*lesCompetencesBlitzeurs), 7, 3, 3, 8, "Flatfoot", 13, 3, sonCote));
-                sesJoueurs->push_back(new Joueur(blitzeur, (*lesCompetencesBlitzeurs), 7, 3, 3, 8, "Gutslop", 13, 13, sonCote));
-                sesJoueurs->push_back(new Joueur(passeur, (*lesCompetencesPasseurs), 6, 3, 3, 8, "Tokber", 5 , 5, sonCote));
-                sesJoueurs->push_back(new Joueur(passeur, (*lesCompetencesPasseurs), 6, 3, 3, 8, "Krolor", 5 , 11, sonCote));
-                sesJoueurs->push_back(new Joueur(gobelin, (*lesCompetencesGobelins), 6, 2, 3, 7, "Taksh", 12 , 2, sonCote));
-                sesJoueurs->push_back(new Joueur(gobelin, (*lesCompetencesGobelins), 6, 2, 3, 7, "Weeit", 12 , 14, sonCote));
-                sesJoueurs->push_back(new Joueur(troll, (*lesCompetencesTroll), 6, 2, 3, 7, "Trak'k", 14 , 8, sonCote));
+                sesJoueurs->push_back(new Joueur(bloqueur, (AucuneCompetence), 4, 4, 2, 9, "Crase'Cerveau", 14 , 6, sonCote));
+                sesJoueurs->push_back(new Joueur(bloqueur, (AucuneCompetence), 4, 4, 2, 9, "Ecari'seur", 14 , 7, sonCote));
+                sesJoueurs->push_back(new Joueur(bloqueur, (AucuneCompetence), 4, 4, 2, 9, "Crase'Main", 14, 9, sonCote));
+                sesJoueurs->push_back(new Joueur(bloqueur, (AucuneCompetence), 4, 4, 2, 9, "Gobfang", 14, 10, sonCote));
+                sesJoueurs->push_back(new Joueur(blitzeur, (lesCompetencesBlitzeurs), 7, 3, 3, 8, "Flatfoot", 13, 3, sonCote));
+                sesJoueurs->push_back(new Joueur(blitzeur, (lesCompetencesBlitzeurs), 7, 3, 3, 8, "Gutslop", 13, 13, sonCote));
+                sesJoueurs->push_back(new Joueur(passeur, (lesCompetencesPasseurs), 6, 3, 3, 8, "Tokber", 5 , 5, sonCote));
+                sesJoueurs->push_back(new Joueur(passeur, (lesCompetencesPasseurs), 6, 3, 3, 8, "Krolor", 5 , 11, sonCote));
+                sesJoueurs->push_back(new Joueur(gobelin, (lesCompetencesGobelins), 6, 2, 3, 7, "Taksh", 12 , 2, sonCote));
+                sesJoueurs->push_back(new Joueur(gobelin, (lesCompetencesGobelins), 6, 2, 3, 7, "Weeit", 12 , 14, sonCote));
+                sesJoueurs->push_back(new Joueur(troll, (lesCompetencesTroll), 6, 2, 3, 7, "Trak'k", 14 , 8, sonCote));
                 break;
             default: ;
             }
@@ -224,4 +224,17 @@ int Equipe::getPoints()
 bool Equipe::getBlitzEffectue()
 {
     return blitzEffectue;
+}
+Joueur* Equipe::getLeJoueur(int sonId)
+{
+    Joueur* res;
+    std::vector<Joueur*>::iterator leIt;
+    for(leIt = sesJoueurs->begin(); leIt != sesJoueurs->end(); leIt++)
+    {
+        if((*leIt)->getId() == sonId)
+        {
+            res = (*leIt);
+        }
+    }
+    return res;
 }

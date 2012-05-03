@@ -11,7 +11,7 @@ class TableModel : public QStandardItemModel
     Equipe *sonEquipe1, *sonEquipe2;
 public:
     TableModel(int, int);
-    void switchItems(QStandardItem* item1, QStandardItem* item2);
+    void switchItems(QStandardItem* item1Joueur, QStandardItem* item2Herbe);
     void resetAllJoueurs();
     void setEquipes(Equipe*, Equipe*);
 

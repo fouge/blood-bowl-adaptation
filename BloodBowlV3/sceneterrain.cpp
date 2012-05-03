@@ -4,6 +4,7 @@
 #include "joueur.h"
 #include <cstdio>
 #include <iostream>
+#include "enum.h"
 
 
 SceneTerrain::SceneTerrain(int nLignes, int nColonnes, TableModel* unModele, FenetrePrincipale* parent):QTableView(),
@@ -45,13 +46,14 @@ void SceneTerrain::currentChanged(const QModelIndex &current, const QModelIndex 
         if((sonParent->getLeMatch()->getQuiJoue() == 0 && sonModele->item(current.row(), current.column())->data(33).toBool()) || (sonParent->getLeMatch()->getQuiJoue() != 0 && !sonModele->item(current.row(), current.column())->data(33).toBool()))
         firstClic(current, previous);
     }
-    else if(current.isValid() && previous.isValid() && !fClic)
+    else if(current.isValid() && previous.isValid() && !fClic && sonParent->getLeMatch()->getQuiJoue() == !sonModele->item(previous.row(), previous.column())->data(33).toBool())
     {
         secondClic(current, previous);
     }
     else if(changementJoueur || (!previous.isValid() && current.isValid() && (((sonParent->getLeMatch()->getQuiJoue() == 0) && sonModele->item(current.row(), current.column())->data(33).toBool()) || ((sonParent->getLeMatch()->getQuiJoue() != 0) && !sonModele->item(current.row(), current.column())->data(33).toBool()))))
     {
         std::cout<<sonModele->item(current.row(), current.column())->data(43).toInt()<<std::endl;
+        // si premier clic sur joueur :
         if(sonModele->item(current.row(), current.column())->data(45).toBool())
         {
             //on nettoie l'affichage
@@ -102,7 +104,7 @@ void SceneTerrain::currentChanged(const QModelIndex &current, const QModelIndex 
         }
         else
         {
-        std::cout<<"premier clic sur terrain"<<std::endl;
+        clearTerrain();
         }
     }
     changementJoueur = false;
@@ -177,6 +179,11 @@ void SceneTerrain::firstClic(const QModelIndex &current, const QModelIndex &prev
 void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &previous)
 {
 
+    //
+    //
+    // DEPLACEMENT
+    //
+    //
     if(!(sonModele->item(previous.row(), previous.column())->data(34).toBool()) && (sonModele->item(previous.row(), previous.column())->data(45).toBool() && !sonModele->item(current.row(), current.column())->data(45).toBool()))
     {
         std::cout<<"Deplacement"<<std::endl;
@@ -217,6 +224,13 @@ void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &pre
         clearTerrain();
     }
 
+
+
+    //
+    //
+    // BLOCAGE OU BLITZ
+    //
+    //
     else if(!sonModele->item(previous.row(), previous.column())->data(34).toBool() && (sonModele->item(previous.row(), previous.column())->data(45).toBool() && sonModele->item(current.row(), current.column())->data(45).toBool() && (sonModele->item(previous.row(), previous.column())->data(33).toBool() != sonModele->item(current.row(), current.column())->data(33).toBool())))
     {
         int resBlocage = blocage(current, previous);
@@ -239,11 +253,140 @@ void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &pre
                 std::cout<<"Le joueur bloque avec le soutien de "<<resBlocage<<" de ses coequipiers"<<std::endl;
             }
 
+               // en theorie, il faut les memes force pour lancer un seul dé. Pour simplifier, on lancera qu'un seul dé a chaque fois.
+//            if(sonModele->item(previous.row(), previous.column())->data(36).toInt()+soutien == sonModele->item(current.row(), current.column())->data(36).toInt())
+//            {
 
+                int de = sonParent->getLeMatch()->lancer1D6();
+                sonParent->updateResultatsDes(de);
 
+                switch(de)
+                {
+                case 1: {
+                    std::cout<<"dé : 1 : attaquant à terre"<<std::endl;
+                    sonModele->item(previous.row(), previous.column())->setData(QVariant(false), 43);
+                    break;}
 
+                case 2: { // deux joueurs a terre sauf si l'un a la competence blocage
+                    std::cout<<"dé : 2 : les joueurs à terre sauf si compétence BLOCAGE"<<std::endl;
+                    bool aCompetence = false;
+                        std::vector<competences>* sesCompetences = sonParent->getLeMatch()->getEquipe(sonModele->item(previous.row(), previous.column())->data(33).toBool())->getLeJoueur(sonModele->item(previous.row(), previous.column())->data(39).toInt())->getCompetences();
+                        std::vector<competences>::iterator leIt;
+                        for(leIt = sesCompetences->begin(); leIt != sesCompetences->end(); leIt++)
+                        {
+                            if((*leIt) == 4)
+                            {
+                                aCompetence = true;
+                            }
+                        }
+                        if(!aCompetence)
+                        {
+                            sonModele->item(previous.row(), previous.column())->setData(QVariant(false), 43);
+                        }
 
+                        // pour le second (current)
+                        aCompetence = false;
+                        for(leIt = sesCompetences->begin(); leIt != sesCompetences->end(); leIt++)
+                        {
+                            if((*leIt) == 4)
+                            {
+                                aCompetence = true;
+                            }
+                        }
+                        if(!aCompetence)
+                        {
+                            sonModele->item(current.row(), current.column())->setData(QVariant(false), 43);
+                        }
+
+                    break; }
+
+                case 3:
+                case 4: {
+                    std::cout<<"dé : 3 ou 4 : defenseur repoussé"<<std::endl;
+                    int difX = current.row() - previous.row();
+                    int difY = current.column() - previous.column();
+                    if(current.row()<14 && current.row()>0 && current.column()<27 && current.column()>0)
+                    {
+                        if(current.row() == previous.row()) //si sur la meme ligne on bouge que la ligne
+                        {
+                             if(!sonModele->item(current.row(), (current.column()-difY))->data(45).toBool())
+                                 sonModele->switchItems(sonModele->item(current.row(), current.column()), sonModele->item(current.row(), current.column()-difY));
+                        }
+                        else if(current.column() == previous.column()) // si sur la meme colonne
+                        {
+                             if(!sonModele->item((current.row() - difX), (current.column()))->data(45).toBool())
+                             sonModele->switchItems(sonModele->item(current.row(), current.column()), sonModele->item(current.row() - difX, current.column()));
+                        }
+                    }
+
+                    break; }
+
+                case 5: {
+                    std::cout<<"dé : 5 : defenseur plaqué et repoussé s'il n'a pas la competence ESQUIVE"<<std::endl;
+                    // repoussé et plaqué sauf si esquive/ attaquant peut poursuivre
+                    bool aCompetence = false;
+                    std::vector<competences>* sesCompetences = sonParent->getLeMatch()->getEquipe(sonModele->item(current.row(), current.column())->data(33).toBool())->getLeJoueur(sonModele->item(current.row(), current.column())->data(39).toInt())->getCompetences();
+                    std::vector<competences>::iterator leIt;
+                    for(leIt = sesCompetences->begin(); leIt != sesCompetences->end(); leIt++)
+                    {
+                        if((*leIt) == 0)
+                        {
+                            aCompetence = true;
+                        }
+                    }
+                    if(!aCompetence)
+                    {
+                        int difX = current.row() - previous.row();
+                        int difY = current.column() - previous.column();
+                        if(current.row()<14 && current.row()>0 && current.column()<27 && current.column()>0)
+                        {
+                            if(current.row() == previous.row()) //si sur la meme ligne on bouge que la ligne
+                            {
+                                std::cout<<"Les deux joueurs sont sur la meme ligne"<<std::endl;
+                                 if(!sonModele->item(current.row(), (current.column()-difY))->data(45).toBool())
+                                     sonModele->switchItems(sonModele->item(current.row(), current.column()), sonModele->item(current.row(), current.column()-difY));
+                            }
+                            else if(current.column() == previous.column()) // si sur la meme colonne
+                            {
+                                std::cout<<"Les deux joueurs sont sur la meme colonne"<<std::endl;
+                                 if(!sonModele->item((current.row() - difX), (current.column()))->data(45).toBool())
+                                 sonModele->switchItems(sonModele->item(current.row(), current.column()), sonModele->item(current.row() - difX, current.column()));
+                            }
+                        }
+                    }
+                    sonModele->item(current.row(), current.column())->setData(QVariant(false), 43);
+
+                    break;  }
+
+                case 6: {
+                    std::cout<<"dé : 6 : defenseur repoussé et plaqué dans la case ou il a été deplacé"<<std::endl;
+
+                    // defenseur repoussé et plaqué dans la case ou il a été deplacé / attaquant peut poursuivre
+                    sonModele->item(current.row(), current.column())->setData(QVariant(false), 43);
+                    int difX = current.row() - previous.row();
+                    int difY = current.column() - previous.column();
+                    if(current.row()<14 && current.row()>0 && current.column()<27 && current.column()>0)
+                    {
+                        if(current.row() == previous.row()) //si sur la meme ligne on bouge que la ligne
+                        {
+                            std::cout<<"Les deux joueurs sont sur la meme ligne"<<std::endl;
+                             if(!sonModele->item(current.row(), (current.column()-difY))->data(45).toBool())
+                                 sonModele->switchItems(sonModele->item(current.row(), current.column()), sonModele->item(current.row(), current.column()-difY));
+                        }
+                        else if(current.column() == previous.column()) // si sur la meme colonne
+                        {
+                            std::cout<<"Les deux joueurs sont sur la meme colonne"<<std::endl;
+                             if(!sonModele->item((current.row() - difX), (current.column()))->data(45).toBool())
+                             sonModele->switchItems(sonModele->item(current.row(), current.column()), sonModele->item(current.row() - difX, current.column()));
+                        }
+                    }
+                    break;}
+                default: std::cout<<"/!\ le dé n'a pas retourné de chiffre entre 1 et 6..."<<std::endl;
+                }
+
+//            }
         }
+
         else if(resBlocage == 9)
         {
             std::cout<<"Ce joueur a déjà bloqué ou le blitz a déjà été effectué !"<<std::endl;
@@ -260,8 +403,17 @@ void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &pre
         sonModele->item(previous.row(), previous.column())->setData(QVariant(true), 34);
     }
 
+
+
+    //
+    //
+    // TRANSMISSION OU PASSE :
+    //
+    //
     else if(!sonModele->item(previous.row(), previous.column())->data(34).toBool() && (sonModele->item(previous.row(), previous.column())->data(45).toBool() && sonModele->item(previous.row(), previous.column())->data(33).toBool() == sonModele->item(current.row(), current.column())->data(33).toBool()))
     {
+        //
+        // PASSE ou TRANSMISSION ICI :
         // on effectue une passe ou transmission si le joueur a le ballon :
 //        if(ballon->row() == current...)
 //        {
@@ -270,6 +422,8 @@ void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &pre
 //            sonModele->item(previous.row(), previous.column())->setData(QVariant(true), 34);
 //        }
 //        else
+
+        //a commenter apres implementation :
         firstClic(current, previous);
     }
 

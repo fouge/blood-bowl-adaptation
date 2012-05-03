@@ -25,7 +25,7 @@ Joueur::Joueur(TableModel *unModele)
     leTerrain = unModele;
 }
 
-Joueur::Joueur(typeJ unType, std::vector<competences> desCompetences, int desMouvements, int uneForce,
+Joueur::Joueur(typeJ unType, std::vector<competences>* desCompetences, int desMouvements, int uneForce,
                int uneAgilite, int uneArmure, QString unNom, int unY, int unX,
                bool unCote)
     : sonType(unType), sesCompetences(desCompetences),sesMouvements(desMouvements),
@@ -146,14 +146,14 @@ Joueur::Joueur(typeJ unType, std::vector<competences> desCompetences, int desMou
 
     std::vector<competences>::iterator it;
     int valeurRole = 60;
-    for(it = sesCompetences.begin(); it != sesCompetences.end(); it++, valeurRole++)
+    for(it = sesCompetences->begin(); it != sesCompetences->end(); it++, valeurRole++)
     {
     sonItem->setData(QVariant((*it)), valeurRole);
     }
 }
 
 
-std::vector<competences> Joueur::getCompetences()
+std::vector<competences>* Joueur::getCompetences()
 {
     return sesCompetences;
 }

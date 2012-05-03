@@ -26,6 +26,7 @@ public:
     int getTour();
     int getPoints();
     bool getBlitzEffectue();
+    Joueur* getLeJoueur(int sonId);
 };
 
 #endif // EQUIPE_H

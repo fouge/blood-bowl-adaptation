@@ -73,6 +73,13 @@ Equipe* Match::getEquipe2()
 {
     return sonEquipe2;
 }
+Equipe* Match::getEquipe(bool cote)
+{
+    if(cote)
+        return sonEquipe1;
+    else
+        return sonEquipe2;
+}
 
 void Match::turnover(int action)
 {

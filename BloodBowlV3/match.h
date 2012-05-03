@@ -24,6 +24,7 @@ public:
     void setQuiJoue(bool joueur);
     Equipe* getEquipe1();
     Equipe* getEquipe2();
+    Equipe* getEquipe(bool);
     void finTour();
 public slots:
     void turnover(int);
