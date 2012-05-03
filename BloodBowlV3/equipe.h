@@ -25,6 +25,7 @@ public:
     void incrementeTour();
     int getTour();
     int getPoints();
+    bool getBlitzEffectue();
 };
 
 #endif // EQUIPE_H

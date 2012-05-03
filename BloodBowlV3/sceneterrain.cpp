@@ -57,32 +57,27 @@ void SceneTerrain::currentChanged(const QModelIndex &current, const QModelIndex 
             //on nettoie l'affichage
             clearTerrain();
 
-            // on affiche
+            // on actualise l'affichage :
             if(sonModele->item(current.row(), current.column())->data(33).toBool() )
             {
                 sonParent->updatePanneauJoueur(0,sonModele->item(current.row(), current.column()));
-                if(sonModele->item(current.row(), current.column())->data(43).toBool() == true)
-                    lesMouvementsPossibles = afficheMouvements(sonModele->item(current.row(), current.column()));
-                else
-                {
-                    std::cout<<"Le joueur se relève pour un coût de 3 cases"<<std::endl;
-                    sonModele->item(current.row(), current.column())->setData(QVariant(sonModele->item(current.row(), current.column())->data(35).toInt() - 3), 35);
-                    sonModele->item(current.row(), current.column())->setData(QVariant(true), 43);
-                    lesMouvementsPossibles = afficheMouvements(sonModele->item(current.row(), current.column()));
-                }
             }
             else
             {
                 sonParent->updatePanneauJoueur(1, sonModele->item(current.row(), current.column()));
-                if(sonModele->item(current.row(), current.column())->data(43).toBool() == true)
-                    lesMouvementsPossibles = afficheMouvements(sonModele->item(current.row(), current.column()));
-                else
-                {
-                    std::cout<<"Le joueur se relève pour un coût de 3 cases"<<std::endl;
-                    sonModele->item(current.row(), current.column())->setData(QVariant(sonModele->item(current.row(), current.column())->data(35).toInt() - 3), 35);
-                    sonModele->item(current.row(), current.column())->setData(QVariant(true), 43);
-                    lesMouvementsPossibles = afficheMouvements(sonModele->item(current.row(), current.column()));
-                }
+            }
+
+            // on affiche si le joueur est debout
+            if(sonModele->item(current.row(), current.column())->data(43).toBool() == true)
+            {
+                lesMouvementsPossibles = afficheMouvements(sonModele->item(current.row(), current.column()));
+            }
+            else
+            {
+                std::cout<<"Le joueur se relève pour un coût de 3 cases"<<std::endl;
+                sonModele->item(current.row(), current.column())->setData(QVariant(sonModele->item(current.row(), current.column())->data(35).toInt() - 3), 35);
+                sonModele->item(current.row(), current.column())->setData(QVariant(true), 43);
+                lesMouvementsPossibles = afficheMouvements(sonModele->item(current.row(), current.column()));
             }
 
             std::vector<QStandardItem*>::iterator leIt;
@@ -131,34 +126,30 @@ void SceneTerrain::firstClic(const QModelIndex &current, const QModelIndex &prev
         //on nettoie l'affichage
         clearTerrain();
 
-        // on affiche si le joueur est debout
 
+        // on actualise l'affichage :
         if(sonModele->item(current.row(), current.column())->data(33).toBool() )
         {
             sonParent->updatePanneauJoueur(0,sonModele->item(current.row(), current.column()));
-            if(sonModele->item(current.row(), current.column())->data(43).toBool() == true)
-                lesMouvementsPossibles = afficheMouvements(sonModele->item(current.row(), current.column()));
-            else
-            {
-                std::cout<<"Le joueur se relève pour un coût de 3 cases"<<std::endl;
-                sonModele->item(current.row(), current.column())->setData(QVariant(sonModele->item(current.row(), current.column())->data(35).toInt() - 3), 35);
-                sonModele->item(current.row(), current.column())->setData(QVariant(true), 43);
-                lesMouvementsPossibles = afficheMouvements(sonModele->item(current.row(), current.column()));
-            }
         }
         else
         {
             sonParent->updatePanneauJoueur(1, sonModele->item(current.row(), current.column()));
-            if(sonModele->item(current.row(), current.column())->data(43).toBool() == true)
-                lesMouvementsPossibles = afficheMouvements(sonModele->item(current.row(), current.column()));
-            else
-            {
-                std::cout<<"Le joueur se relève pour un coût de 3 cases"<<std::endl;
-                sonModele->item(current.row(), current.column())->setData(QVariant(sonModele->item(current.row(), current.column())->data(35).toInt() - 3), 35);
-                sonModele->item(current.row(), current.column())->setData(QVariant(true), 43);
-                lesMouvementsPossibles = afficheMouvements(sonModele->item(current.row(), current.column()));
-            }
         }
+
+        // on affiche si le joueur est debout
+        if(sonModele->item(current.row(), current.column())->data(43).toBool() == true)
+        {
+            lesMouvementsPossibles = afficheMouvements(sonModele->item(current.row(), current.column()));
+        }
+        else
+        {
+            std::cout<<"Le joueur se relève pour un coût de 3 cases"<<std::endl;
+            sonModele->item(current.row(), current.column())->setData(QVariant(sonModele->item(current.row(), current.column())->data(35).toInt() - 3), 35);
+            sonModele->item(current.row(), current.column())->setData(QVariant(true), 43);
+            lesMouvementsPossibles = afficheMouvements(sonModele->item(current.row(), current.column()));
+        }
+
         std::vector<QStandardItem*>::iterator leIt;
         for(leIt = lesMouvementsPossibles->begin(); leIt != lesMouvementsPossibles->end(); leIt++)
             {
@@ -215,9 +206,11 @@ void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &pre
             sonModele->item(previous.row(), previous.column())->setData(QVariant(mvts - abs(y)), 35);
         }
 
+        sonModele->item(previous.row(), previous.column())->setData(QVariant(true), 47);
+
+
         // on déplace le joueur :
         sonModele->switchItems(sonModele->item(previous.row(), previous.column()), sonModele->item(current.row(), current.column()));
-
         }
 
         // on nettoie l'affichage :
@@ -226,24 +219,51 @@ void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &pre
 
     else if(!sonModele->item(previous.row(), previous.column())->data(34).toBool() && (sonModele->item(previous.row(), previous.column())->data(45).toBool() && sonModele->item(current.row(), current.column())->data(45).toBool() && (sonModele->item(previous.row(), previous.column())->data(33).toBool() != sonModele->item(current.row(), current.column())->data(33).toBool())))
     {
+        int resBlocage = blocage(current, previous);
+        if(resBlocage<0)
+            resBlocage =0;
+
         // on attaque
         // si joueur sur une case adjacente : BLOCAGE
+        if(resBlocage < 9) // alors le joueur peut effectuer un blocage car son equipe n'a pas effectue et le joueur n'a jamais bloqué
+        {
+            std::cout<<"Le joueur bloque avec le soutien de "<<resBlocage<<" de ses coequipiers"<<std::endl;
+            if(sonModele->item(previous.row(), previous.column())->data(47).toBool())
+            { // alors le joueur effectue un blitz, ce qui lui coute une case de mouvement
+                int mvts = sonModele->item(previous.row(), previous.column())->data(35).toInt();
+                sonModele->item(previous.row(), previous.column())->setData(QVariant(mvts - 1), 35);
+                std::cout<<"Le joueur BLITZ avec le soutien de "<<resBlocage<<" de ses coequipier(s)"<<std::endl;
+            }
+            else
+            {
+                std::cout<<"Le joueur bloque avec le soutien de "<<resBlocage<<" de ses coequipiers"<<std::endl;
+            }
 
 
-        // si Joueur plus loin : blitz
-        // un seul par equipe par tour,
-        // enleve un mouvement
+
+
+
+        }
+        else if(resBlocage == 9)
+        {
+            std::cout<<"Ce joueur a déjà bloqué ou le blitz a déjà été effectué !"<<std::endl;
+        }
+        else if(resBlocage == 10)
+        {
+            std::cout<<"Les joueurs ne remplissent pas les conditions d'un blocage..."<<std::endl;
+        }
 
 
         clearTerrain();
-        // action effectué
+        // action effectué; si blitz : l'équipe a effectué son blitz
+        blitzEffectue(sonModele->item(previous.row(), previous.column()));
         sonModele->item(previous.row(), previous.column())->setData(QVariant(true), 34);
     }
 
     else if(!sonModele->item(previous.row(), previous.column())->data(34).toBool() && (sonModele->item(previous.row(), previous.column())->data(45).toBool() && sonModele->item(previous.row(), previous.column())->data(33).toBool() == sonModele->item(current.row(), current.column())->data(33).toBool()))
     {
         // on effectue une passe ou transmission si le joueur a le ballon :
-//        if(ballon->row())
+//        if(ballon->row() == current...)
 //        {
 //            clearTerrain();
 //            // action effectue :
@@ -371,7 +391,126 @@ bool SceneTerrain::esquive(int row, int column)
     }
 }
 
+int SceneTerrain::blocage(const QModelIndex &current, const QModelIndex &previous)
+{
+    std::vector<QStandardItem*>* zoneBlocage = new std::vector<QStandardItem*>;
+
+    if(sonModele->item(previous.row(), previous.column())->data(46).toBool() || (sonModele->item(previous.row(), previous.column())->data(47).toBool() && ((sonModele->item(previous.row(), previous.column())->data(33).toBool() && sonParent->getLeMatch()->getEquipe1()->getBlitzEffectue()) || (!sonModele->item(previous.row(), previous.column())->data(33).toBool() && sonParent->getLeMatch()->getEquipe2()->getBlitzEffectue() ))))
+        return 9;
+
+    int x = current.row();
+    int y = current.column();
+
+    if(x-1>=0 && y-1>=0)
+    zoneBlocage->push_back(sonModele->item(x-1, y-1));
+    if(x-1>=0)
+    zoneBlocage->push_back(sonModele->item(x-1, y));
+    if(x-1>=0 && y+1<28)
+    zoneBlocage->push_back(sonModele->item(x-1, y+1));
+    if(y-1>=0)
+    zoneBlocage->push_back(sonModele->item(x, y-1));
+    if(y+1<28)
+    zoneBlocage->push_back(sonModele->item(x, y+1));
+    if(x+1<15 && y-1>=0)
+    zoneBlocage->push_back(sonModele->item(x+1, y-1));
+    if(x+1<15)
+    zoneBlocage->push_back(sonModele->item(x+1, y));
+    if(x+1<15 && y+1<28)
+    zoneBlocage->push_back(sonModele->item(x+1, y+1));
+
+
+    bool res = false;
+    int soutien(0);
+
+    // si les deux joueurs sont debouts et que le joueur qui attaque a au moins un mouvement dispo
+    if(sonModele->item(current.row(), current.column())->data(43).toBool() && sonModele->item(previous.row(), previous.column())->data(43).toBool() && sonModele->item(previous.row(), previous.column())->data(35).toInt()>0)
+    {
+        std::vector<QStandardItem*>::iterator leIt;
+        for(leIt = zoneBlocage->begin(); leIt != zoneBlocage->end(); leIt++)
+        {
+            std::cout<<(*leIt)->data(39).toInt()<<std::endl;
+        }
+
+        for(leIt = zoneBlocage->begin(); leIt != zoneBlocage->end(); leIt++)
+        {
+
+            // si le joueur adverse appartient aux cases adjacentes :
+            if((*leIt) == sonModele->item(previous.row(), previous.column()))
+            {
+                res = true;
+            }
+
+
+            // si il y a un joueur de la meme equipe que le joueur qui attaque a coté du joueur a attaquer :
+            // le joueur doit etre debout
+            if((*leIt)->data(43).toBool() && (*leIt)->data(45).toBool() && ((*leIt)->data(33).toBool() == sonModele->item(previous.row(), previous.column())->data(33).toBool()))
+            {
+                // alors on vérifie qu'il n'est pas dans une zone de tacle
+                std::map<int, std::vector<QStandardItem* >* >::iterator itMap;
+                if(sonModele->item(previous.row(), previous.column())->data(33).toBool())
+                {
+                    lesZonesTacle = sonParent->getLeMatch()->getEquipe2()->zonesTacle();
+                }
+                else
+                {
+                    lesZonesTacle = sonParent->getLeMatch()->getEquipe1()->zonesTacle();
+                }
+
+
+                bool estDansZoneTacle(false);
+
+                for(itMap = lesZonesTacle->begin(); itMap != lesZonesTacle->end() && !estDansZoneTacle; itMap++)
+                {
+                    if(itMap->first != sonModele->item(current.row(), current.column())->data(39).toInt())
+                    {
+                    std::vector<QStandardItem* >::iterator itVect;
+                        for(itVect = itMap->second->begin(); itVect != itMap->second->end() && !estDansZoneTacle; itVect++)
+                        {
+                            // si le coequipier est dans la zone de tacle
+                            if((*itVect) == (*leIt))
+                            {
+                                estDansZoneTacle = true;
+                            }
+                        }
+                    }
+
+                }
+                // si le coequipier n'est pas en zone de tacle et le coequipier est debout, on l'ajoute au soutien
+                if(!estDansZoneTacle)
+                {
+                    std::cout<<"le joueur "<<(*leIt)->data(39).toInt()<<" est en soutien"<<std::endl;
+                    soutien++;
+                }
+                else
+                     std::cout<<"le joueur "<<(*leIt)->data(39).toInt()<<" n'est pas en soutien"<<std::endl;
+            }
+        }
+    }
+
+    if(!res)
+        return 10;
+    else
+    {
+        // on enleve le joueur qui attaque du soutien
+        return --soutien;
+    }
+}
+
+// pour le first clic apres changement de joueur sinon bug
 void SceneTerrain::setChangementJoueur(bool aChangeJoueur)
 {
     changementJoueur = aChangeJoueur;
+}
+
+void SceneTerrain::blitzEffectue(QStandardItem * unItem)
+{
+    if(unItem->data(47).toBool() && unItem->data(46).toBool())
+    {
+        if(unItem->data(33).toBool())
+        {
+            sonParent->getLeMatch()->getEquipe1()->setBlitzEffectue(true);
+        }
+        else
+            sonParent->getLeMatch()->getEquipe2()->setBlitzEffectue(true);
+    }
 }

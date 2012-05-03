@@ -156,7 +156,11 @@ void Equipe::resetJoueurs()
         (*leIt)->getItem()->setData(QVariant((*leIt)->getMouvements()), 35);
         //l'action du joueur n'est pas effectuée :
         (*leIt)->getItem()->setData(QVariant(false), 34);
+        // remise a zéro mouvement et blocage
+        (*leIt)->getItem()->setData(QVariant(false), 46);
+        (*leIt)->getItem()->setData(QVariant(false), 47);
     }
+    setBlitzEffectue(false);
 }
 
 std::map<int, std::vector<QStandardItem * > * >* Equipe::zonesTacle()
@@ -216,4 +220,8 @@ int Equipe::getTour()
 int Equipe::getPoints()
 {
     return sesPoints;
+}
+bool Equipe::getBlitzEffectue()
+{
+    return blitzEffectue;
 }

@@ -26,7 +26,9 @@ public:
     void secondClic(const QModelIndex &current, const QModelIndex &previous);
     void clearTerrain();
     bool esquive(int, int);
+    int blocage(const QModelIndex &current, const QModelIndex &previous);
     void setChangementJoueur(bool aChangeJoueur);
+    void blitzEffectue(QStandardItem*);
 protected:
     void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight);
     void currentChanged(const QModelIndex &current, const QModelIndex &previous);

@@ -137,10 +137,12 @@ Joueur::Joueur(typeJ unType, std::vector<competences> desCompetences, int desMou
     sonItem->setData(QVariant(sonNom),42);
     if(sonEtat == debout)
     {
-    sonItem->setData(QVariant(true),43);
+    sonItem->setData(QVariant(true),43); // est debout
     }
     sonItem->setData(QVariant(sonType),44);
-    sonItem->setData(QVariant(true),45);
+    sonItem->setData(QVariant(true),45); //est joueur
+    sonItem->setData(QVariant(false), 46); // a bloqué
+    sonItem->setData(QVariant(false), 47); // a bougé
 
     std::vector<competences>::iterator it;
     int valeurRole = 60;
