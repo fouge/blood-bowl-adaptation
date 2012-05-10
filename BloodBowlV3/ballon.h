@@ -3,18 +3,19 @@
 
 #include "match.h"
 
-class Match;
-
 class Ballon
 {
     Match* sonMatch;
-    QStandardItemModel* sonModele;
+    TableModel* sonModele;
     int sonX;
     int sonY;
 public:
-    Ballon(Match*, QStandardItemModel*, int, int);
+    Ballon(Match*, TableModel*, int, int);
     void rebondir(QStandardItem* uneCase, int nRebondissements);
-
+    int row();
+    int column();
+    void setRow(int row);
+    void setColumn(int column);
 };
 
 #endif // BALLON_H

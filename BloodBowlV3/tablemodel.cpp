@@ -50,4 +50,3 @@ void TableModel::setEquipes(Equipe * Equipe1, Equipe * Equipe2)
     sonEquipe1=Equipe1;
     sonEquipe2=Equipe2;
 }
-

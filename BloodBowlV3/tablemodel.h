@@ -14,7 +14,6 @@ public:
     void switchItems(QStandardItem* item1Joueur, QStandardItem* item2Herbe);
     void resetAllJoueurs();
     void setEquipes(Equipe*, Equipe*);
-
 };
 
 #endif // TABLEMODEL_H

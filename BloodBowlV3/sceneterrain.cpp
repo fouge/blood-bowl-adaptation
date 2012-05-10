@@ -8,7 +8,7 @@
 
 
 SceneTerrain::SceneTerrain(int nLignes, int nColonnes, TableModel* unModele, FenetrePrincipale* parent):QTableView(),
-    sonModele(unModele), joueurSelectionne(false), sonParent(parent), fClic(true), lesMouvementsPossibles(0)
+    sonModele(unModele), joueurSelectionne(false), sonParent(parent), fClic(true), lesMouvementsPossibles(0), coupEnvoi(true)
 {
     changementJoueur = false;
     setModel(sonModele);
@@ -41,7 +41,14 @@ void SceneTerrain::dataChanged(const QModelIndex &topLeft, const QModelIndex &bo
 void SceneTerrain::currentChanged(const QModelIndex &current, const QModelIndex &previous)
 {
 
-    if(current.isValid() && previous.isValid() && fClic)
+    if(coupEnvoi)
+    {
+            sonBallon = new Ballon(sonParent->getLeMatch(), sonModele, current.row(), current.column());
+            sonBallon->rebondir(sonModele->item(current.row(), current.column()), 3);
+            clearTerrain();
+            coupEnvoi = false;
+    }
+    else if(current.isValid() && previous.isValid() && fClic)
     {
         if((sonParent->getLeMatch()->getQuiJoue() == 0 && sonModele->item(current.row(), current.column())->data(33).toBool()) || (sonParent->getLeMatch()->getQuiJoue() != 0 && !sonModele->item(current.row(), current.column())->data(33).toBool()))
         firstClic(current, previous);
@@ -85,6 +92,7 @@ void SceneTerrain::currentChanged(const QModelIndex &current, const QModelIndex 
             std::vector<QStandardItem*>::iterator leIt;
             for(leIt = lesMouvementsPossibles->begin(); leIt != lesMouvementsPossibles->end(); leIt++)
                 {
+                if((*leIt)!=sonModele->item(sonBallon->row(), sonBallon->column()))
                 (*leIt)->setData(QVariant(QBrush(QColor(120, 50, 170))), Qt::BackgroundRole);
                 }
 
@@ -154,9 +162,10 @@ void SceneTerrain::firstClic(const QModelIndex &current, const QModelIndex &prev
 
         std::vector<QStandardItem*>::iterator leIt;
         for(leIt = lesMouvementsPossibles->begin(); leIt != lesMouvementsPossibles->end(); leIt++)
-            {
-            (*leIt)->setData(QVariant(QBrush(QColor(120, 50, 170))), Qt::BackgroundRole);
-            }
+        {
+        if((*leIt)!=sonModele->item(sonBallon->row(), sonBallon->column()))
+        (*leIt)->setData(QVariant(QBrush(QColor(120, 50, 170))), Qt::BackgroundRole);
+        }
 
         // Affichage zone de tacle:
         if(sonModele->item(current.row(), current.column())->data(33).toBool())
@@ -449,6 +458,8 @@ void SceneTerrain::clearTerrain()
             sonModele->item(i,j)->setData(QVariant(QBrush(QColor(110,210,50))), Qt::BackgroundRole);
         }
     }
+
+    placeBallon(sonBallon->row(), sonBallon->column());
     fClic = 1;
 }
 
@@ -502,6 +513,7 @@ void SceneTerrain::afficheZonesTacle(Equipe * uneEquipe)
         std::vector<QStandardItem* >::iterator itVect;
         for(itVect = itMap->second->begin(); itVect != itMap->second->end(); itVect++)
         {
+            if((*itVect) != sonModele->item(sonBallon->row(), sonBallon->column()))
             (*itVect)->setData(QVariant(QBrush(QColor(241,132,22))), Qt::BackgroundRole);
         }
     }
@@ -671,4 +683,11 @@ void SceneTerrain::blitzEffectue(QStandardItem * unItem)
         else
             sonParent->getLeMatch()->getEquipe2()->setBlitzEffectue(true);
     }
+}
+
+void SceneTerrain::placeBallon(int row, int column)
+{
+    sonModele->item(row, column)->setBackground(QBrush(QPixmap("images/ballon.png")));
+    sonBallon->setRow(row);
+    sonBallon->setColumn(column);
 }

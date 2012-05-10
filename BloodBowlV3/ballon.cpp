@@ -1,13 +1,16 @@
 #include "ballon.h"
+#include <time.h>
+#include <iostream>
 
-Ballon::Ballon(Match* unMatch, QStandardItemModel* unModele, int x, int y): sonMatch(unMatch), sonModele(unModele), sonX(x), sonY(y)
+Ballon::Ballon(Match* unMatch, TableModel* unModele, int x, int y): sonMatch(unMatch), sonModele(unModele), sonX(x), sonY(y)
 {
 }
 
 void Ballon::rebondir(QStandardItem *uneCase, int nRebondissements)
 {
-    int x(0);
-    int y(0);
+    int x(uneCase->row());
+    int y(uneCase->column());
+    srand(time(NULL));
     if(nRebondissements>0)
     {
         switch(rand() % 8 + 1)
@@ -38,16 +41,35 @@ void Ballon::rebondir(QStandardItem *uneCase, int nRebondissements)
                 break;
         default: ;
         }
-        if(x >=0 && x <16 && y>= 0 && y<29)
-        {
+        if(x<0)
+            x++;
+        if(x>14)
+            x--;
+        if(y<0)
+            y++;
+        if(y>=26)
+            y--;
+            std::cout<<"Autre rebond à partir de la case ("<<x<<","<<y<<")"<<std::endl;
+            sonX = x;
+            sonY = y;
             rebondir(sonModele->item(x,y), nRebondissements-1);
-        }
-        else
-            rebondir(sonModele->item(uneCase->row(), uneCase->column()), nRebondissements-1);
     }
 
-     //on met le ballon sur la bonne case :
-   // sonModele->
-    sonX = x;
-    sonY = y;
+}
+
+int Ballon::row()
+{
+    return sonX;
+}
+int Ballon::column()
+{
+    return sonY;
+}
+void Ballon::setColumn(int column)
+{
+    sonY = column;
+}
+void Ballon::setRow(int row)
+{
+    sonX = row;
 }

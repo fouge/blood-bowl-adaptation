@@ -5,8 +5,10 @@
 #include <QTableView>
 #include "tablemodel.h"
 #include "fenetreprincipale.h"
+#include "ballon.h"
 
 class FenetrePrincipale;
+class Ballon;
 
 class SceneTerrain : public QTableView
 {
@@ -18,6 +20,8 @@ class SceneTerrain : public QTableView
     std::vector<QStandardItem*>* lesMouvementsPossibles;
     std::map<int, std::vector<QStandardItem* >* > * lesZonesTacle;
     bool changementJoueur;
+    bool coupEnvoi;
+    Ballon* sonBallon;
 public:
     SceneTerrain(int nLignes, int nColonnes, TableModel* unModele, FenetrePrincipale* parent);
     std::vector<QStandardItem*>* afficheMouvements(QStandardItem* unItem);
@@ -29,6 +33,8 @@ public:
     int blocage(const QModelIndex &current, const QModelIndex &previous);
     void setChangementJoueur(bool aChangeJoueur);
     void blitzEffectue(QStandardItem*);
+    void placeBallon(int row, int column);
+
 protected:
     void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight);
     void currentChanged(const QModelIndex &current, const QModelIndex &previous);
