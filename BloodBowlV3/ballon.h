@@ -2,7 +2,7 @@
 #define BALLON_H
 
 #include "match.h"
-
+class Match;
 class Ballon
 {
     Match* sonMatch;

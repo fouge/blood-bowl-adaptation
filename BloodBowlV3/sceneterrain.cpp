@@ -230,6 +230,12 @@ void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &pre
             placeBallon(current.row(), current.column());
         }
 
+        // si on deplace le joueur sans ballon sur la case avec le ballon
+        if(!sonModele->item(previous.row(), previous.column())->data(48).toBool() && current.row() == sonBallon->row() && current.column()==sonBallon->column())
+        {
+            sonModele->item(previous.row(), previous.column())->setData(QVariant(true), 48);
+        }
+
         // on déplace le joueur :
         sonModele->switchItems(sonModele->item(previous.row(), previous.column()), sonModele->item(current.row(), current.column()));
 
@@ -733,6 +739,14 @@ void SceneTerrain::placeBallon(int row, int column)
     if(sonModele->item(sonBallon->row(), sonBallon->column())->data(48).toBool() && sonModele->item(sonBallon->row(), sonBallon->column())->data(45).toBool())
     {
            sonModele->item(row, column)->setBackground(QBrush(QPixmap("images/ballonJoueur.png")));
+           if(column == 0 && !sonModele->item(sonBallon->row(), sonBallon->column())->data(33).toBool())
+           {
+               sonParent->getLeMatch()->turnover(2);
+           }
+           if(column == 28 && sonModele->item(sonBallon->row(), sonBallon->column())->data(33).toBool())
+           {
+               sonParent->getLeMatch()->turnover(1);
+           }
     }
     else
     {

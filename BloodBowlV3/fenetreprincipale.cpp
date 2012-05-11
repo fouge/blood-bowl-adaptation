@@ -497,7 +497,7 @@ void FenetrePrincipale::fenetreMatch(race raceEquipeJ1, int indexEquipeJ1, race 
     //Initialisation Barre Inferieure
     barreInferieure = new QHBoxLayout();
     quiJoue = new QLabel("A Qui le tour : ", this);
-    quiJoueTexte = new QLabel("Joueur 1", this);
+    quiJoueTexte = new QLabel("Engagement : les rouges bottent le ballon et le bleus peuvent commencer le match! ", this);
     resultatDes = new QLabel("Resultat des Dés : ", this);
     resultatDesTexte = new QLabel("", this);
 
@@ -644,13 +644,13 @@ void FenetrePrincipale::changementJoueur()
     {
         leMatch->getEquipe1()->incrementeTour();
         nbTourJ1->setText(QString(""+QString::number(leMatch->getEquipe1()->getTour())+"/16"));
-        quiJoueTexte->setText("Joueur 2");
+        quiJoueTexte->setText("Joueur 2 : ROUGE");
     }
     if(leMatch->getQuiJoue() == joueur2)
     {
         leMatch->getEquipe2()->incrementeTour();
         nbTourJ2->setText(QString(""+QString::number(leMatch->getEquipe2()->getTour())+"/16"));
-        quiJoueTexte->setText("Joueur 1");
+        quiJoueTexte->setText("Joueur 1 : BLEU");
     }
 }
 
