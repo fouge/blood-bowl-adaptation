@@ -143,6 +143,7 @@ Joueur::Joueur(typeJ unType, std::vector<competences>* desCompetences, int desMo
     sonItem->setData(QVariant(true),45); //est joueur
     sonItem->setData(QVariant(false), 46); // a bloqué
     sonItem->setData(QVariant(false), 47); // a bougé
+    sonItem->setData(QVariant(false), 48); // a ballon
 
     std::vector<competences>::iterator it;
     int valeurRole = 60;

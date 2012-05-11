@@ -85,15 +85,19 @@ void Match::turnover(int action)
 {
 
     // 0 : action non reussi
-    // 1 : but
+    // 1 : but pour les bleus
+    // 2 : but pour les rouges
     // pas encore implémenté :
-    // 2 : limite de 4 min depassé
+    // 3 : limite de 4 min depassé
     switch(action)
     {
     case 0: {QMessageBox* alert = new QMessageBox(QMessageBox::Warning, "Turnover!", "Le joueur n'a pas réussi son action, turnover !");
         alert->show();
         break;}
-    case 1: {QMessageBox* alert = new QMessageBox(QMessageBox::Information, "Turnover!", "Buuuut !");
+    case 1: {QMessageBox* alert = new QMessageBox(QMessageBox::Information, "Turnover!", "Buuuut des bleus !");
+        alert->show();
+        break;}
+    case 2: {QMessageBox* alert = new QMessageBox(QMessageBox::Information, "Turnover!", "Buuuut des rouges !");
         alert->show();
         break;}
     default : std::cout<<"Turnover inconnu"<<std::endl;

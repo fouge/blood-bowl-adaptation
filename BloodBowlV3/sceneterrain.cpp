@@ -224,9 +224,15 @@ void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &pre
 
         sonModele->item(previous.row(), previous.column())->setData(QVariant(true), 47);
 
+        // on deplace le ballon si le joueur a le ballon
+        if(sonModele->item(previous.row(), previous.column())->data(48).toBool())
+        {
+            placeBallon(current.row(), current.column());
+        }
 
         // on déplace le joueur :
         sonModele->switchItems(sonModele->item(previous.row(), previous.column()), sonModele->item(current.row(), current.column()));
+
         }
 
         // on nettoie l'affichage :
@@ -274,6 +280,11 @@ void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &pre
                 case 1: {
                     std::cout<<"dé : 1 : attaquant à terre"<<std::endl;
                     sonModele->item(previous.row(), previous.column())->setData(QVariant(false), 43);
+                    if(sonModele->item(previous.row(), previous.column())->data(48).toBool())
+                    {
+                    sonModele->item(previous.row(), previous.column())->setData(QVariant(false), 48);
+                    sonBallon->rebondir(sonModele->item(previous.row(), previous.column()), 1);
+                    }
                     break;}
 
                 case 2: { // deux joueurs a terre sauf si l'un a la competence blocage
@@ -286,11 +297,19 @@ void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &pre
                             if((*leIt) == 4)
                             {
                                 aCompetence = true;
+                                std::cout<<"L'attaquant a la competence BLOCAGE, il ne tombe pas"<<std::endl;
                             }
                         }
                         if(!aCompetence)
                         {
+                            std::cout<<"L'attaquant n'a pas la competence BLOCAGE, il tombe"<<std::endl;
+
                             sonModele->item(previous.row(), previous.column())->setData(QVariant(false), 43);
+                            if(sonModele->item(previous.row(), previous.column())->data(48).toBool())
+                            {
+                            sonModele->item(previous.row(), previous.column())->setData(QVariant(false), 48);
+                            sonBallon->rebondir(sonModele->item(previous.row(), previous.column()), 1);
+                            }
                         }
 
                         // pour le second (current)
@@ -304,6 +323,11 @@ void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &pre
                         }
                         if(!aCompetence)
                         {
+                            if(sonModele->item(current.row(), current.column())->data(48).toBool())
+                            {
+                            sonModele->item(current.row(), current.column())->setData(QVariant(false), 48);
+                            sonBallon->rebondir(sonModele->item(current.row(),current.column()), 1);
+                            }
                             sonModele->item(current.row(), current.column())->setData(QVariant(false), 43);
                         }
 
@@ -367,6 +391,11 @@ void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &pre
                             }
                         }
                     }
+                    if(sonModele->item(current.row(), current.column())->data(48).toBool())
+                    {
+                    sonModele->item(current.row(), current.column())->setData(QVariant(false), 48);
+                    sonBallon->rebondir(sonModele->item(current.row(), current.column()), 1);
+                    }
                     sonModele->item(current.row(), current.column())->setData(QVariant(false), 43);
 
                     break;  }
@@ -376,6 +405,11 @@ void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &pre
 
                     // defenseur repoussé et plaqué dans la case ou il a été deplacé / attaquant peut poursuivre
                     sonModele->item(current.row(), current.column())->setData(QVariant(false), 43);
+                    if(sonModele->item(current.row(), current.column())->data(48).toBool())
+                    {
+                    sonModele->item(current.row(), current.column())->setData(QVariant(false), 48);
+                    sonBallon->rebondir(sonModele->item(current.row(), current.column()), 1);
+                    }
                     int difX = previous.row() - current.row();
                     int difY = previous.column() - current.column();
                     if(current.row()<14 && current.row()>0 && current.column()<27 && current.column()>0)
@@ -426,17 +460,19 @@ void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &pre
     else if(!sonModele->item(previous.row(), previous.column())->data(34).toBool() && (sonModele->item(previous.row(), previous.column())->data(45).toBool() && sonModele->item(previous.row(), previous.column())->data(33).toBool() == sonModele->item(current.row(), current.column())->data(33).toBool()))
     {
         //
-        // PASSE ou TRANSMISSION ICI :
-        // on effectue une passe ou transmission si le joueur a le ballon :
-//        if(ballon->row() == current...)
-//        {
-//            clearTerrain();
-//            // action effectue :
-//            sonModele->item(previous.row(), previous.column())->setData(QVariant(true), 34);
-//        }
-//        else
+        // PASSE ou TRANSMISSION
+       // on effectue une passe ou transmission si le joueur a le ballon :
+        if(sonBallon->row() == previous.row() && sonBallon->column() == previous.column())
+        {
 
-        //a commenter apres implementation :
+            sonModele->item(previous.row(), previous.column())->setData(QVariant(false), 48);
+            sonModele->item(current.row(), current.column())->setData(QVariant(true), 48);
+            placeBallon(current.row(), current.column());
+            clearTerrain();
+            // action effectue :
+            sonModele->item(previous.row(), previous.column())->setData(QVariant(true), 34);
+        }
+        else
         firstClic(current, previous);
     }
 
@@ -524,6 +560,7 @@ bool SceneTerrain::esquive(int row, int column)
 {
     bool enZone = false;
     int penalite = 0;
+    // on parcours les items de zone de tacle pour savoir si le joueur deplacé est en zone de tacle
     std::map<int, std::vector<QStandardItem* >* >::iterator itMap;
     for(itMap = lesZonesTacle->begin(); itMap != lesZonesTacle->end(); itMap++)
     {
@@ -538,9 +575,10 @@ bool SceneTerrain::esquive(int row, int column)
         }
     }
 
+    // si joueur a deplacé en zone de tacle on joue un dé pour voir s'il tombe ou pas, sinon le joueur peut se deplacer: on retourne TRUE.
     if(enZone)
     {
-        // esquive
+        // on lance un dé et selon le resultat, le joueur tombe ou ne tombe pas, si il ne tombe pas il esquive, la methode retourne TRUE, sinon le joueur tombe et TURNOVER
         int de = sonParent->getLeMatch()->lancer1D6();
         sonParent->updateResultatsDes(de);
         if((de + sonModele->item(row, column)->data(37).toInt() - penalite) >= 7)
@@ -551,6 +589,11 @@ bool SceneTerrain::esquive(int row, int column)
         {
             sonModele->item(row, column)->setData(QVariant(false), 43);
             sonModele->item(row,  column)->setData(QVariant(true), 34);
+            if(sonModele->item(row,column)->data(48).toBool())
+            {
+            sonModele->item(row,column)->setData(QVariant(false), 48);
+            sonBallon->rebondir(sonModele->item(row, column), 1);
+            }
             sonParent->getLeMatch()->turnover(0);
             return false;
         }
@@ -687,7 +730,15 @@ void SceneTerrain::blitzEffectue(QStandardItem * unItem)
 
 void SceneTerrain::placeBallon(int row, int column)
 {
-    sonModele->item(row, column)->setBackground(QBrush(QPixmap("images/ballon.png")));
+    if(sonModele->item(sonBallon->row(), sonBallon->column())->data(48).toBool() && sonModele->item(sonBallon->row(), sonBallon->column())->data(45).toBool())
+    {
+           sonModele->item(row, column)->setBackground(QBrush(QPixmap("images/ballonJoueur.png")));
+    }
+    else
+    {
+            sonModele->item(row, column)->setBackground(QBrush(QPixmap("images/ballon.png")));
+    }
+
     sonBallon->setRow(row);
     sonBallon->setColumn(column);
 }
