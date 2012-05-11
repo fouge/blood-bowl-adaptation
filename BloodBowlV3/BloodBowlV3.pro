@@ -31,3 +31,5 @@ HEADERS  += fenetreprincipale.h \
 
 # -> mettre a jour apres turnover : score et remise en place sur le terrain
 #           voir dans match::turnover
+
+# -> faire SceneTerrain::touchdown()

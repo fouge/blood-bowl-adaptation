@@ -34,6 +34,7 @@ public:
     void setChangementJoueur(bool aChangeJoueur);
     void blitzEffectue(QStandardItem*);
     void placeBallon(int row, int column);
+    void touchdown();
 
 protected:
     void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight);

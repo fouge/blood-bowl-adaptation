@@ -243,6 +243,7 @@ void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &pre
 
         // on nettoie l'affichage :
         clearTerrain();
+        touchdown();
     }
 
 
@@ -480,6 +481,8 @@ void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &pre
         }
         else
         firstClic(current, previous);
+
+        touchdown();
     }
 
 }
@@ -739,14 +742,7 @@ void SceneTerrain::placeBallon(int row, int column)
     if(sonModele->item(sonBallon->row(), sonBallon->column())->data(48).toBool() && sonModele->item(sonBallon->row(), sonBallon->column())->data(45).toBool())
     {
            sonModele->item(row, column)->setBackground(QBrush(QPixmap("images/ballonJoueur.png")));
-           if(column == 0 && !sonModele->item(sonBallon->row(), sonBallon->column())->data(33).toBool())
-           {
-               sonParent->getLeMatch()->turnover(2);
-           }
-           if(column == 28 && sonModele->item(sonBallon->row(), sonBallon->column())->data(33).toBool())
-           {
-               sonParent->getLeMatch()->turnover(1);
-           }
+
     }
     else
     {
@@ -755,4 +751,20 @@ void SceneTerrain::placeBallon(int row, int column)
 
     sonBallon->setRow(row);
     sonBallon->setColumn(column);
+}
+
+void SceneTerrain::touchdown()
+{
+    for(int i(0); i<15; i++)
+    {
+        //si rouge dans la colonne 0 avec le ballon alors turnover
+        if(sonModele->item(i, 0)->data(45).toBool() && !sonModele->item(i, 0)->data(33).toBool() && sonModele->item(i, 0)->data(48).toBool())
+        {
+            sonParent->getLeMatch()->turnover(2);
+        }
+        else if(sonModele->item(i, 27)->data(45).toBool() && sonModele->item(i, 27)->data(33).toBool() && sonModele->item(i, 27)->data(48).toBool())
+        {
+            sonParent->getLeMatch()->turnover(1);
+        }
+    }
 }
