@@ -96,9 +96,15 @@ void Match::turnover(int action)
         break;}
     case 1: {QMessageBox* alert = new QMessageBox(QMessageBox::Information, "Turnover!", "Buuuut des bleus !");
         alert->show();
+
+        // mettre a jour score dans equipe
+        // afficher le score
+        // remetre les joueurs en place sur le terrain
+
         break;}
     case 2: {QMessageBox* alert = new QMessageBox(QMessageBox::Information, "Turnover!", "Buuuut des rouges !");
         alert->show();
+
         break;}
     default : std::cout<<"Turnover inconnu"<<std::endl;
     }
