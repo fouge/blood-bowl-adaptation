@@ -14,7 +14,7 @@ class Equipe
     std::vector<Joueur*>* sesJoueurs;
     bool sonCote;
     TableModel* sonModele;
-    bool blitzEffectue;
+    bool blitzEffectue, passeEffectuee;
     int sesRelances, sonNoTour, sesPoints;
 public:
     Equipe(race, int, bool, TableModel*);
@@ -22,10 +22,12 @@ public:
     std::vector<Joueur*>* getSesJoueurs();
     std::map<int, std::vector<QStandardItem* >* >* zonesTacle();
     void setBlitzEffectue(bool);
+    void setPasseEffectuee(bool);
     void incrementeTour();
     int getTour();
     int getPoints();
     bool getBlitzEffectue();
+    bool getPasseEffectuee();
     Joueur* getLeJoueur(int sonId);
 };
 

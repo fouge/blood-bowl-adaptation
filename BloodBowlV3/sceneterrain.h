@@ -35,6 +35,7 @@ public:
     void blitzEffectue(QStandardItem*);
     void placeBallon(int row, int column);
     void touchdown();
+    void recevoirBallon(int rowReceptionBallon, int columnReceptionBallon);
 
 protected:
     void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight);

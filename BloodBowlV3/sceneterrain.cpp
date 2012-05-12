@@ -43,12 +43,12 @@ void SceneTerrain::currentChanged(const QModelIndex &current, const QModelIndex 
 
     if(coupEnvoi)
     {
-            sonBallon = new Ballon(sonParent->getLeMatch(), sonModele, current.row(), current.column());
-            sonBallon->rebondir(sonModele->item(current.row(), current.column()), 3);
+            sonBallon = new Ballon(sonParent->getLeMatch(), sonModele, this, current.row(), current.column());
+            sonBallon->rebondir(sonModele->item(current.row(), current.column()), sonParent->getLeMatch()->lancer1D6());
             clearTerrain();
             coupEnvoi = false;
     }
-    else if(current.isValid() && previous.isValid() && fClic)
+    else if(current.isValid() && previous.isValid() && fClic && sonParent->getLeMatch()->getQuiJoue()==!sonModele->item(current.row(), current.column())->data(33).toBool())
     {
         if((sonParent->getLeMatch()->getQuiJoue() == 0 && sonModele->item(current.row(), current.column())->data(33).toBool()) || (sonParent->getLeMatch()->getQuiJoue() != 0 && !sonModele->item(current.row(), current.column())->data(33).toBool()))
         firstClic(current, previous);
@@ -57,7 +57,7 @@ void SceneTerrain::currentChanged(const QModelIndex &current, const QModelIndex 
     {
         secondClic(current, previous);
     }
-    else if(changementJoueur || (!previous.isValid() && current.isValid() && (((sonParent->getLeMatch()->getQuiJoue() == 0) && sonModele->item(current.row(), current.column())->data(33).toBool()) || ((sonParent->getLeMatch()->getQuiJoue() != 0) && !sonModele->item(current.row(), current.column())->data(33).toBool()))))
+    else if(changementJoueur || (!previous.isValid() && current.isValid() && sonParent->getLeMatch()->getQuiJoue() == !sonModele->item(current.row(), current.column())->data(33).toBool()))
     {
         std::cout<<sonModele->item(current.row(), current.column())->data(43).toInt()<<std::endl;
         // si premier clic sur joueur :
@@ -115,6 +115,9 @@ void SceneTerrain::currentChanged(const QModelIndex &current, const QModelIndex 
         clearTerrain();
         }
     }
+    else
+    {
+}
     changementJoueur = false;
 }
 
@@ -280,7 +283,6 @@ void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &pre
 //            {
 
                 int de = sonParent->getLeMatch()->lancer1D6();
-                sonParent->updateResultatsDes(de);
 
                 switch(de)
                 {
@@ -463,25 +465,25 @@ void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &pre
     //
     // TRANSMISSION OU PASSE :
     //
-    //
-    else if(!sonModele->item(previous.row(), previous.column())->data(34).toBool() && (sonModele->item(previous.row(), previous.column())->data(45).toBool() && sonModele->item(previous.row(), previous.column())->data(33).toBool() == sonModele->item(current.row(), current.column())->data(33).toBool()))
+    // si la passe n'est pas déjà effectuée et si l'action du joueur n'est pas déjà effectuée et si les deux joueurs sont dans le même camps
+    else if(!sonParent->getLeMatch()->getEquipe(sonModele->item(previous.row(), previous.column())->data(33).toBool())->getPasseEffectuee() && !sonModele->item(previous.row(), previous.column())->data(34).toBool() && (sonModele->item(previous.row(), previous.column())->data(45).toBool() && sonModele->item(previous.row(), previous.column())->data(33).toBool() == sonModele->item(current.row(), current.column())->data(33).toBool()))
     {
         //
         // PASSE ou TRANSMISSION
        // on effectue une passe ou transmission si le joueur a le ballon :
         if(sonBallon->row() == previous.row() && sonBallon->column() == previous.column())
         {
-
             sonModele->item(previous.row(), previous.column())->setData(QVariant(false), 48);
-            sonModele->item(current.row(), current.column())->setData(QVariant(true), 48);
-            placeBallon(current.row(), current.column());
+            recevoirBallon(current.row(), current.column());
             clearTerrain();
             // action effectue :
             sonModele->item(previous.row(), previous.column())->setData(QVariant(true), 34);
+            sonParent->getLeMatch()->getEquipe(sonModele->item(previous.row(), previous.column())->data(33).toBool())->setPasseEffectuee(true);
         }
-        else
+        else // sinon cela revient à choisir un autre joueur => firstClic.
         firstClic(current, previous);
 
+        // Enfin, on vérifie si un touchdown est effectué sur la passe.
         touchdown();
     }
 
@@ -567,6 +569,11 @@ void SceneTerrain::afficheZonesTacle(Equipe * uneEquipe)
 
 bool SceneTerrain::esquive(int row, int column)
 {
+    if(sonModele->item(row, column)->data(33).toBool() == sonParent->getLeMatch()->getQuiJoue())
+    {
+        return false;
+    }
+    {
     bool enZone = false;
     int penalite = 0;
     // on parcours les items de zone de tacle pour savoir si le joueur deplacé est en zone de tacle
@@ -589,7 +596,6 @@ bool SceneTerrain::esquive(int row, int column)
     {
         // on lance un dé et selon le resultat, le joueur tombe ou ne tombe pas, si il ne tombe pas il esquive, la methode retourne TRUE, sinon le joueur tombe et TURNOVER
         int de = sonParent->getLeMatch()->lancer1D6();
-        sonParent->updateResultatsDes(de);
         if((de + sonModele->item(row, column)->data(37).toInt() - penalite) >= 7)
         {
             return true;
@@ -611,6 +617,7 @@ bool SceneTerrain::esquive(int row, int column)
     {
         return true;
     }
+}
 }
 
 int SceneTerrain::blocage(const QModelIndex &current, const QModelIndex &previous)
@@ -753,15 +760,41 @@ void SceneTerrain::placeBallon(int row, int column)
     sonBallon->setColumn(column);
 }
 
+void SceneTerrain::recevoirBallon(int row, int column)
+{
+    // si il y a un joueur debout à cette position :
+
+    // soit le joueur attrape le ballon, alors il le possede et le ballon est placé
+    // soit le joueur n'attrape pas le ballon et le ballon rebondi
+    if(sonModele->item(row, column)->data(45).toBool() && sonModele->item(row, column)->data(43).toBool())
+    {
+        std::cout<<"Jet de reception du ballon"<<std::endl;
+    if(sonParent->getLeMatch()->lancer1D6() + sonModele->item(row, column)->data(37).toInt() >= 7 )
+    {
+        std::cout<<"Le joueur receptionne le ballon"<<std::endl;
+        sonModele->item(row, column)->setData(QVariant(true), 48);
+        placeBallon(row, column);
+    }
+    else
+    {
+        std::cout<<"Le joueur ne receptionne pas le ballon, il rebondit"<<std::endl;
+        sonBallon->rebondir(sonModele->item(row, column), sonParent->getLeMatch()->lancer1D6());
+    }
+
+    }
+
+}
+
 void SceneTerrain::touchdown()
 {
     for(int i(0); i<15; i++)
     {
-        //si rouge dans la colonne 0 avec le ballon alors turnover
+        //si rouge dans la colonne 0 avec le ballon alors touchdown : turnover avec option 2
         if(sonModele->item(i, 0)->data(45).toBool() && !sonModele->item(i, 0)->data(33).toBool() && sonModele->item(i, 0)->data(48).toBool())
         {
             sonParent->getLeMatch()->turnover(2);
         }
+        // sinon si bleu dans la colonne 27 avec le ballon, alors touchdown pour les bleus: turnover avec option 1
         else if(sonModele->item(i, 27)->data(45).toBool() && sonModele->item(i, 27)->data(33).toBool() && sonModele->item(i, 27)->data(48).toBool())
         {
             sonParent->getLeMatch()->turnover(1);

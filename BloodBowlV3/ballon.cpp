@@ -2,7 +2,7 @@
 #include <time.h>
 #include <iostream>
 
-Ballon::Ballon(Match* unMatch, TableModel* unModele, int x, int y): sonMatch(unMatch), sonModele(unModele), sonX(x), sonY(y)
+Ballon::Ballon(Match* unMatch, TableModel* unModele, SceneTerrain* unTerrain, int x, int y): sonMatch(unMatch), sonModele(unModele), sonTerrain(unTerrain), sonX(x), sonY(y)
 {
 }
 
@@ -53,8 +53,10 @@ void Ballon::rebondir(QStandardItem *uneCase, int nRebondissements)
             sonX = x;
             sonY = y;
             rebondir(sonModele->item(x,y), nRebondissements-1);
-    }
 
+    }
+    sonTerrain->recevoirBallon(sonX, sonY);
+    sonTerrain->placeBallon(sonX, sonY);
 }
 
 int Ballon::row()

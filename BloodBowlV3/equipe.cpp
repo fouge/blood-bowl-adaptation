@@ -3,7 +3,7 @@
 #include <iostream>
 #include <QApplication>
 
-Equipe::Equipe(race uneRace, int uneComposition, bool cote, TableModel* unModele):sesPoints(0), saRace(uneRace), sonCote(cote), sonModele(unModele), blitzEffectue(false), sonNoTour(0)
+Equipe::Equipe(race uneRace, int uneComposition, bool cote, TableModel* unModele):sesPoints(0), saRace(uneRace), sonCote(cote), sonModele(unModele), blitzEffectue(false), passeEffectuee(false), sonNoTour(0)
 {
 
     Joueur* leJoueurModele = new Joueur(unModele);
@@ -225,6 +225,15 @@ bool Equipe::getBlitzEffectue()
 {
     return blitzEffectue;
 }
+void Equipe::setPasseEffectuee(bool unBool)
+{
+    passeEffectuee = unBool;
+}
+bool Equipe::getPasseEffectuee()
+{
+    return passeEffectuee;
+}
+
 Joueur* Equipe::getLeJoueur(int sonId)
 {
     Joueur* res;

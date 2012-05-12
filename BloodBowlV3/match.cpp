@@ -32,8 +32,12 @@ Match::Match(race raceEquipe1, int noEquipe1, race raceEquipe2, int noEquipe2, F
 
 int Match::lancer1D6() //donne un chiffre aléatoire entre 1 et 6
 {
+    QSound* lancerDes = new QSound("sounds/1D6.wav");
+    lancerDes->play();
     srand(time(NULL));
-    return rand() % 6 + 1;
+    int de = rand() % 6 + 1;
+    saFenetre->updateResultatsDes(de);
+    return de;
 }
 
 TableModel* Match::getModel()
@@ -60,6 +64,8 @@ void Match::finTour()
     setQuiJoue(!quiJoue);
     sonEquipe1->setBlitzEffectue(false);
     sonEquipe2->setBlitzEffectue(false);
+    sonEquipe1->setPasseEffectuee(false);
+    sonEquipe2->setPasseEffectuee(false);
     sonEquipe1->resetJoueurs();
     sonEquipe2->resetJoueurs();
 }
@@ -94,7 +100,7 @@ void Match::turnover(int action)
     case 0: {QMessageBox* alert = new QMessageBox(QMessageBox::Warning, "Turnover!", "Le joueur n'a pas réussi son action, turnover !");
         alert->show();
         break;}
-    case 1: {QMessageBox* alert = new QMessageBox(QMessageBox::Information, "Turnover!", "Buuuut des bleus !");
+    case 1: {QMessageBox* alert = new QMessageBox(QMessageBox::Information, "TOUCHDOWN !", "Les bleus marquent un point !");
         alert->show();
 
         // mettre a jour score dans equipe
@@ -102,7 +108,7 @@ void Match::turnover(int action)
         // remetre les joueurs en place sur le terrain
 
         break;}
-    case 2: {QMessageBox* alert = new QMessageBox(QMessageBox::Information, "Turnover!", "Buuuut des rouges !");
+    case 2: {QMessageBox* alert = new QMessageBox(QMessageBox::Information, "TOUCHDOWN !", "Les rouges marquent un point !");
         alert->show();
 
         break;}
