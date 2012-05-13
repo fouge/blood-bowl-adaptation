@@ -7,7 +7,9 @@
  *
  */
 
+/** \class Match match.h "match.h" */
 #include "match.h"
+
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
@@ -39,6 +41,11 @@ Match::Match(race raceEquipe1, int noEquipe1, race raceEquipe2, int noEquipe2, F
 
 }
 
+/**
+ * \brief       Retourne le resultat d'un lancer d'un dé de 6 faces et affiche son resultat dans le panneaux.
+ * \details     Tire un nombre aleatoire et renvoie le reste de la division par 6. <br/>Affiche le resultat dans la fenetre.
+ * \return      \e int
+ */
 int Match::lancer1D6() //donne un chiffre aléatoire entre 1 et 6
 {
     QSound* lancerDes = new QSound("sounds/1D6.wav");
@@ -49,14 +56,32 @@ int Match::lancer1D6() //donne un chiffre aléatoire entre 1 et 6
     return de;
 }
 
+
+/**
+ * \brief       Accesseur du modele du tableau
+ * \return      \e TableModel*
+ */
 TableModel* Match::getModel()
 {
     return sonTableauCases;
 }
+
+/**
+ * \brief       Accesseur du joueur qui doit jouer.
+ * \details     Renvoie 0 ou 1 en fonction de l'Equipe qui joue - (Permet de faire des comparaisons avec des bool) <br/> \e false ou 0: bleu en jeu; \e true ou 1: rouge en jeu
+ * \return      \e coach
+ */
 coach Match::getQuiJoue()
 {
     return quiJoue;
 }
+
+/**
+ * \brief       Mutateur du joueur qui doit jouer.
+ * \details     \e false : bleu en jeu; \e true : rouge en jeu
+ * \param       bool        cote de l'equipe qui joue.
+ * \return      \e void
+ */
 void Match::setQuiJoue(bool joueur)
 {
     switch(joueur)
@@ -68,6 +93,11 @@ void Match::setQuiJoue(bool joueur)
     }
 }
 
+/**
+ * \brief       Remise des Equipes à 0.
+ * \details     ->blitz n'est plus effectue <br/>->passe n'est plus effectuee <br/>->reset des joueurs des deux equipes - permet d'utiliser la methode à chaque tour ( \e Equipe::resetJoueurs() )
+ * \return      \e void
+ */
 void Match::finTour()
 {
     setQuiJoue(!quiJoue);
@@ -79,15 +109,12 @@ void Match::finTour()
     sonEquipe2->resetJoueurs();
 }
 
-Equipe* Match::getEquipe1()
-{
-    return sonEquipe1;
-}
-
-Equipe* Match::getEquipe2()
-{
-    return sonEquipe2;
-}
+/**
+ * \brief       Accesseur de l'Equipe en fonction du cote du joueur
+ * \details     Via le cote du joueur: \e Joueur::getCote()
+ * \param       bool        cote de l'equipe ou du joueur
+ * \return      \e Equipe*
+ */
 Equipe* Match::getEquipe(bool cote)
 {
     if(cote)

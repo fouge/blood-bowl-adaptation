@@ -8,8 +8,6 @@
  *            convenir aux spécificités des différents modèles possibles.
  */
 
-
-
 /** \class TableModel tablemodel.h "tablemodel.h" */
 #include "tablemodel.h"
 

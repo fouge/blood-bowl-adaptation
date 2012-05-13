@@ -7,7 +7,9 @@
  *
  */
 
+/** \class FenetrePrincipale fenetreprincipale.h "fenetreprincipale.h" */
 #include "fenetreprincipale.h"
+
 #include "tablemodel.h"
 #include <cstdio>
 #include <iostream>
@@ -650,14 +652,14 @@ void FenetrePrincipale::changementJoueur() // gère l'AFFICHAGE pour savoir qui j
 {
     if(leMatch->getQuiJoue() == joueur1)
     {
-        leMatch->getEquipe1()->incrementeTour();
-        nbTourJ1->setText(QString(""+QString::number(leMatch->getEquipe1()->getTour())+"/16"));
+        leMatch->getEquipe(!leMatch->getQuiJoue())->incrementeTour();
+        nbTourJ1->setText(QString(""+QString::number(leMatch->getEquipe(!leMatch->getQuiJoue())->getTour())+"/16"));
         quiJoueTexte->setText("Joueur 2 : ROUGE");
     }
     if(leMatch->getQuiJoue() == joueur2)
     {
-        leMatch->getEquipe2()->incrementeTour();
-        nbTourJ2->setText(QString(""+QString::number(leMatch->getEquipe2()->getTour())+"/16"));
+        leMatch->getEquipe(leMatch->getQuiJoue())->incrementeTour();
+        nbTourJ2->setText(QString(""+QString::number(leMatch->getEquipe(leMatch->getQuiJoue())->getTour())+"/16"));
         quiJoueTexte->setText("Joueur 1 : BLEU");
     }
 }
@@ -670,23 +672,23 @@ void FenetrePrincipale::finDeTour() //
     sonTerrain->setChangementJoueur(true);
     leMatch->finTour();
 
-    if(leMatch->getEquipe1()->getTour() == 16 && leMatch->getEquipe2()->getTour() == 16)
+    if(leMatch->getEquipe(1)->getTour() == 16 && leMatch->getEquipe(0)->getTour() == 16)
     {
-        if(leMatch->getEquipe1()->getPoints() < leMatch->getEquipe2()->getPoints())
+        if(leMatch->getEquipe(1)->getPoints() < leMatch->getEquipe(0)->getPoints())
         {
-            QMessageBox* alert = new QMessageBox(QMessageBox::Information, "Partie terminée", "Le joueur 1 l'emporte ! A bientôt pour un nouveau match !");
+            QMessageBox* alert = new QMessageBox(QMessageBox::Information, "Partie terminée", "Le coach rouge l'emporte ! A bientôt pour un nouveau match !");
             QObject::connect(alert, SIGNAL(destroyed()), qApp, SLOT(quit()));
             alert->show();
         }
-        else if(leMatch->getEquipe1()->getPoints() == leMatch->getEquipe2()->getPoints())
+        else if(leMatch->getEquipe(1)->getPoints() == leMatch->getEquipe(0)->getPoints())
         {
-            QMessageBox* alert = new QMessageBox(QMessageBox::Information, "Partie terminée", "Ex-eaquo ! Bien joué aux deux joueurs. A bientôt pour un nouveau match !");
+            QMessageBox* alert = new QMessageBox(QMessageBox::Information, "Partie terminée", "Ex-eaquo ! Bien joué aux deux coachs. A bientôt pour un nouveau match !");
             QObject::connect(alert, SIGNAL(destroyed()), qApp, SLOT(quit()));
             alert->show();
         }
         else
         {
-            QMessageBox* alert = new QMessageBox(QMessageBox::Information, "Partie terminée", "Le joueur 2 l'emporte ! A bientôt pour un nouveau match !");
+            QMessageBox* alert = new QMessageBox(QMessageBox::Information, "Partie terminée", "Le joueur bleu l'emporte ! A bientôt pour un nouveau match !");
             QObject::connect(alert, SIGNAL(destroyed()), qApp, SLOT(quit()));
             alert->show();
         }

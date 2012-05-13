@@ -110,14 +110,7 @@ void SceneTerrain::currentChanged(const QModelIndex &current, const QModelIndex 
 
 
             // Affichage zone de tacle:
-            if(sonModele->item(current.row(), current.column())->data(33).toBool())
-            {
-                afficheZonesTacle(sonParent->getLeMatch()->getEquipe2());
-            }
-            else
-            {
-                afficheZonesTacle(sonParent->getLeMatch()->getEquipe1());
-            }
+            afficheZonesTacle(sonParent->getLeMatch()->getEquipe(!sonModele->item(current.row(), current.column())->data(33).toBool()));
 
             fClic = 0;
             std::cout<<"premier clic sur joueur"<<std::endl;
@@ -183,14 +176,7 @@ void SceneTerrain::firstClic(const QModelIndex &current, const QModelIndex &prev
         }
 
         // Affichage zone de tacle:
-        if(sonModele->item(current.row(), current.column())->data(33).toBool())
-        {
-            afficheZonesTacle(sonParent->getLeMatch()->getEquipe2());
-        }
-        else
-        {
-            afficheZonesTacle(sonParent->getLeMatch()->getEquipe1());
-        }
+        afficheZonesTacle(sonParent->getLeMatch()->getEquipe(!sonModele->item(current.row(), current.column())->data(33).toBool()));
 
         fClic = 0;
     }
@@ -335,6 +321,7 @@ void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &pre
 
                         // pour le second (current)
                         aCompetence = false;
+                        sesCompetences = sonParent->getLeMatch()->getEquipe(sonModele->item(previous.row(), previous.column())->data(33).toBool())->getLeJoueur(sonModele->item(current.row(), current.column())->data(39).toInt())->getCompetences();
                         for(leIt = sesCompetences->begin(); leIt != sesCompetences->end(); leIt++)
                         {
                             if((*leIt) == 4)
@@ -636,7 +623,7 @@ int SceneTerrain::blocage(const QModelIndex &current, const QModelIndex &previou
 {
     std::vector<QStandardItem*>* zoneBlocage = new std::vector<QStandardItem*>;
 
-    if(sonModele->item(previous.row(), previous.column())->data(46).toBool() || (sonModele->item(previous.row(), previous.column())->data(47).toBool() && ((sonModele->item(previous.row(), previous.column())->data(33).toBool() && sonParent->getLeMatch()->getEquipe1()->getBlitzEffectue()) || (!sonModele->item(previous.row(), previous.column())->data(33).toBool() && sonParent->getLeMatch()->getEquipe2()->getBlitzEffectue() ))))
+    if(sonModele->item(previous.row(), previous.column())->data(46).toBool() || (sonModele->item(previous.row(), previous.column())->data(47).toBool() && ((sonModele->item(previous.row(), previous.column())->data(33).toBool() && sonParent->getLeMatch()->getEquipe(1)->getBlitzEffectue()) || (!sonModele->item(previous.row(), previous.column())->data(33).toBool() && sonParent->getLeMatch()->getEquipe(0)->getBlitzEffectue() ))))
         return 9;
 
     int x = current.row();
@@ -688,15 +675,7 @@ int SceneTerrain::blocage(const QModelIndex &current, const QModelIndex &previou
             {
                 // alors on vérifie qu'il n'est pas dans une zone de tacle
                 std::map<int, std::vector<QStandardItem* >* >::iterator itMap;
-                if(sonModele->item(previous.row(), previous.column())->data(33).toBool())
-                {
-                    lesZonesTacle = sonParent->getLeMatch()->getEquipe2()->zonesTacle();
-                }
-                else
-                {
-                    lesZonesTacle = sonParent->getLeMatch()->getEquipe1()->zonesTacle();
-                }
-
+                lesZonesTacle = sonParent->getLeMatch()->getEquipe(!sonModele->item(previous.row(), previous.column())->data(33).toBool())->zonesTacle();
 
                 bool estDansZoneTacle(false);
 
@@ -747,12 +726,7 @@ void SceneTerrain::blitzEffectue(QStandardItem * unItem)
 {
     if(unItem->data(47).toBool() && unItem->data(46).toBool())
     {
-        if(unItem->data(33).toBool())
-        {
-            sonParent->getLeMatch()->getEquipe1()->setBlitzEffectue(true);
-        }
-        else
-            sonParent->getLeMatch()->getEquipe2()->setBlitzEffectue(true);
+            sonParent->getLeMatch()->getEquipe(unItem->data(33).toBool())->setBlitzEffectue(true);
     }
 }
 

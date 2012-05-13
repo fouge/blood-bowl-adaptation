@@ -7,26 +7,14 @@
  *
  */
 
+/** \class Joueur joueur.h "joueur.h" */
 #include "joueur.h"
+
 #include <iostream>
 #include <QApplication>
 
-//#define jCote 33;
-//#define ACTIONEFFECTUE 34;
-//#define jMouvement 35;
-//#define jForce 36;
-//#define jAgilite 37;
-//#define jArmure 38;
-//#define jId 39;
-//#define jX 40;
-//#define jY 41;
-//#define jNom 42;
-//#define jEtat 43;
-//#define jType 44;
-//#define jEstJoueur 45;
 
 TableModel* Joueur::leTerrain = 0;
-
 int Joueur::id = 0;
 
 Joueur::Joueur(TableModel *unModele)
@@ -162,53 +150,100 @@ Joueur::Joueur(typeJ unType, std::vector<competences>* desCompetences, int desMo
     }
 }
 
-
+/**
+ * \brief       Accesseur qui retourne un tableau de \e competences de l'Equipe
+ * \return      \e std::vector<competences>*
+ */
 std::vector<competences>* Joueur::getCompetences()
 {
     return sesCompetences;
 }
 
+/**
+ * \brief       Accesseur qui retourne le \e type du Joueur
+ * \return      \e typeJ
+ */
 typeJ Joueur::getType()
 {
     return sonType;
 }
 
+/**
+ * \brief       Accesseur qui retourne le nombre de mouvements possibles du Joueur
+ * \return      \e int
+ */
 int Joueur::getMouvements()
 {
     return sesMouvements;
 }
 
+/**
+ * \brief       Accesseur qui retourne la force du Joueur
+ * \return      \e int
+ */
 int Joueur::getForce()
 {
     return saForce;
 }
+
+/**
+ * \brief       Accesseur qui retourne l'agilite du Joueur
+ * \return      \e int
+ */
 int Joueur::getAgilite()
 {
     return sonAgilite;
 }
 
+/**
+ * \brief       Accesseur qui retourne la force de défense ( \e armure ) du Joueur
+ * \return      \e int
+ */
 int Joueur::getArmure()
 {
     return sonArmure;
 }
 
+/**
+ * \brief       Accesseur qui retourne le cote du Joueur : c-a-d l'Equipe
+ * \return      \e bool
+ */
 bool Joueur::getCote()
 {
     return sonCote;
 }
+
+/**
+ * \brief       Accesseur qui retourne le nom du Joueur
+ * \return      \e QString
+ */
 QString Joueur::getNom()
 {
     return sonNom;
 }
+
+/**
+ * \brief       Accesseur qui retourne l'item du Joueur : correspond a la materialisation du joueur dans le tableau (terrain de jeu).
+ * \return      \e QStandardItem*
+ */
 QStandardItem* Joueur::getItem()
 {
     return sonItem;
 }
+/**
+ * \brief       Accesseur qui retourne l'Id du Joueur
+ * \return      \e int
+ */
 int Joueur::getId()
 {
     return sonId;
 }
 
+/**
+ * \brief       Mutateur d'item : on reattribue le clone de l'item precedent du Joueur en cas de mouvement
+ * \param       QStandardItem*     unItem
+ * \return      \e void
+ */
 void Joueur::setItem(QStandardItem *unItem)
 {
     sonItem = unItem;

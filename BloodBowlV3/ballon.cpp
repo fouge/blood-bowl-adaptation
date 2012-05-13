@@ -22,8 +22,8 @@ Ballon::Ballon(Match* unMatch, TableModel* unModele, SceneTerrain* unTerrain, in
 /**
  * \brief       Calcule la distance entre deux points
  * \details     Méthode récursive qui \b place le ballon aléatoirement autour de la position de sa \a case un nombre de fois défini par \a nRebondissements
- * \param       \e QStandardItem*         Item correspondant à la case du tableau dans laquelle le \b ballon se trouve
- * \param       \e int                    Nombre de rebondissements à effectuer
+ * \param       QStandardItem*         Item correspondant à la case du tableau dans laquelle le \b ballon se trouve
+ * \param       int                    Nombre de rebondissements à effectuer
  * \return      \e void
  */
 void Ballon::rebondir(QStandardItem *uneCase, int nRebondissements)
@@ -101,6 +101,7 @@ int Ballon::column()
 
 /**
  * \brief       Mutateur de colonne ( \a column )
+ * \param       int     Colonne: \a column
  * \return      \e void
  */
 void Ballon::setColumn(int column)
@@ -110,6 +111,7 @@ void Ballon::setColumn(int column)
 
 /**
  * \brief       Mutateur de ligne ( \a row )
+ * \param       int      Ligne: \a row
  * \return      \e void
  */
 void Ballon::setRow(int row)

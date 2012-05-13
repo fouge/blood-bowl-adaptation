@@ -7,8 +7,9 @@
  *
  */
 
-
+/** \class Equipe Equipe.h "equipe.h" */
 #include "equipe.h"
+
 #include "joueur.h"
 #include <iostream>
 #include <QApplication>
@@ -157,6 +158,13 @@ Equipe::Equipe(race uneRace, int uneComposition, bool cote, TableModel* unModele
         }
     }
 
+/**
+ * \brief       Fait un reset des joueurs en fin de tour
+ * \details     Chaque joueur est caractérisé sur le jeu par un item. Cette methode permet de remettre les items dans leur etat de debut de tour.
+ *               <br/> -> remise des mouvements des joueurs
+ *               <br/> -> l'action et le blocage du joueur n'est plus dans l'etat \e "effectue"
+ * \return      \e std::map<int, std::vector<QStandardItem * > * >*
+ */
 void Equipe::resetJoueurs()
 {
     std::vector<Joueur*>::iterator leIt;
@@ -173,6 +181,12 @@ void Equipe::resetJoueurs()
     setBlitzEffectue(false);
 }
 
+
+/**
+ * \brief       Permet d'avoir tous les items en zone de tacle tries par Joueur.
+ * \details     Cette methode retourne les zones de tacle de chaque joueur de l'Equipe en fonction de leur Id
+ * \return      \e std::map<int, std::vector<QStandardItem * > * >*
+ */
 std::map<int, std::vector<QStandardItem * > * >* Equipe::zonesTacle()
 {
     std::map<int, std::vector<QStandardItem* >* >* lesZonesTacle = new std::map<int, std::vector<QStandardItem* >* >;
@@ -209,41 +223,87 @@ std::map<int, std::vector<QStandardItem * > * >* Equipe::zonesTacle()
     return lesZonesTacle;
 }
 
+/**
+ * \brief       Accesseur qui retourne les \e Joueurs sous forme d'un tableau
+ * \return      \e std::vector<Joueur*>*
+ */
 std::vector<Joueur*>* Equipe::getSesJoueurs()
 {
     return sesJoueurs;
 }
 
+/**
+ * \brief       Mutateur de \a blitzEffectue
+ * \param       bool           \e true si le blitz est effectue, \e false pour une remise à zero.
+ * \return      \e void
+ */
 void Equipe::setBlitzEffectue(bool unBool)
 {
     blitzEffectue = unBool;
 }
+
+/**
+ * \brief       Incrémente le nombre de tour effectue par l'Equipe.
+ * \return      \e void
+ */
 void Equipe::incrementeTour()
 {
     sonNoTour++;
 }
+
+/**
+ * \brief       Accesseur qui retourne le numero de tour de l'Equipe.
+ * \return      \e int
+ */
 int Equipe::getTour()
 {
     return sonNoTour;
 }
 
+/**
+ * \brief       Accesseur qui retourne le nombre de points de l'Equipe.
+ * \return      \e int
+ */
 int Equipe::getPoints()
 {
     return sesPoints;
 }
+
+/**
+ * \brief       Accesseur qui retourne \e vrai si le \b blitz de l'Equipe a été effectué
+ * \details     Un seul \b blitz par tour par Equipe.
+ * \return      \e bool
+ */
 bool Equipe::getBlitzEffectue()
 {
     return blitzEffectue;
 }
+
+/**
+ * \brief       Mutateur pour modifier si la passe de l'Equipe est effectuee ou non dans le tour
+ * \param       bool           \e true si la passe est effectuee, \e false pour une remise à zero.
+ * \return      \e void
+ */
 void Equipe::setPasseEffectuee(bool unBool)
 {
     passeEffectuee = unBool;
 }
+
+/**
+ * \brief       Accesseur qui retourne \e vrai si la \b passe de l'Equipe a été effectuée
+ * \details     Une seule \b passe par tour par Equipe.
+ * \return      \e bool
+ */
 bool Equipe::getPasseEffectuee()
 {
     return passeEffectuee;
 }
 
+/**
+ * \brief       Accesseur qui retourne le \e Joueur via son \e Id
+ * \param       int                    Id du \e Joueur
+ * \return      \e Joueur
+ */
 Joueur* Equipe::getLeJoueur(int sonId)
 {
     Joueur* res;
