@@ -230,6 +230,7 @@ QStandardItem* Joueur::getItem()
 {
     return sonItem;
 }
+
 /**
  * \brief       Accesseur qui retourne l'Id du Joueur
  * \return      \e int
@@ -237,6 +238,24 @@ QStandardItem* Joueur::getItem()
 int Joueur::getId()
 {
     return sonId;
+}
+
+/**
+ * \brief       Accesseur qui retourne la ligne de la position de depart sur le terrain
+ * \return      \e int
+ */
+int Joueur::getX()
+{
+    return sonX;
+}
+
+/**
+ * \brief       Accesseur qui retourne la colonne de la position de depart sur le terrain
+ * \return      \e int
+ */
+int Joueur::getY()
+{
+    return sonY;
 }
 
 /**

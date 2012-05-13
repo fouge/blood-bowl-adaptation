@@ -43,13 +43,13 @@ SceneTerrain::SceneTerrain(int nLignes, int nColonnes, TableModel* unModele, Fen
     setSelectionMode(QAbstractItemView::SingleSelection);
 }
 
-
-void SceneTerrain::dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight)
-{
-    this->update(topLeft);
-    this->update(bottomRight);
-}
-
+/**
+ * \brief       Methode qui, a chaque selection sur le terrain, exécute les actions correspondant en fonction de l'item cliqué.
+ * \details     Reimplementation de la fonction virtuelle de \e QTableView
+ * \param       const QModelIndex        current : item selectionne
+ * \param       const QModelIndex        previous : precedent item selectionne
+ * \return      \e void
+ */
 void SceneTerrain::currentChanged(const QModelIndex &current, const QModelIndex &previous)
 {
 
@@ -127,7 +127,13 @@ void SceneTerrain::currentChanged(const QModelIndex &current, const QModelIndex 
 }
 
 
-
+/**
+ * \brief       Methode qui exécute les actions correspondant à la selection d'un joueur
+ * \details     en fonction du clique precedent, l'action est differente
+ * \param       const QModelIndex        current : item selectionne
+ * \param       const QModelIndex        previous : precedent item selectionne
+ * \return      \e void
+ */
 void SceneTerrain::firstClic(const QModelIndex &current, const QModelIndex &previous)
 {
 
@@ -186,6 +192,13 @@ void SceneTerrain::firstClic(const QModelIndex &current, const QModelIndex &prev
     }
 }
 
+/**
+ * \brief       Methode qui exécute les actions correspondant à l'action d'un joueur selectionné auparavant
+ * \details     en fonction de la selection l'action est differente <br/>Il y a trois actions differentes en fonction du precedent et du actuel <br/>-> Deplacement<br/>-> Blocage ou blitz <br/>-> Passe
+ * \param       const QModelIndex        current : item selectionne
+ * \param       const QModelIndex        previous : precedent item selectionne
+ * \return      \e void
+ */
 void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &previous)
 {
 
@@ -470,7 +483,7 @@ void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &pre
         //
         // PASSE ou TRANSMISSION
        // on effectue une passe ou transmission si le joueur a le ballon :
-        if(sonBallon->row() == previous.row() && sonBallon->column() == previous.column())
+        if(sonModele->item(previous.row(), previous.column())->data(48).toBool())
         {
             sonModele->item(previous.row(), previous.column())->setData(QVariant(false), 48);
             recevoirBallon(current.row(), current.column());
@@ -489,6 +502,12 @@ void SceneTerrain::secondClic(const QModelIndex &current, const QModelIndex &pre
 }
 
 
+
+/**
+ * \brief       Actualise l'affichage en background
+ * \details     Permet d'enlever les zones tacles ou mouvements possibles.
+ * \return      \e void
+ */
 void SceneTerrain::clearTerrain()
 {
     sonParent->clearPanneauxJoueurs();
@@ -509,7 +528,12 @@ void SceneTerrain::clearTerrain()
     fClic = 1;
 }
 
-
+/**
+ * \brief       Reimplementation de la méthode executee lors d'un evenement de souris : permet l'affichage dans le panneau des caractéristiques du joueur.
+ * \details     en fonction du clique, une action differente est affectee et un SIGNAL est emis : \e cliqueTerrain()
+ * \param       QMouseEvent*     event
+ * \return      \e void
+ */
 void SceneTerrain::mouseReleaseEvent(QMouseEvent *event)
 {
     int action(2);
@@ -529,7 +553,13 @@ void SceneTerrain::mouseReleaseEvent(QMouseEvent *event)
     emit cliqueTerrain(action, sonModele->item(rowAt(event->y()), columnAt(event->x())));
 }
 
-
+/**
+ * \brief       Methode qui renvoie les items des cases ou le deplacement est possible.
+ * \details     Enregistre les items dans un tableau de \e QStandardItem*
+ * \todo        Mettre a jour l'affichage directement mais retourner les cases pour savoir si deplacement possible ensuite.
+ * \param       QStandardItem*     unItem : joueur clique.
+ * \return      \e std::vector<QStandardItem*>*
+ */
 std::vector<QStandardItem*>* SceneTerrain::afficheMouvements(QStandardItem *unItem)
 {
     int rayon = unItem->data(35).toInt();
@@ -549,7 +579,12 @@ std::vector<QStandardItem*>* SceneTerrain::afficheMouvements(QStandardItem *unIt
     return lesItems;
 }
 
-
+/**
+ * \brief       Affiche sur le terrain les zones de tacles des joueurs adverses
+ * \details
+ * \param       Equipe*     l'Equipe adverse
+ * \return      \e std::vector<QStandardItem*>*
+ */
 void SceneTerrain::afficheZonesTacle(Equipe * uneEquipe)
 {
     std::map<int, std::vector<QStandardItem* >* >::iterator itMap;
@@ -566,6 +601,14 @@ void SceneTerrain::afficheZonesTacle(Equipe * uneEquipe)
 
 }
 
+
+/**
+ * \brief       Methode qui renvoie si le joueur esquive le tacle ou non.
+ * \details     Si le joueur n'a pas esquive, il tombe. <br/>Si le joueur esquive, alors \e return \e true
+ * \param       int     row : ligne de la case d'ou le joueur sort
+ * \param       int     column : colonne de la case d'ou le joueur sort
+ * \return      \e bool
+ */
 bool SceneTerrain::esquive(int row, int column)
 {
     if(sonModele->item(row, column)->data(33).toBool() == sonParent->getLeMatch()->getQuiJoue())
@@ -619,6 +662,14 @@ bool SceneTerrain::esquive(int row, int column)
 }
 }
 
+
+/**
+ * \brief       Methode qui renvoie l'option de blocage
+ * \details     Si nombre (x) renvoye entre 0 et 7, blocage effectue avec le soutien de x coequipiers<br/>Si blocage impossible, la methode retourne 10.
+ * \param       const QModelIndex     current
+ * \param       const QModelIndex     previous
+ * \return      \e int
+ */
 int SceneTerrain::blocage(const QModelIndex &current, const QModelIndex &previous)
 {
     std::vector<QStandardItem*>* zoneBlocage = new std::vector<QStandardItem*>;
@@ -716,12 +767,24 @@ int SceneTerrain::blocage(const QModelIndex &current, const QModelIndex &previou
     }
 }
 
-// pour le first clic apres changement de joueur sinon bug
+/**
+ * \brief       Methode qui fixe le changement du joueur
+ * \details     /!\ pour le firstClic apres fin de tour, faire passer à \e true sinon bug
+ * \param       const QModelIndex     current
+ * \param       const QModelIndex     previous
+ * \return      \e int
+ */
 void SceneTerrain::setChangementJoueur(bool aChangeJoueur)
 {
     changementJoueur = aChangeJoueur;
 }
 
+/**
+ * \brief       Methode qui fixe le blitz effectue ou non. Methode a utiliser apres chaque mouvement de joueur ou chaque blocage.
+ * \details     un seul blitz possible par tour
+ * \param       QStandardItem*     item du joueur ayant effectue une action
+ * \return      \e void
+ */
 void SceneTerrain::blitzEffectue(QStandardItem * unItem)
 {
     if(unItem->data(47).toBool() && unItem->data(46).toBool())
@@ -730,6 +793,14 @@ void SceneTerrain::blitzEffectue(QStandardItem * unItem)
     }
 }
 
+
+/**
+ * \brief       Methode qui place le ballon sur le terrain à la position \e (row,column)
+ * \details     si sur la même case, un joueur avec ballon, alors le ballon est possede par un joueur : image differente
+ * \param       int         row (ligne)
+ * \param       int         column (column)
+ * \return      \e void
+ */
 void SceneTerrain::placeBallon(int row, int column)
 {
     if(sonModele->item(sonBallon->row(), sonBallon->column())->data(48).toBool() && sonModele->item(sonBallon->row(), sonBallon->column())->data(45).toBool())
@@ -746,6 +817,14 @@ void SceneTerrain::placeBallon(int row, int column)
     sonBallon->setColumn(column);
 }
 
+
+/**
+ * \brief       Methode qui test si le Joueur bloque le Ballon ou n'arrive pas à le prendre et modifie le joueur
+ * \details     en paramètre : la case où le ballon est lancé <br/> - soit le joueur attrape le ballon, alors il le possede et le ballon est placé <br/> - soit le joueur n'attrape pas le ballon et le ballon rebondi
+ * \param       int     row
+ * \param       int     column
+ * \return      \e void
+ */
 void SceneTerrain::recevoirBallon(int row, int column)
 {
     // si il y a un joueur debout à cette position :
@@ -771,6 +850,11 @@ void SceneTerrain::recevoirBallon(int row, int column)
 
 }
 
+/**
+ * \brief       Methode qui test si un touchdown est marque
+ * \details     Si touchdown alors turnover avec la bonne option pour savoir qui a marque.
+ * \return      \e void
+ */
 void SceneTerrain::touchdown()
 {
     for(int i(0); i<15; i++)
@@ -786,4 +870,5 @@ void SceneTerrain::touchdown()
             sonParent->getLeMatch()->turnover(1);
         }
     }
+    clearTerrain();
 }

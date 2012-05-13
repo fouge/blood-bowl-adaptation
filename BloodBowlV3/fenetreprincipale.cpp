@@ -20,6 +20,11 @@ FenetrePrincipale::FenetrePrincipale()
     fenetreDemarrage();
 }
 
+/**
+ * \brief       Instancie tous les elements de la premiere FenetrePrincipale
+ * \details     Fenetre vue au demarrage : permet de Jouer ou Quitter
+ * \return      \e void
+ */
 void FenetrePrincipale::fenetreDemarrage()
 {
     setWindowTitle("Blood Bowl");
@@ -50,6 +55,10 @@ void FenetrePrincipale::fenetreDemarrage()
     QObject::connect(boutonQuitter, SIGNAL(clicked()), qApp, SLOT(quit()));
 }
 
+/**
+ * \brief       Fenetre de selection des equipes, permet de lancer la partie
+ * \return      \e void
+ */
 void FenetrePrincipale::fenetreSelectionEquipe()
 {
     delete(bannierebb);
@@ -133,6 +142,12 @@ void FenetrePrincipale::fenetreSelectionEquipe()
                      SLOT(validationSelectionEquipes()));
 }
 
+
+/**
+ * \brief       SLOT qui permet d'actualiser l'affichage de l'equipe 1 en fonction de la race et de l'equipe choisie
+ * \param       int         index : correspond a la race : 0 humains, 1 orques
+ * \return      \e void
+ */
 void FenetrePrincipale::changerEquipesJ1(int index)
 {
     switch(index)
@@ -155,6 +170,11 @@ void FenetrePrincipale::changerEquipesJ1(int index)
     iconRaceJ1->setAlignment(Qt::AlignCenter);
 }
 
+/**
+ * \brief       SLOT qui permet d'actualiser l'affichage de l'equipe 2 en fonction de la race et de l'equipe choisie
+ * \param       int         index : correspond a la race : 0 humains, 1 orques
+ * \return      \e void
+ */
 void FenetrePrincipale::changerEquipesJ2(int index)
 {
     switch(index)
@@ -177,7 +197,11 @@ void FenetrePrincipale::changerEquipesJ2(int index)
     iconRaceJ2->setAlignment(Qt::AlignCenter);
 }
 
-
+/**
+ * \brief       SLOT qui permet d'actualiser l'affichage de l'icone de l'equipe 1 en fonction de la race et de l'equipe choisie
+ * \param       int         index : correspond a l'equipe de la race
+ * \return      \e void
+ */
 void FenetrePrincipale::changerIconEquipeJ1(int index)
 {
     switch(index)
@@ -204,6 +228,11 @@ void FenetrePrincipale::changerIconEquipeJ1(int index)
     iconEquipeJ1->setAlignment(Qt::AlignCenter);
 }
 
+/**
+ * \brief       SLOT qui permet d'actualiser l'affichage de l'icone de l'equipe 2 en fonction de la race et de l'equipe choisie
+ * \param       int         index : correspond a l'equipe de la race
+ * \return      \e void
+ */
 void FenetrePrincipale::changerIconEquipeJ2(int index)
 {
     switch(index)
@@ -230,6 +259,10 @@ void FenetrePrincipale::changerIconEquipeJ2(int index)
     iconEquipeJ2->setAlignment(Qt::AlignCenter);
 }
 
+/**
+ * \brief       SLOT qui permet d'enregistrer les equipes choisies et de passer au match
+ * \return      \e void
+ */
 void FenetrePrincipale::validationSelectionEquipes()
 {
     int indexRaceJ1(cBRaceJ1->currentIndex()),
@@ -252,6 +285,16 @@ void FenetrePrincipale::validationSelectionEquipes()
     fenetreMatch(raceEquipeJ1,indexEquipeJ1,raceEquipeJ2,indexEquipeJ2);
 }
 
+
+/**
+ * \brief       Instancie tous les elements de la fenetre de jeu
+ * \details     Fenetre principale du jeu
+ * \param       race        raceEquipeJ1
+ * \param       int         indexEquipeJ1 // numero de l'equipe1 choisi parmi les 3 de chaque race
+ * \param       race        raceEquipeJ2
+ * \param       int         indexEquipeJ1 // // numero de l'equipe2 choisi parmi les 3 de chaque race
+ * \return      \e void
+ */
 void FenetrePrincipale::fenetreMatch(race raceEquipeJ1, int indexEquipeJ1, race raceEquipeJ2, int indexEquipeJ2)
 {
     delete(iconRaceJ1);
@@ -535,6 +578,13 @@ void FenetrePrincipale::fenetreMatch(race raceEquipeJ1, int indexEquipeJ1, race 
     layoutGrille->addLayout(barreInferieure,2,1);
 }
 
+/**
+ * \brief       Methode qui rafraichit l'affichage et affiche les caracteristiques d'un joueur
+ * \details     A appeler au clique d'un joueur pour avoir ses caractéristiques
+ * \param       int         action : correspond a l'equipe du joueur
+ * \param       QStandardItem*       leJoueur : contient les informations a afficher
+ * \return      \e void
+ */
 void FenetrePrincipale::updatePanneauJoueur(int action, QStandardItem *leJoueur)
 {
     switch(action)
@@ -624,11 +674,21 @@ void FenetrePrincipale::updatePanneauJoueur(int action, QStandardItem *leJoueur)
     }
 }
 
+/**
+ * \brief       Methode qui rafraichit l'affichage du resultat du dé lors du lancer
+ * \details     Methode appelée a chaque lancé de dé.
+ * \param       int         de : nombre du dé
+ * \return      \e void
+ */
 void FenetrePrincipale::updateResultatsDes(int de)
 {
     resultatDesTexte->setText(QString::number(de));
 }
 
+/**
+ * \brief       Methode qui nettoie l'affichage des panneaux lateraux
+ * \return      \e void
+ */
 void FenetrePrincipale::clearPanneauxJoueurs()
 {
     posteJ1Texte->clear();
@@ -647,7 +707,10 @@ void FenetrePrincipale::clearPanneauxJoueurs()
 
 }
 
-
+/**
+ * \brief       Methode qui rafraichit l'affichage pour savoir qui joue
+ * \return      \e void
+ */
 void FenetrePrincipale::changementJoueur() // gère l'AFFICHAGE pour savoir qui joue :
 {
     if(leMatch->getQuiJoue() == joueur1)
@@ -664,7 +727,10 @@ void FenetrePrincipale::changementJoueur() // gère l'AFFICHAGE pour savoir qui j
     }
 }
 
-
+/**
+ * \brief       Methode qui permet de remettre les parametres correctement en fin de tour
+ * \return      \e void
+ */
 void FenetrePrincipale::finDeTour() //
 {
     changementJoueur();
@@ -695,7 +761,23 @@ void FenetrePrincipale::finDeTour() //
     }
 }
 
+/**
+ * \brief       Accesseur qui retourne le \e Match
+ * \return      \e Match
+ */
 Match* FenetrePrincipale::getLeMatch()
 {
     return leMatch;
+}
+
+/**
+ * \brief       Methode qui rafraichit l'affichage du score
+ * \param       int         pointsEquipeBleu : score de l'equipe bleu
+ * \param       int         pointsEquipeRouge : score de l'equipe rouge
+ * \return      \e void
+ */
+void FenetrePrincipale::updatePoints(int pointsEquipeBleu, int pointsEquipeRouge)
+{
+    scoreEquipeJ1->setText(QString::number(pointsEquipeBleu));
+    scoreEquipeJ2->setText(QString::number(pointsEquipeRouge));
 }

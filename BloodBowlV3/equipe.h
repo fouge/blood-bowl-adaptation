@@ -32,6 +32,7 @@ public:
     std::map<int, std::vector<QStandardItem* >* >* zonesTacle();
     void setBlitzEffectue(bool);
     void setPasseEffectuee(bool);
+    void setPoints(int);
     void incrementeTour();
     int getTour();
     int getPoints();

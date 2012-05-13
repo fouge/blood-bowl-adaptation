@@ -48,7 +48,6 @@ public:
     void recevoirBallon(int rowReceptionBallon, int columnReceptionBallon);
 
 protected:
-    void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight);
     void currentChanged(const QModelIndex &current, const QModelIndex &previous);
     void mouseReleaseEvent(QMouseEvent *event);
 

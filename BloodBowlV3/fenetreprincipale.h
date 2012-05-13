@@ -60,6 +60,9 @@ public:
     void fenetreMatch(race, int, race, int);
     void clearPanneauxJoueurs();
     Match* getLeMatch();
+    void updateResultatsDes(int de);
+    void changementJoueur();
+    void updatePoints(int pointsEquipeBleu, int pointsEquipeRouge);
 public slots:
     void fenetreSelectionEquipe();
     void changerEquipesJ1(int index);
@@ -67,12 +70,8 @@ public slots:
     void changerIconEquipeJ1(int index);
     void changerIconEquipeJ2(int index);
     void validationSelectionEquipes();
-    void updatePanneauJoueur(int action, QStandardItem* leJoueur);
-    void updateResultatsDes(int de);
-
-    // a implementer :
     void finDeTour();
-    void changementJoueur();
+    void updatePanneauJoueur(int action, QStandardItem* leJoueur);
 };
 
 #endif // FENETREPRINCIPALE_H

@@ -113,6 +113,7 @@ Equipe::Equipe(race uneRace, int uneComposition, bool cote, TableModel* unModele
             switch(uneComposition)
             {
             case 0:
+            {
                 sesJoueurs->push_back(new Joueur(passeur, (lesCompetencesPasseurs), 6, 3, 3, 8, "Aznok", 5 , 8, sonCote));
                 sesJoueurs->push_back(new Joueur(bloqueur, (AucuneCompetence), 4, 4, 2, 9, "Globrotta Casse'Main", 14 , 6, sonCote));
                 sesJoueurs->push_back(new Joueur(bloqueur, (AucuneCompetence), 4, 4, 2, 9, "Ulgrot Mange'Coeur", 14 , 7, sonCote));
@@ -126,7 +127,9 @@ Equipe::Equipe(race uneRace, int uneComposition, bool cote, TableModel* unModele
                 sesJoueurs->push_back(new Joueur(gobelin, (lesCompetencesGobelins), 6, 2, 3, 7, "Molgor", 11 , 11, sonCote));
 
                 break;
+            }
             case 1:
+            {
                 sesJoueurs->push_back(new Joueur(bloqueur, (AucuneCompetence), 4, 4, 2, 9, "Gorfang MangeTaTete", 14 , 6, sonCote));
                 sesJoueurs->push_back(new Joueur(bloqueur, (AucuneCompetence), 4, 4, 2, 9, "Grubak Broye'main", 14 , 10, sonCote));
                 sesJoueurs->push_back(new Joueur(gobelin, (lesCompetencesGobelins), 6, 2, 3, 7, "Makefile", 11 , 5, sonCote));
@@ -140,7 +143,9 @@ Equipe::Equipe(race uneRace, int uneComposition, bool cote, TableModel* unModele
                 sesJoueurs->push_back(new Joueur(troisquarts, (AucuneCompetence), 5, 3, 3, 9, "Lugnub", 14 , 9, sonCote));
 
                 break;
+            }
             case 2:
+            {
                 sesJoueurs->push_back(new Joueur(bloqueur, (AucuneCompetence), 4, 4, 2, 9, "Crase'Cerveau", 14 , 6, sonCote));
                 sesJoueurs->push_back(new Joueur(bloqueur, (AucuneCompetence), 4, 4, 2, 9, "Ecari'seur", 14 , 7, sonCote));
                 sesJoueurs->push_back(new Joueur(bloqueur, (AucuneCompetence), 4, 4, 2, 9, "Crase'Main", 14, 9, sonCote));
@@ -153,6 +158,7 @@ Equipe::Equipe(race uneRace, int uneComposition, bool cote, TableModel* unModele
                 sesJoueurs->push_back(new Joueur(gobelin, (lesCompetencesGobelins), 6, 2, 3, 7, "Weeit", 12 , 14, sonCote));
                 sesJoueurs->push_back(new Joueur(troll, (lesCompetencesTroll), 6, 2, 3, 7, "Trak'k", 14 , 8, sonCote));
                 break;
+            }
             default: ;
             }
         }
@@ -277,6 +283,16 @@ int Equipe::getPoints()
 bool Equipe::getBlitzEffectue()
 {
     return blitzEffectue;
+}
+
+/**
+ * \brief       Mutateur pour modifier si la passe de l'Equipe est effectuee ou non dans le tour
+ * \param       int           points
+ * \return      \e void
+ */
+void Equipe::setPoints(int points)
+{
+    sesPoints = points;
 }
 
 /**

@@ -123,6 +123,13 @@ Equipe* Match::getEquipe(bool cote)
         return sonEquipe2;
 }
 
+/**
+ * \brief       Methode appelee lors d'un turnover
+ * \details     Parametre en entree correspond à l'action à effectuer  <br/>0 : action non reussi <br/>1 : but pour les bleus <br/>2 : but pour les rouges
+ * \todo        Action non implémenté : <br/>3 : limite de 4 min depassé pour le tour en cours
+ * \param       int        cote de l'equipe ou du joueur
+ * \return      \e void
+ */
 void Match::turnover(int action)
 {
 
@@ -136,19 +143,50 @@ void Match::turnover(int action)
     case 0: {QMessageBox* alert = new QMessageBox(QMessageBox::Warning, "Turnover!", "Le joueur n'a pas réussi son action, turnover !");
         alert->show();
         break;}
-    case 1: {QMessageBox* alert = new QMessageBox(QMessageBox::Information, "TOUCHDOWN !", "Les bleus marquent un point !");
-        alert->show();
-
+    case 1: {
         // mettre a jour score dans equipe
         // afficher le score
-        // remetre les joueurs en place sur le terrain
-
-        break;}
-    case 2: {QMessageBox* alert = new QMessageBox(QMessageBox::Information, "TOUCHDOWN !", "Les rouges marquent un point !");
+        // remetre les joueurs en place sur le terrain via touchdownEffectue()
+        sonEquipe1->setPoints(sonEquipe1->getPoints() + 1);
+        saFenetre->updatePoints(sonEquipe1->getPoints(), sonEquipe2->getPoints());
+        QMessageBox* alert = new QMessageBox(QMessageBox::Information, "TOUCHDOWN !", "Les bleus marquent un point !");
         alert->show();
-
+        touchdownEffectue();
+        break;}
+    case 2: {
+        sonEquipe2->setPoints(sonEquipe2->getPoints() + 1);
+        saFenetre->updatePoints(sonEquipe2->getPoints(), sonEquipe2->getPoints());
+        QMessageBox* alert = new QMessageBox(QMessageBox::Information, "TOUCHDOWN !", "Les rouges marquent un point !");
+        alert->show();
+        touchdownEffectue();
         break;}
     default : std::cout<<"Turnover inconnu"<<std::endl;
     }
     saFenetre->finDeTour();
+}
+
+
+/**
+ * \brief       Methode appelee lors d'un touchdown pour remettre les joueurs en position
+ * \details     Parametre en entree correspond à l'action à effectuer  <br/>0 : action non reussi <br/>1 : but pour les bleus <br/>2 : but pour les rouges
+ * \todo        Cette methode ne fonctionne pas, probleme lors du switch des items
+ * \return      \e void
+ */
+void Match::touchdownEffectue()
+{
+//    std::vector<Joueur*>::iterator leIt;
+//    for(leIt = sonEquipe2->getSesJoueurs()->begin(); leIt != sonEquipe2->getSesJoueurs()->end(); leIt++)
+//    {
+//        if((*leIt)->getX() != (*leIt)->getItem()->row() || (*leIt)->getY() != (*leIt)->getItem()->column())
+//        {
+//    leIt = sonEquipe2->getSesJoueurs()->begin();
+//        std::cout<<"Joueur deplacé de "<<(*leIt)->getItem()->row()<<","<<(*leIt)->getItem()->column()<<" vers "<<15-(*leIt)->getX()<<","<<28-(*leIt)->getY()<<std::endl;
+//        sonTableauCases->switchItems((*leIt)->getItem(), sonTableauCases->item(14-(*leIt)->getX(), 27-(*leIt)->getY()));
+//        }
+//    }
+
+//    for(leIt = sonEquipe1->getSesJoueurs()->begin(); leIt != sonEquipe1->getSesJoueurs()->end(); leIt++)
+//    {
+//        sonTableauCases->switchItems((*leIt)->getItem(), sonTableauCases->item((*leIt)->getX(), (*leIt)->getY()));
+//    }
 }
