@@ -1,3 +1,12 @@
+/**
+ * \file      match.h
+ * \author    CF-MG
+ * \version   1.0
+ * \date      7 Mai 2012
+ * \brief     Déclaration de la classe \b Match
+ *
+ */
+
 #ifndef MATCH_H
 #define MATCH_H
 

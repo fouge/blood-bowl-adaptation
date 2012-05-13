@@ -1,6 +1,16 @@
 #ifndef BALLON_H
 #define BALLON_H
 
+/**
+ * \file      ballon.h
+ * \author    CF-MG
+ * \version   1.0
+ * \date      7 Mai 2012
+ * \brief     Déclaration de la classe \b Ballon
+ *
+ */
+
+
 #include "match.h"
 class SceneTerrain;
 class Match;

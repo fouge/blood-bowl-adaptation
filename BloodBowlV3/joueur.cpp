@@ -1,3 +1,12 @@
+/**
+ * \file      joueur.cpp
+ * \author    CF-MG
+ * \version   1.0
+ * \date      7 Mai 2012
+ * \brief     Définition de la classe \b Joueur
+ *
+ */
+
 #include "joueur.h"
 #include <iostream>
 #include <QApplication>

@@ -1,4 +1,16 @@
+/**
+ * \file      sceneterrain.cpp
+ * \author    CF-MG
+ * \version   1.0
+ * \date      7 Mai 2012
+ * \brief     Definition de la classe \b SceneTerrain
+ * \details   Classe Vue-Controleur dans MVC
+ *
+ */
+
+/** \class SceneTerrain sceneterrain.h "sceneterrain.h" */
 #include "sceneterrain.h"
+
 #include <QHeaderView>
 #include "tablemodel.h"
 #include "joueur.h"

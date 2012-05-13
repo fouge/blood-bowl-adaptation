@@ -1,11 +1,31 @@
+/**
+ * \file      ballon.cpp
+ * \author    CF-MG
+ * \version   1.0
+ * \date      7 Mai 2012
+ * \brief     Définition de la classe \b Ballon
+ *
+ */
+
+/** \class Ballon ballon.h "ballon.h" */
 #include "ballon.h"
+
 #include <time.h>
 #include <iostream>
+
 
 Ballon::Ballon(Match* unMatch, TableModel* unModele, SceneTerrain* unTerrain, int x, int y): sonMatch(unMatch), sonModele(unModele), sonTerrain(unTerrain), sonX(x), sonY(y)
 {
 }
 
+
+/**
+ * \brief       Calcule la distance entre deux points
+ * \details     Méthode récursive qui \b place le ballon aléatoirement autour de la position de sa \a case un nombre de fois défini par \a nRebondissements
+ * \param       \e QStandardItem*         Item correspondant à la case du tableau dans laquelle le \b ballon se trouve
+ * \param       \e int                    Nombre de rebondissements à effectuer
+ * \return      \e void
+ */
 void Ballon::rebondir(QStandardItem *uneCase, int nRebondissements)
 {
     int x(uneCase->row());
@@ -59,18 +79,39 @@ void Ballon::rebondir(QStandardItem *uneCase, int nRebondissements)
     sonTerrain->placeBallon(sonX, sonY);
 }
 
+/**
+ * \brief       Accesseur qui retourne la ligne
+ * \details     Retourne la \b ligne ( \a row )
+ * \return      \e int
+ */
 int Ballon::row()
 {
     return sonX;
 }
+
+/**
+ * \brief       Accesseur qui retourne la colonne
+ * \details     Retourne la \b colonne ( \a column )
+ * \return      \e int
+ */
 int Ballon::column()
 {
     return sonY;
 }
+
+/**
+ * \brief       Mutateur de colonne ( \a column )
+ * \return      \e void
+ */
 void Ballon::setColumn(int column)
 {
     sonY = column;
 }
+
+/**
+ * \brief       Mutateur de ligne ( \a row )
+ * \return      \e void
+ */
 void Ballon::setRow(int row)
 {
     sonX = row;

@@ -1,5 +1,13 @@
-#include "fenetreprincipale.h"
+/**
+ * \file      fenetreprincipale.cpp
+ * \author    CF-MG
+ * \version   1.0
+ * \date      7 Mai 2012
+ * \brief     Définition de la classe \b FenetrePrincipale
+ *
+ */
 
+#include "fenetreprincipale.h"
 #include "tablemodel.h"
 #include <cstdio>
 #include <iostream>

@@ -1,4 +1,18 @@
+/**
+ * \file      tablemodel.cpp
+ * \author    CF-MG
+ * \version   1.0
+ * \date      7 Mai 2012
+ * \brief     Définition de la classe \b TableModel
+ * \details   Cette classe hérite de QStandardItemModel pour
+ *            convenir aux spécificités des différents modèles possibles.
+ */
+
+
+
+/** \class TableModel tablemodel.h "tablemodel.h" */
 #include "tablemodel.h"
+
 #include <iostream>
 #include <QApplication>
 

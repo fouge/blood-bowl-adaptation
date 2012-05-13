@@ -1,3 +1,12 @@
+/**
+ * \file      joueur.h
+ * \author    CF-MG
+ * \version   1.0
+ * \date      7 Mai 2012
+ * \brief     Déclaration de la classe \b Joueur
+ *
+ */
+
 #ifndef JOUEUR_H
 #define JOUEUR_H
 

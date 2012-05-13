@@ -1,3 +1,13 @@
+/**
+ * \file      sceneterrain.h
+ * \author    CF-MG
+ * \version   1.0
+ * \date      7 Mai 2012
+ * \brief     Déclaration de la classe \b SceneTerrain
+ * \details   Classe Vue-Controleur dans MVC
+ *
+ */
+
 #ifndef SCENETERRAIN_H
 #define SCENETERRAIN_H
 

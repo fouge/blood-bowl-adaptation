@@ -1,3 +1,12 @@
+/**
+ * \file      main.cpp
+ * \author    CF-MG
+ * \version   1.0
+ * \date      7 Mai 2012
+ * \brief     S'exécute au lancement du programme
+ *
+ */
+
 #include <QtGui/QApplication>
 #include "fenetreprincipale.h"
 

@@ -1,3 +1,14 @@
+/**
+ * \file      tablemodel.h
+ * \author    CF-MG
+ * \version   1.0
+ * \date      7 Mai 2012
+ * \brief     Déclaration de la classe \b TableModel
+ * \details   Classe Modèle dans MVC
+ *
+ */
+
+
 #ifndef TABLEMODEL_H
 #define TABLEMODEL_H
 

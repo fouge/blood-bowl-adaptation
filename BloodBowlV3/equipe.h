@@ -1,3 +1,12 @@
+/**
+ * \file      equipe.h
+ * \author    CF-MG
+ * \version   1.0
+ * \date      7 Mai 2012
+ * \brief     Déclaration de la classe \b Equipe
+ *
+ */
+
 #ifndef EQUIPE_H
 #define EQUIPE_H
 

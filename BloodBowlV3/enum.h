@@ -1,6 +1,14 @@
 #ifndef ENUM_H
 #define ENUM_H
 
+/**
+ * \file      enum.h
+ * \author    CF-MG
+ * \version   1.0
+ * \date      7 Mai 2012
+ * \brief     Défini toutes les énumérations
+ *
+ */
 enum zone{enbut, laterale, engagement};
 
 enum race{humains, orques};
