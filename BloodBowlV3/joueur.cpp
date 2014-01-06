@@ -11,7 +11,7 @@
 #include "joueur.h"
 
 #include <iostream>
-#include <QApplication>
+#include <QtWidgets/QApplication>
 
 
 TableModel* Joueur::leTerrain = 0;

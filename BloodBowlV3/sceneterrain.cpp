@@ -11,7 +11,7 @@
 /** \class SceneTerrain sceneterrain.h "sceneterrain.h" */
 #include "sceneterrain.h"
 
-#include <QHeaderView>
+#include <QtWidgets/QHeaderView>
 #include "tablemodel.h"
 #include "joueur.h"
 #include <cstdio>

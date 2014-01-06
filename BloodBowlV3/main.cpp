@@ -7,7 +7,7 @@
  *
  */
 
-#include <QtGui/QApplication>
+#include <QtWidgets/QApplication>?
 #include "fenetreprincipale.h"
 
 int main(int argc, char *argv[])

@@ -12,7 +12,7 @@
 
 #include "joueur.h"
 #include <iostream>
-#include <QApplication>
+#include <QtWidgets/QApplication>
 
 Equipe::Equipe(race uneRace, int uneComposition, bool cote, TableModel* unModele):sesPoints(0), saRace(uneRace), sonCote(cote), sonModele(unModele), blitzEffectue(false), passeEffectuee(false), sonNoTour(0)
 {

@@ -10,8 +10,13 @@
 #ifndef FENETREPRINCIPALE_H
 #define FENETREPRINCIPALE_H
 
-#include <QApplication>
+#include <QtWidgets/QWidget>
 #include <QtGui>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QGroupBox>
+#include <QtWidgets/QComboBox>
+#include <QtWidgets/QVBoxLayout>
 #include "match.h"
 #include "sceneterrain.h"
 

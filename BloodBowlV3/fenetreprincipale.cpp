@@ -13,7 +13,7 @@
 #include "tablemodel.h"
 #include <cstdio>
 #include <iostream>
-#include <QMessageBox>
+#include <QtWidgets/QMessageBox>
 
 FenetrePrincipale::FenetrePrincipale()
 {

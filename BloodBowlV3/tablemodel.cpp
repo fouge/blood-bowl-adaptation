@@ -12,7 +12,7 @@
 #include "tablemodel.h"
 
 #include <iostream>
-#include <QApplication>
+#include <QtWidgets/QApplication>
 
 
 TableModel::TableModel(int rows, int columns): QStandardItemModel(rows, columns)

@@ -13,8 +13,9 @@
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
-#include <QApplication>
-#include <QMessageBox>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QMessageBox>
+// #include <QtWidgets/QSound>
 
 
 Match::Match(race raceEquipe1, int noEquipe1, race raceEquipe2, int noEquipe2, FenetrePrincipale* uneFenetre):quiJoue(joueur1), sesTours(16), saFenetre(uneFenetre)
@@ -48,8 +49,8 @@ Match::Match(race raceEquipe1, int noEquipe1, race raceEquipe2, int noEquipe2, F
  */
 int Match::lancer1D6() //donne un chiffre aléatoire entre 1 et 6
 {
-    QSound* lancerDes = new QSound("sounds/1D6.wav");
-    lancerDes->play();
+   // QSound* lancerDes = new QSound("sounds/1D6.wav");
+    // lancerDes->play();
     srand(time(NULL));
     int de = rand() % 6 + 1;
     saFenetre->updateResultatsDes(de);

@@ -11,8 +11,8 @@
 #ifndef SCENETERRAIN_H
 #define SCENETERRAIN_H
 
-#include <QGraphicsScene>
-#include <QTableView>
+#include <QtWidgets/QGraphicsScene>
+#include <QtWidgets/QTableView>
 #include "tablemodel.h"
 #include "fenetreprincipale.h"
 #include "ballon.h"
